@@ -9,29 +9,34 @@ import { Link } from "react-router-dom";
 export default function AboutUs() {
   const timelineEvents = [
     {
+      year: "1965",
+      title: "Eze Perfumes Founded",
+      description: "Eze Perfumes established with a commitment to fragrance innovation and excellence in perfumery artistry."
+    },
+    {
+      year: "1980s",
+      title: "Sawai Fragrances Legacy",
+      description: "Sawai Fragrances developed their harvest-to-fragrance integration, becoming suppliers to market leaders with decades of expertise."
+    },
+    {
       year: "2015",
-      title: "The Beginning",
-      description: "Started with a simple belief - that every space deserves to tell its unique story through scent."
+      title: "The Partnership",
+      description: "Two industry pioneers - Sawai Fragrances and Eze Perfumes - joined forces to create the ultimate scent marketing solution."
     },
     {
       year: "2018",
       title: "Innovation Breakthrough",
-      description: "Developed our first smart scent diffusion technology, revolutionizing how businesses approach scent marketing."
+      description: "Combined Sawai's premium aroma expertise with Eze's advanced diffusion technology, revolutionizing scent marketing."
     },
     {
       year: "2020",
       title: "Global Expansion",
-      description: "Expanded internationally, bringing our scent solutions to hospitality and retail giants worldwide."
-    },
-    {
-      year: "2023",
-      title: "Industry Leader",
-      description: "Became the trusted partner for Fortune 500 companies, transforming over 10,000 spaces globally."
+      description: "EZE Aircare launched internationally, bringing the perfect fusion of artisanal fragrances and smart diffusion systems worldwide."
     },
     {
       year: "Today",
-      title: "The Future",
-      description: "Continuing to innovate with AI-powered scent personalization and sustainable fragrance solutions."
+      title: "Industry Leaders United",
+      description: "The trusted choice for Fortune 500 companies, combining Sawai's fragrance mastery with Eze's diffusion innovation."
     }
   ];
 
@@ -87,14 +92,13 @@ export default function AboutUs() {
               
               <div className="prose prose-lg max-w-none text-muted-foreground">
                 <p className="text-lg leading-relaxed mb-6">
-                  In 2015, our founder walked into a luxury hotel lobby and was immediately transported to memories of a childhood vacation. 
-                  It wasn't the décor or the music - it was the subtle, carefully crafted scent that filled the air. That moment sparked a revelation: 
-                  scent is the most powerful sense for creating lasting emotional connections.
+                  In 2015, two industry pioneers crossed paths at a fragrance innovation summit. Sawai Fragrances, with their rich legacy spanning decades in creating exquisite aromas and natural fragrance solutions, met Eze Perfumes, renowned since 1965 for their commitment to fragrance innovation and cutting-edge diffusion technology. That meeting sparked a revolutionary partnership.
+                </p>
+                <p className="text-lg leading-relaxed mb-6">
+                  Sawai Fragrances brought their expertise in harvest-to-fragrance integration, world-class innovation, and creative excellence in aroma development. Eze Perfumes contributed their heritage of fine perfume artistry and advanced diffusion systems. Together, they realized they could solve what no single company had achieved before: the perfect marriage of premium fragrances with intelligent scent distribution.
                 </p>
                 <p className="text-lg leading-relaxed">
-                  Today, EZE Aircare stands as a pioneer in intelligent scent marketing, trusted by global brands to create signature experiences 
-                  that customers remember long after they leave. We've transformed from a small startup with big dreams into an industry leader, 
-                  but our core mission remains unchanged: helping businesses tell their story through the language of scent.
+                  Today, EZE Aircare stands as the culmination of this partnership - where Sawai's artisanal fragrances meet Eze's innovative diffusion technology. We've transformed from two separate industry leaders into a unified force, creating signature scent experiences that customers remember long after they leave. Our core mission remains unchanged: helping businesses tell their story through the perfect combination of premium aromas and advanced diffusion systems.
                 </p>
               </div>
             </div>
@@ -176,28 +180,66 @@ export default function AboutUs() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection animation="fadeInLeft">
               <div>
-                <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-                  Why Global Brands Choose EZE Aircare
-                </h2>
-                <p className="text-xl text-muted-foreground mb-8">
-                  We're not just another scent company. We're experience architects, 
-                  using the power of scent to create emotional connections that drive business results.
-                </p>
-                
-                <div className="space-y-4 mb-8">
-                  {[
-                    "10,000+ spaces transformed worldwide",
-                    "99.8% client satisfaction rate",
-                    "Custom fragrance development in 48 hours",
-                    "AI-powered scent optimization technology",
-                    "24/7 global support network"
-                  ].map((feature, index) => (
-                    <div key={index} className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                      <span className="text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              The Perfect Partnership:<br />Sawai Fragrances × Eze Perfumes
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              We're the fusion of two industry legends - Sawai's artisanal aroma expertise meets Eze's innovative diffusion technology, 
+              creating the most advanced scent marketing solutions in the industry.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div className="bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-xl border border-primary/20">
+                <h3 className="text-xl font-semibold mb-3 text-primary">Sawai Fragrances - Aroma Masters</h3>
+                <ul className="space-y-2 text-muted-foreground">  
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                    Decades of harvest-to-fragrance expertise
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                    Suppliers to global market leaders
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                    Premium natural fragrance solutions
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="bg-gradient-to-br from-accent/10 to-accent/5 p-6 rounded-xl border border-accent/20">
+                <h3 className="text-xl font-semibold mb-3 text-accent">Eze Perfumes - Diffusion Innovation</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                    Rich heritage since 1965
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                    Advanced diffusion technology
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                    Perfumery artistry and innovation
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="space-y-4 mb-8">
+              {[
+                "Premium Sawai fragrances in every diffuser",
+                "Eze's cutting-edge diffusion systems",
+                "10,000+ spaces transformed worldwide",
+                "99.8% client satisfaction rate",
+                "24/7 global support network"
+              ].map((feature, index) => (
+                <div key={index} className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                  <span className="text-muted-foreground">{feature}</span>
                 </div>
+              ))}
+            </div>
 
                 <Link to="/contact-quote">
                   <Button size="lg" className="group">
