@@ -143,69 +143,107 @@ export default function Chatbot() {
     setMessages([{ id: uid("m"), from: "bot", text: "Hi — ask me about FAQ, troubleshooting, or type 'diffuser quote' for an aroma suggestion." }]);
   }
 
-  // Render UI into document.body to avoid ancestor clipping/overflow
   return createPortal(
     <>
       {showDevOverlay && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(255,0,0,0.06)', zIndex: 2147483645, pointerEvents: 'none' }} />
       )}
+      
       {/* Persistent chat bubble (always visible) */}
-      <div className="fixed" style={{ bottom: 24, right: 24, zIndex: 2147483646 }}>
+      <div className="fixed bottom-6 right-6 z-50">
         <button
           aria-label={isOpen ? "Close chat" : "Open chat"}
           onClick={() => setIsOpen(s => !s)}
-          style={{
-            width: 56,
-            height: 56,
-            borderRadius: 9999,
-            background: 'linear-gradient(135deg,#0f4c5c,#1aa3b0)',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(15,76,92,0.25)',
-          }}
+          className={`w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center shadow-glow hover:shadow-elegant transition-all duration-300 hover:scale-105 ${
+            isOpen ? 'rotate-180' : 'animate-pulse'
+          }`}
         >
-          <MessageSquare className="w-6 h-6" />
+          {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
         </button>
       </div>
 
       {isOpen && createPortal(
         <div
           role="dialog"
-          aria-label="Site chat assistant"
+          aria-label="EZE Aircare Assistant"
           aria-modal="false"
-          style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end', pointerEvents: 'none', zIndex: 2147483647 }}
+          className="fixed inset-0 flex items-end justify-end pointer-events-none z-50"
         >
-          <div style={{ pointerEvents: 'auto', margin: 24 }}>
-            <Card style={{ width: 420, maxWidth: '96vw', display: 'flex', flexDirection: 'column', boxShadow: '0 30px 80px rgba(2,6,23,0.5)', borderRadius: 16 }}>
-              <CardHeader>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <CardTitle>Help & Aroma Assistant</CardTitle>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    <Button variant="ghost" size="sm" onClick={resetConversation}>Reset</Button>
-                    <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} aria-label="Close chat"><X /></Button>
+          <div className="pointer-events-auto m-6 animate-fade-in">
+            <Card className="w-[420px] max-w-[calc(100vw-3rem)] h-[600px] flex flex-col shadow-elegant backdrop-blur-sm bg-card/95 border-border/50 rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-primary/10 to-accent/10 border-b border-border/50 p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow">
+                      <span className="text-white font-display font-bold text-lg">E</span>
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg font-display">EZE Aircare Assistant</CardTitle>
+                      <p className="text-xs text-muted-foreground">Your scent & diffuser expert</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-1">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={resetConversation}
+                      className="hover:bg-accent/20 text-xs"
+                    >
+                      Reset
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => setIsOpen(false)} 
+                      aria-label="Close chat"
+                      className="hover:bg-destructive/20 hover:text-destructive"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
                   </div>
                 </div>
               </CardHeader>
 
-              <CardContent style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 8, height: 520, overflow: 'auto' }} ref={scrollRef as any}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {messages.map((m) => (
-                    <div key={m.id} style={{ display: 'flex', justifyContent: m.from === 'user' ? 'flex-end' : 'flex-start' }}>
-                      <div style={{ borderRadius: 12, padding: 10, maxWidth: '78%', background: m.from === 'user' ? '#0b1220' : '#f8fafc', color: m.from === 'user' ? '#fff' : '#0b1220' }}>
+              <CardContent 
+                ref={scrollRef as any}
+                className="flex-1 p-4 overflow-y-auto bg-gradient-to-b from-background/50 to-muted/30"
+              >
+                <div className="flex flex-col gap-4">
+                  {messages.map((m, index) => (
+                    <div 
+                      key={m.id} 
+                      className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <div className={`max-w-[85%] rounded-2xl p-3 shadow-sm ${
+                        m.from === 'user' 
+                          ? 'bg-gradient-to-br from-primary to-primary/90 text-primary-foreground' 
+                          : 'bg-card border border-border/50 text-card-foreground'
+                      }`}>
                         {m.image && (
-                          <div style={{ marginBottom: 8 }}>
-                            <img src={m.image} alt="uploaded" style={{ maxWidth: 300, borderRadius: 8, display: 'block' }} />
+                          <div className="mb-2">
+                            <img 
+                              src={m.image} 
+                              alt="uploaded" 
+                              className="max-w-[280px] rounded-xl border border-border/20" 
+                            />
                           </div>
                         )}
-                        <div style={{ whiteSpace: 'pre-wrap' }}>{m.text}</div>
+                        <div className="text-sm leading-relaxed whitespace-pre-wrap">{m.text}</div>
                         {m.from === 'bot' && m.text.includes('For details see:') && (() => {
                           const [before, linksPart] = m.text.split('For details see:');
                           const paths = linksPart ? linksPart.split(',').map((s: string) => s.trim()) : [];
                           return (
-                            <div style={{ marginTop: 8, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                              {paths.map((p: string, i: number) => p ? <Link key={i} to={p} className="text-sm text-cyan-600 underline">{p}</Link> : null)}
+                            <div className="mt-3 flex gap-2 flex-wrap">
+                              {paths.map((p: string, i: number) => p ? (
+                                <Link 
+                                  key={i} 
+                                  to={p} 
+                                  className="text-xs px-2 py-1 bg-accent/20 text-accent rounded-full hover:bg-accent/30 transition-colors"
+                                >
+                                  {p}
+                                </Link>
+                              ) : null)}
                             </div>
                           );
                         })()}
@@ -215,62 +253,116 @@ export default function Chatbot() {
                 </div>
               </CardContent>
 
-              <CardFooter style={{ padding: 12 }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => {
-                      const f = e.target.files?.[0] ?? null;
-                      setImageFile(f);
-                      if (f) {
-                        const reader = new FileReader();
-                        reader.onload = (ev) => setImagePreview(ev.target?.result as string);
-                        reader.readAsDataURL(f);
-                      } else {
-                        setImagePreview(null);
-                      }
-                    }} />
-                    <Button variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>Attach</Button>
-                    <div style={{ flex: 1, display: 'flex', gap: 8, alignItems: 'center' }}>
-                      <Input
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); sendMessage(inputValue, imagePreview ?? undefined); } }}
-                        placeholder="Ask about scents, quotes, troubleshooting..."
-                      />
-                      <Button onClick={() => sendMessage(inputValue, imagePreview ?? undefined)}>
-                        <Send />
-                      </Button>
-                    </div>
+              <CardFooter className="p-4 bg-gradient-to-t from-muted/20 to-transparent border-t border-border/50">
+                <div className="flex flex-col gap-3 w-full">
+                  {/* Quick Actions */}
+                  <div className="flex gap-2 flex-wrap">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => quickAsk("diffuser quote")}
+                      className="text-xs hover:bg-primary/10 hover:border-primary/30"
+                    >
+                      Get Aroma Quote
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => quickAsk("troubleshooting")}
+                      className="text-xs hover:bg-accent/10 hover:border-accent/30"
+                    >
+                      Troubleshooting
+                    </Button>
                   </div>
-                  {imagePreview && (
-                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-between' }}>
-                      <img src={imagePreview} alt="preview" style={{ maxWidth: 120, maxHeight: 120, borderRadius: 8 }} />
-                      <div style={{ marginLeft: 8 }}>
-                        <Button size="sm" variant="ghost" onClick={() => { setImageFile(null); setImagePreview(null); }}>Remove</Button>
+                  
+                  {/* Input Area */}
+                  <div className="flex gap-2 items-end">
+                    <input 
+                      ref={fileInputRef} 
+                      type="file" 
+                      accept="image/*" 
+                      className="hidden" 
+                      onChange={(e) => {
+                        const f = e.target.files?.[0] ?? null;
+                        setImageFile(f);
+                        if (f) {
+                          const reader = new FileReader();
+                          reader.onload = (ev) => setImagePreview(ev.target?.result as string);
+                          reader.readAsDataURL(f);
+                        } else {
+                          setImagePreview(null);
+                        }
+                      }} 
+                    />
+                    
+                    <div className="flex-1">
+                      {imagePreview && (
+                        <div className="mb-2 p-2 bg-muted/50 rounded-lg border border-border/30 flex items-center gap-2">
+                          <img 
+                            src={imagePreview} 
+                            alt="preview" 
+                            className="w-12 h-12 rounded object-cover" 
+                          />
+                          <Button 
+                            size="sm" 
+                            variant="ghost" 
+                            onClick={() => { setImageFile(null); setImagePreview(null); }}
+                            className="text-xs text-muted-foreground hover:text-destructive"
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      )}
+                      
+                      <div className="flex gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => fileInputRef.current?.click()}
+                          className="hover:bg-accent/20"
+                        >
+                          📎
+                        </Button>
+                        <Input
+                          value={inputValue}
+                          onChange={(e) => setInputValue(e.target.value)}
+                          onKeyDown={(e) => { 
+                            if (e.key === 'Enter' && !e.shiftKey) { 
+                              e.preventDefault(); 
+                              sendMessage(inputValue, imagePreview ?? undefined); 
+                            } 
+                          }}
+                          placeholder="Ask about scents, quotes, troubleshooting..."
+                          className="bg-background/80 border-border/50 focus:border-primary/50"
+                        />
+                        <Button 
+                          onClick={() => sendMessage(inputValue, imagePreview ?? undefined)}
+                          className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-glow"
+                        >
+                          <Send className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               </CardFooter>
             </Card>
           </div>
-          {showDevOverlay && (
-            <div style={{ position: 'fixed', inset: 0, background: 'rgba(255,0,0,0.06)', pointerEvents: 'none', zIndex: 2147483646 }} />
-          )}
-        </div>, document.body)
-      }
+        </div>,
+        document.body
+      )}
+      
       {/* Dev-only: rules editor */}
       {process.env.NODE_ENV !== 'production' && (
-        <div className="fixed left-4 bottom-4 w-96 max-w-[90vw] bg-white border rounded shadow p-3">
+        <div className="fixed left-4 bottom-4 w-96 max-w-[90vw] bg-card border border-border rounded-lg shadow-lg p-3 z-40">
           <div className="flex items-center justify-between mb-2">
-            <div className="font-sm font-semibold">Chatbot Rules (dev)</div>
+            <div className="text-sm font-semibold">Chatbot Rules (dev)</div>
             <div className="flex gap-2">
               <Button size="sm" onClick={() => {
                 localStorage.removeItem('chatbot.rules.override');
                 setOverridesJson(null);
               }}>Reset</Button>
               <Button size="sm" onClick={() => {
-                // Save current overridesJson state
                 try {
                   const txt = overridesJson ?? JSON.stringify(rules, null, 2);
                   localStorage.setItem('chatbot.rules.override', txt);
@@ -283,10 +375,11 @@ export default function Chatbot() {
             value={overridesJson ?? JSON.stringify(rules, null, 2)}
             onChange={(e) => setOverridesJson(e.target.value)}
             rows={10}
-            className="w-full p-2 border rounded text-xs font-mono"
+            className="w-full p-2 border border-border rounded text-xs font-mono bg-background"
           />
         </div>
       )}
-    </>, document.body
+    </>,
+    document.body
   );
 }
