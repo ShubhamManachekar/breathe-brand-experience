@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import ScrollProgress from "@/components/ScrollProgress";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useAuth } from "@/providers/AuthProvider";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +32,7 @@ const Navigation = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
+  const auth = useAuth();
 
   return (
     <>
@@ -119,17 +121,30 @@ const Navigation = () => {
             {/* Enhanced CTA Buttons */}
             <div className="hidden md:flex items-center space-x-3">
               <ThemeToggle />
-              <Link to="/login">
-                <Button variant="glass" size="sm" className="group">
-                  <span className="group-hover:scale-105 transition-transform">Login</span>
-                </Button>
-              </Link>
-              <Link to="/contact-quote">
-                <Button variant="hero" size="sm" className="group">
-                  <span className="group-hover:scale-105 transition-transform">Get Demo</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+              {auth && auth.isAuthenticated && auth.user ? (
+                <div className="flex items-center space-x-2">
+                  <Link to="/user/dashboard">
+                    <Button variant="outline" size="sm">{auth.user.name}</Button>
+                  </Link>
+                  <Button variant="ghost" size="sm" onClick={() => auth.logout()}>
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="glass" size="sm" className="group">
+                      <span className="group-hover:scale-105 transition-transform">Login</span>
+                    </Button>
+                  </Link>
+                  <Link to="/contact-quote">
+                    <Button variant="hero" size="sm" className="group">
+                      <span className="group-hover:scale-105 transition-transform">Get Demo</span>
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Enhanced Mobile Menu Button */}

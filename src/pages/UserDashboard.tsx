@@ -31,6 +31,7 @@ import {
   Filter
 } from "lucide-react";
 import mockData from "@/lib/mockUserData.json";
+import SubscriptionManager from "@/components/SubscriptionManager";
 
 const UserDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -264,15 +265,16 @@ const UserDashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 lg:grid-cols-8 w-full bg-background/50 backdrop-blur-sm">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="devices">Devices</TabsTrigger>
-            <TabsTrigger value="oils">Oils</TabsTrigger>
-            <TabsTrigger value="quotes">Quotes</TabsTrigger>
-            <TabsTrigger value="tickets">Tickets</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
-            <TabsTrigger value="referrals">Referrals</TabsTrigger>
-            <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsList className="flex space-x-2 w-full overflow-x-auto no-scrollbar bg-background/50 backdrop-blur-sm py-2">
+            <TabsTrigger className="flex-shrink-0" value="overview">Overview</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="devices">Devices</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="oils">Oils</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="quotes">Quotes</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="tickets">Tickets</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="reviews">Reviews</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="referrals">Referrals</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="subscriptions">Subscriptions</TabsTrigger>
+            <TabsTrigger className="flex-shrink-0" value="account">Account</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -764,6 +766,10 @@ const UserDashboard = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="subscriptions" className="space-y-4">
+            <SubscriptionManager />
           </TabsContent>
 
           <TabsContent value="account" className="space-y-4">

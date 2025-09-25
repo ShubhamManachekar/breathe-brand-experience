@@ -4,16 +4,43 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/providers/AuthProvider";
+import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const auth = useAuth();
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would handle authentication here.
-    // For this demo, we'll just navigate to the dashboard.
-    navigate("/user/dashboard");
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const email = String(formData.get("email") || "").trim();
+    const password = String(formData.get("password") || "");
+
+    if (isLogin) {
+      auth.login(email, password).then((ok) => {
+        if (ok) {
+          toast({ title: "Logged in", description: `Welcome back ${auth.user?.name || "user"}` });
+          navigate("/user/dashboard");
+        } else {
+          toast({ title: "Login failed", description: "Invalid email or password." });
+        }
+      });
+    } else {
+      const firstName = String(formData.get("first-name") || "").trim();
+      const name = firstName || "User";
+      auth.register(name, email, password).then((ok) => {
+        if (ok) {
+          toast({ title: "Account created", description: `Welcome ${name}` });
+          navigate("/user/dashboard");
+        } else {
+          toast({ title: "Registration failed", description: "Email already in use." });
+        }
+      });
+    }
   };
 
   return (

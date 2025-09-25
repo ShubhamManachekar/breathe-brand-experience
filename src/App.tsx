@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -5,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navigation from "@/components/Navigation";
+import { AuthProvider, ProtectedRoute } from "@/providers/AuthProvider";
 import Index from "./pages/Index";
 import WhyScentMarketing from "./pages/WhyScentMarketing";
 import Solutions from "./pages/Solutions";
@@ -31,6 +33,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <AuthProvider>
           <BrowserRouter>
             <div className="min-h-screen bg-background text-foreground">
               <Navigation />
@@ -49,7 +52,14 @@ function App() {
                   <Route path="/aroma-library" element={<AromaLibrary />} />
                   <Route path="/contact-quote" element={<ContactQuote />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/user/dashboard" element={<UserDashboard />} />
+                  <Route
+                    path="/user/dashboard"
+                    element={
+                      <ProtectedRoute>
+                        <UserDashboard />
+                      </ProtectedRoute>
+                    }
+                  />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
@@ -57,6 +67,7 @@ function App() {
               <Chatbot />
             </div>
           </BrowserRouter>
+          </AuthProvider>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

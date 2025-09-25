@@ -133,26 +133,14 @@ const Index = () => {
               >
                 <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-500 group h-full border-border/50 hover:border-accent/30">
                   <CardContent className="p-8 text-center h-full flex flex-col">
-                    <div className="flex-1">
-                      <div className="relative mb-6">
-                        <div className="absolute -inset-3 gradient-accent opacity-0 group-hover:opacity-20 rounded-full blur transition-all duration-500" />
-                        <benefit.icon className="w-14 h-14 text-accent mx-auto relative group-hover:scale-110 transition-transform duration-300" />
+                      <div className="flex-1 flex flex-col items-center justify-center">
+                        <benefit.icon className="w-10 h-10 text-accent mb-4" />
+                        <h3 className="font-display text-lg font-bold mb-2">{benefit.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{benefit.description}</p>
+                        <div className="mt-auto text-primary font-bold text-2xl">{benefit.stat}</div>
++                      <div className="text-xs text-muted-foreground">{benefit.statLabel}</div>
++
                       </div>
-                      <h3 className="font-display text-xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {benefit.description}
-                      </p>
-                    </div>
-                    <div className="border-t border-border/30 pt-4 mt-auto">
-                      <div className="text-2xl font-bold text-accent mb-1">
-                        {benefit.stat}
-                      </div>
-                      <div className="text-xs text-muted-foreground uppercase tracking-wider">
-                        {benefit.statLabel}
-                      </div>
-                    </div>
                   </CardContent>
                 </Card>
               </AnimatedSection>
