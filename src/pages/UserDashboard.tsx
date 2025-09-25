@@ -5,6 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Building, 
   Users, 
@@ -20,13 +26,29 @@ import {
   MapPin,
   Calendar,
   Shield,
-  Plus
+  Plus,
+  Edit,
+  Filter
 } from "lucide-react";
 import mockData from "@/lib/mockUserData.json";
 
 const UserDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const [quoteFilter, setQuoteFilter] = useState("all");
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isNewQuoteOpen, setIsNewQuoteOpen] = useState(false);
+  const [isNewTicketOpen, setIsNewTicketOpen] = useState(false);
+  const [isNewReferralOpen, setIsNewReferralOpen] = useState(false);
+  const [isAccountSettingsOpen, setIsAccountSettingsOpen] = useState(false);
+  
   const { user, company, devicesPurchased, oilsPurchased, suggestedOils, reviews, quotes, tickets, referrals, stats } = mockData;
+  const { toast } = useToast();
+  
+  // Form states
+  const [profileForm, setProfileForm] = useState({ name: user.name, email: user.email, phone: user.phone });
+  const [quoteForm, setQuoteForm] = useState({ type: "", items: "", outlet: "", notes: "" });
+  const [ticketForm, setTicketForm] = useState({ subject: "", description: "", priority: "medium", outlet: "" });
+  const [referralForm, setReferralForm] = useState({ companyName: "", contactPerson: "", email: "", phone: "" });
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -38,6 +60,41 @@ const UserDashboard = () => {
       case 'converted': return 'bg-emerald-100 text-emerald-800 border-emerald-200';
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
+  };
+
+  // Filter quotes based on type
+  const filteredQuotes = quoteFilter === "all" ? quotes : quotes.filter(quote => quote.type === quoteFilter);
+
+  // Handle form submissions
+  const handleProfileUpdate = () => {
+    toast({ title: "Profile Updated", description: "Your profile has been successfully updated." });
+    setIsEditProfileOpen(false);
+  };
+
+  const handleNewQuote = () => {
+    toast({ title: "Quote Requested", description: "Your quote request has been submitted successfully." });
+    setIsNewQuoteOpen(false);
+    setQuoteForm({ type: "", items: "", outlet: "", notes: "" });
+  };
+
+  const handleNewTicket = () => {
+    toast({ title: "Ticket Created", description: "Support ticket has been created successfully." });
+    setIsNewTicketOpen(false);
+    setTicketForm({ subject: "", description: "", priority: "medium", outlet: "" });
+  };
+
+  const handleNewReferral = () => {
+    toast({ title: "Referral Added", description: "New referral has been added to your program." });
+    setIsNewReferralOpen(false);
+    setReferralForm({ companyName: "", contactPerson: "", email: "", phone: "" });
+  };
+
+  const requestQuoteForOil = (oilName: string) => {
+    toast({ title: "Quote Requested", description: `Quote requested for ${oilName}. We'll contact you soon.` });
+  };
+
+  const requestNewDevice = () => {
+    toast({ title: "Device Request", description: "New device request submitted. Our team will contact you." });
   };
 
   return (
@@ -64,14 +121,94 @@ const UserDashboard = () => {
                 </div>
               </div>
               <div className="flex space-x-2">
-                <Button variant="outline" size="sm">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Account Settings
-                </Button>
-                <Button variant="premium" size="sm">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Quote
-                </Button>
+                <Dialog open={isAccountSettingsOpen} onOpenChange={setIsAccountSettingsOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      <Settings className="h-4 w-4 mr-2" />
+                      Account Settings
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Account Settings</DialogTitle>
+                      <DialogDescription>Manage your account preferences and security.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <Button variant="outline" className="w-full justify-start" onClick={() => setIsEditProfileOpen(true)}>
+                        <Edit className="h-4 w-4 mr-2" />
+                        Edit Profile
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start">
+                        <Shield className="h-4 w-4 mr-2" />
+                        Change Password
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Notification Settings
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+
+                <Dialog open={isNewQuoteOpen} onOpenChange={setIsNewQuoteOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="premium" size="sm">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New Quote
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Request New Quote</DialogTitle>
+                      <DialogDescription>Submit a quote request for devices or oils.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="quote-type">Quote Type</Label>
+                        <Select value={quoteForm.type} onValueChange={(value) => setQuoteForm({...quoteForm, type: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select quote type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="device">Device</SelectItem>
+                            <SelectItem value="oil">Oil</SelectItem>
+                            <SelectItem value="both">Both</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label htmlFor="quote-items">Items Needed</Label>
+                        <Textarea 
+                          id="quote-items"
+                          placeholder="Describe the items you need..."
+                          value={quoteForm.items}
+                          onChange={(e) => setQuoteForm({...quoteForm, items: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="quote-outlet">Outlet</Label>
+                        <Input 
+                          id="quote-outlet"
+                          placeholder="Which outlet is this for?"
+                          value={quoteForm.outlet}
+                          onChange={(e) => setQuoteForm({...quoteForm, outlet: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="quote-notes">Additional Notes</Label>
+                        <Textarea 
+                          id="quote-notes"
+                          placeholder="Any additional requirements..."
+                          value={quoteForm.notes}
+                          onChange={(e) => setQuoteForm({...quoteForm, notes: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button onClick={handleNewQuote} className="w-full">Submit Quote Request</Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </CardContent>
@@ -218,7 +355,7 @@ const UserDashboard = () => {
                     <Package className="h-5 w-5 mr-2 text-primary" />
                     Devices Purchased
                   </span>
-                  <Button size="sm" variant="premium">
+                  <Button size="sm" variant="premium" onClick={requestNewDevice}>
                     <Plus className="h-4 w-4 mr-2" />
                     Request New Device
                   </Button>
@@ -304,7 +441,12 @@ const UserDashboard = () => {
                             <Badge variant="outline">₹{oil.price}</Badge>
                           </div>
                           <p className="text-sm text-muted-foreground">{oil.reason}</p>
-                          <Button size="sm" variant="premium" className="w-full">
+                          <Button 
+                            size="sm" 
+                            variant="premium" 
+                            className="w-full"
+                            onClick={() => requestQuoteForOil(oil.name)}
+                          >
                             Request Quote
                           </Button>
                         </div>
@@ -324,15 +466,35 @@ const UserDashboard = () => {
                     <FileText className="h-5 w-5 mr-2 text-primary" />
                     Quotes Tracker
                   </span>
-                  <div className="space-x-2">
-                    <Button size="sm" variant="outline">Device Quotes</Button>
-                    <Button size="sm" variant="outline">Oil Quotes</Button>
+                  <div className="flex items-center space-x-2">
+                    <Filter className="h-4 w-4 text-muted-foreground" />
+                    <Button 
+                      size="sm" 
+                      variant={quoteFilter === "all" ? "default" : "outline"}
+                      onClick={() => setQuoteFilter("all")}
+                    >
+                      All Quotes
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant={quoteFilter === "device" ? "default" : "outline"}
+                      onClick={() => setQuoteFilter("device")}
+                    >
+                      Device Quotes
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant={quoteFilter === "oil" ? "default" : "outline"}
+                      onClick={() => setQuoteFilter("oil")}
+                    >
+                      Oil Quotes
+                    </Button>
                   </div>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {quotes.map((quote) => (
+                  {filteredQuotes.map((quote) => (
                     <div key={quote.id} className="p-4 rounded-lg border bg-background/50">
                       <div className="flex justify-between items-start mb-3">
                         <div>
@@ -371,10 +533,70 @@ const UserDashboard = () => {
                     <Ticket className="h-5 w-5 mr-2 text-primary" />
                     Support Tickets
                   </span>
-                  <Button size="sm" variant="premium">
-                    <Plus className="h-4 w-4 mr-2" />
-                    New Ticket
-                  </Button>
+                  <Dialog open={isNewTicketOpen} onOpenChange={setIsNewTicketOpen}>
+                    <DialogTrigger asChild>
+                      <Button size="sm" variant="premium">
+                        <Plus className="h-4 w-4 mr-2" />
+                        New Ticket
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Create Support Ticket</DialogTitle>
+                        <DialogDescription>Submit a support request for technical assistance.</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="ticket-subject">Subject</Label>
+                          <Input 
+                            id="ticket-subject"
+                            placeholder="Brief description of the issue"
+                            value={ticketForm.subject}
+                            onChange={(e) => setTicketForm({...ticketForm, subject: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="ticket-description">Description</Label>
+                          <Textarea 
+                            id="ticket-description"
+                            placeholder="Detailed description of the issue..."
+                            value={ticketForm.description}
+                            onChange={(e) => setTicketForm({...ticketForm, description: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="ticket-priority">Priority</Label>
+                          <Select value={ticketForm.priority} onValueChange={(value) => setTicketForm({...ticketForm, priority: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select priority" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="low">Low</SelectItem>
+                              <SelectItem value="medium">Medium</SelectItem>
+                              <SelectItem value="high">High</SelectItem>
+                              <SelectItem value="urgent">Urgent</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label htmlFor="ticket-outlet">Outlet</Label>
+                          <Select value={ticketForm.outlet} onValueChange={(value) => setTicketForm({...ticketForm, outlet: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select outlet" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {company.outlets.map((outlet) => (
+                                <SelectItem key={outlet.id} value={outlet.name}>{outlet.name}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button onClick={handleNewTicket} className="w-full">Create Ticket</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -453,10 +675,62 @@ const UserDashboard = () => {
                     <Gift className="h-5 w-5 mr-2 text-primary" />
                     Referral Program
                   </span>
-                  <Button size="sm" variant="premium">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Referral
-                  </Button>
+                  <Dialog open={isNewReferralOpen} onOpenChange={setIsNewReferralOpen}>
+                    <DialogTrigger asChild>
+                      <Button size="sm" variant="premium">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Referral
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Add New Referral</DialogTitle>
+                        <DialogDescription>Refer a business to EZE Aircare and earn rewards.</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="referral-company">Company Name</Label>
+                          <Input 
+                            id="referral-company"
+                            placeholder="Enter company name"
+                            value={referralForm.companyName}
+                            onChange={(e) => setReferralForm({...referralForm, companyName: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="referral-contact">Contact Person</Label>
+                          <Input 
+                            id="referral-contact"
+                            placeholder="Contact person name"
+                            value={referralForm.contactPerson}
+                            onChange={(e) => setReferralForm({...referralForm, contactPerson: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="referral-email">Email</Label>
+                          <Input 
+                            id="referral-email"
+                            type="email"
+                            placeholder="Contact email"
+                            value={referralForm.email}
+                            onChange={(e) => setReferralForm({...referralForm, email: e.target.value})}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="referral-phone">Phone</Label>
+                          <Input 
+                            id="referral-phone"
+                            placeholder="Contact phone number"
+                            value={referralForm.phone}
+                            onChange={(e) => setReferralForm({...referralForm, phone: e.target.value})}
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button onClick={handleNewReferral} className="w-full">Add Referral</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </CardTitle>
                 <CardDescription>
                   Earn rewards by referring other businesses to EZE Aircare
@@ -520,7 +794,47 @@ const UserDashboard = () => {
                         <label className="text-sm font-medium">Phone</label>
                         <p className="text-sm text-muted-foreground">{user.phone}</p>
                       </div>
-                      <Button variant="outline" size="sm">Edit Profile</Button>
+                      <Dialog open={isEditProfileOpen} onOpenChange={setIsEditProfileOpen}>
+                        <DialogTrigger asChild>
+                          <Button variant="outline" size="sm">Edit Profile</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Edit Profile</DialogTitle>
+                            <DialogDescription>Update your personal information.</DialogDescription>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor="profile-name">Name</Label>
+                              <Input 
+                                id="profile-name"
+                                value={profileForm.name}
+                                onChange={(e) => setProfileForm({...profileForm, name: e.target.value})}
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="profile-email">Email</Label>
+                              <Input 
+                                id="profile-email"
+                                type="email"
+                                value={profileForm.email}
+                                onChange={(e) => setProfileForm({...profileForm, email: e.target.value})}
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="profile-phone">Phone</Label>
+                              <Input 
+                                id="profile-phone"
+                                value={profileForm.phone}
+                                onChange={(e) => setProfileForm({...profileForm, phone: e.target.value})}
+                              />
+                            </div>
+                          </div>
+                          <DialogFooter>
+                            <Button onClick={handleProfileUpdate} className="w-full">Update Profile</Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </div>
                   <div className="space-y-4">
@@ -544,7 +858,11 @@ const UserDashboard = () => {
                         </div>
                       ))}
                     </div>
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => toast({ title: "Feature Coming Soon", description: "Add authorized person functionality will be available soon." })}
+                    >
                       <Plus className="h-4 w-4 mr-2" />
                       Add Person
                     </Button>
