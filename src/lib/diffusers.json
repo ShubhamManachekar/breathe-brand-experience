@@ -1,0 +1,20 @@
+[
+  {
+    "id": "diffuser-compact-01",
+    "name": "EZE Compact Diffuser",
+    "coverage_sqm": 80,
+    "output_levels": ["low","medium","high"],
+    "power_w": 12,
+    "description": "Compact diffuser ideal for small retail or reception areas.",
+    "features": ["timers","wifi","scent-strength-control"]
+  },
+  {
+    "id": "diffuser-pro-01",
+    "name": "EZE Pro Diffuser",
+    "coverage_sqm": 400,
+    "output_levels": ["low","medium","high"],
+    "power_w": 40,
+    "description": "High-capacity diffuser for lobbies and large retail spaces.",
+    "features": ["scheduling","remote-management","multi-cartridge"]
+  }
+]

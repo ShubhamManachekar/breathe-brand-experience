@@ -1,0 +1,68 @@
+{
+  "faq": [
+    {
+      "keys": ["what", "about"],
+      "answer": "Breathe is a scent branding & aroma diffusion platform for retail, hospitality and workplaces. We provide diffusers, scent design, and subscription fragrance programs.",
+      "links": []
+    },
+    {
+      "keys": ["order", "purchase", "buy"],
+      "answer": "Visit the products page to view models and request a quote.",
+      "links": ["/products", "/products/alpha-1000", "/products/beta-200"]
+    },
+    {
+      "keys": ["installation", "install"],
+      "answer": "We offer professional installation for commercial deployments. Request an installation quote via the Contact page.",
+      "links": ["/contact-quote"]
+    },
+    {
+      "keys": ["pricing", "cost", "price"],
+  "answer": "Pricing depends on model and volume. Request a custom quote on the Contact page or email sales@breathe.com.",
+      "links": ["/contact-quote"]
+    },
+    {
+      "keys": ["trial", "sample", "demo"],
+      "answer": "We offer demo units and sample scent cards for qualified customers — contact sales to arrange a trial.",
+      "links": ["/contact-quote"]
+    },
+    {
+      "keys": ["warranty", "support"],
+  "answer": "Our products include a limited warranty. For support, open a ticket via the Contact page or email support@breathe.com.",
+      "links": ["/contact-quote"]
+    }
+  ],
+  "troubleshoot": [
+    {
+      "keys": ["won't", "not turn", "no power"],
+      "answer": "Check power connection, confirm the unit is plugged in, and try a different outlet. If battery-based, check battery health.",
+      "links": []
+    },
+    {
+      "keys": ["weak", "faint", "low scent"],
+      "answer": "Ensure the fragrance reservoir is filled, clean the atomizer, and increase the intensity setting in the admin console.",
+      "links": []
+    },
+    {
+      "keys": ["leak", "leaking", "spill"],
+      "answer": "Turn off the unit immediately, clean the spill with a cloth, and inspect seals. Contact support with photos for further help.",
+      "links": ["/contact-quote"]
+    },
+    {
+      "keys": ["noise", "loud", "humming"],
+      "answer": "Some units have a low hum. If the noise is new or loud, power cycle the device and inspect for debris around the fan/atomizer.",
+      "links": []
+    },
+    {
+      "keys": ["connect", "wifi", "network", "offline"],
+      "answer": "Check network credentials and ensure the device is within Wi-Fi range. For corporate networks, verify firewall and proxy settings.",
+      "links": []
+    }
+  ],
+  "diffuserQuotes": [
+    { "scent": "Calming Lavender", "text": "A calm mind begins with a breath of lavender. Great for wellness spaces and bedrooms." },
+    { "scent": "Citrus Uplift", "text": "Citrus lifts mood; diffuse in mornings for clarity and energy in retail environments." },
+    { "scent": "Woody Vetiver", "text": "Vetiver grounds a space — ideal for hospitality lobbies and executive suites." },
+    { "scent": "Signature Floral", "text": "A bespoke floral signature helps create a memorable brand impression for guests." },
+    { "scent": "Clean Linen", "text": "Subtle linen notes convey freshness — useful in boutiques and healthcare settings." }
+  ]
+}
