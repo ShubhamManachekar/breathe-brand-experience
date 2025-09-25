@@ -1,0 +1,221 @@
+{
+  "user": {
+    "id": "user-001",
+    "name": "Rajesh Kumar",
+    "email": "rajesh@modernretail.com",
+    "phone": "+91 9876543210",
+    "role": "Operations Manager",
+    "avatar": "/placeholder.svg"
+  },
+  "company": {
+    "name": "Modern Retail Solutions",
+    "businessType": "Retail Chain",
+    "outlets": [
+      {
+        "id": "outlet-001",
+        "name": "MRS Mall Plaza",
+        "location": "Mumbai, Maharashtra",
+        "size": "2500 sqft",
+        "type": "Fashion Retail"
+      },
+      {
+        "id": "outlet-002", 
+        "name": "MRS City Center",
+        "location": "Pune, Maharashtra",
+        "size": "3200 sqft",
+        "type": "Electronics Store"
+      }
+    ],
+    "totalOutlets": 2,
+    "since": "2020"
+  },
+  "authorizedPersons": [
+    {
+      "id": "auth-001",
+      "name": "Rajesh Kumar",
+      "role": "Operations Manager",
+      "email": "rajesh@modernretail.com",
+      "permissions": ["purchase", "quotes", "tickets", "reports"]
+    },
+    {
+      "id": "auth-002",
+      "name": "Priya Sharma", 
+      "role": "Store Manager",
+      "email": "priya@modernretail.com",
+      "permissions": ["tickets", "reports"]
+    }
+  ],
+  "devicesPurchased": [
+    {
+      "id": "device-001",
+      "name": "EZE Pro Diffuser",
+      "model": "EPD-400",
+      "purchaseDate": "2024-01-15",
+      "outlet": "MRS Mall Plaza",
+      "coverage": "400 sqm",
+      "status": "Active",
+      "warrantyExpiry": "2025-01-15",
+      "serialNumber": "EPD400-2024-001"
+    },
+    {
+      "id": "device-002",
+      "name": "EZE Compact Diffuser", 
+      "model": "ECD-80",
+      "purchaseDate": "2024-03-20",
+      "outlet": "MRS City Center",
+      "coverage": "80 sqm",
+      "status": "Active",
+      "warrantyExpiry": "2025-03-20",
+      "serialNumber": "ECD80-2024-002"
+    }
+  ],
+  "oilsPurchased": [
+    {
+      "id": "oil-001",
+      "name": "Fresh Citrus",
+      "brand": "Sawai Fragrances",
+      "quantity": "500ml",
+      "purchaseDate": "2024-02-10",
+      "outlet": "MRS Mall Plaza",
+      "category": "Energizing",
+      "price": 2500,
+      "status": "In Use"
+    },
+    {
+      "id": "oil-002",
+      "name": "Lavender Dreams",
+      "brand": "Sawai Fragrances", 
+      "quantity": "250ml",
+      "purchaseDate": "2024-04-05",
+      "outlet": "MRS City Center",
+      "category": "Calming",
+      "price": 1800,
+      "status": "In Stock"
+    }
+  ],
+  "suggestedOils": [
+    {
+      "id": "suggest-001",
+      "name": "Ocean Breeze",
+      "reason": "Perfect for electronics stores - creates fresh, clean atmosphere",
+      "category": "Fresh",
+      "recommended": true,
+      "price": 2200
+    },
+    {
+      "id": "suggest-002",
+      "name": "Warm Vanilla",
+      "reason": "Ideal for fashion retail - creates welcoming shopping experience", 
+      "category": "Warm",
+      "recommended": true,
+      "price": 2800
+    }
+  ],
+  "reviews": [
+    {
+      "id": "review-001",
+      "productType": "oil",
+      "productName": "Fresh Citrus",
+      "rating": 5,
+      "comment": "Amazing fragrance! Customers love the energizing scent.",
+      "date": "2024-02-25",
+      "outlet": "MRS Mall Plaza"
+    },
+    {
+      "id": "review-002",
+      "productType": "device", 
+      "productName": "EZE Pro Diffuser",
+      "rating": 4,
+      "comment": "Great coverage and easy to maintain. Very satisfied.",
+      "date": "2024-02-01",
+      "outlet": "MRS Mall Plaza"
+    }
+  ],
+  "quotes": [
+    {
+      "id": "quote-001",
+      "type": "device",
+      "items": [
+        {
+          "name": "EZE Compact Diffuser",
+          "quantity": 2,
+          "price": 15000
+        }
+      ],
+      "totalAmount": 30000,
+      "status": "pending",
+      "createdDate": "2024-09-20",
+      "validUntil": "2024-10-20",
+      "outlet": "New Store - Delhi"
+    },
+    {
+      "id": "quote-002",
+      "type": "oil",
+      "items": [
+        {
+          "name": "Jasmine Bloom",
+          "quantity": 5,
+          "price": 2400
+        }
+      ],
+      "totalAmount": 12000,
+      "status": "approved", 
+      "createdDate": "2024-09-15",
+      "validUntil": "2024-10-15",
+      "outlet": "MRS Mall Plaza"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "ticket-001",
+      "subject": "Diffuser not working properly",
+      "description": "The EZE Pro Diffuser at Mall Plaza is not dispersing fragrance evenly",
+      "status": "in-progress",
+      "priority": "high",
+      "createdDate": "2024-09-18",
+      "outlet": "MRS Mall Plaza",
+      "assignedTo": "Technical Support"
+    },
+    {
+      "id": "ticket-002",
+      "subject": "Oil refill request",
+      "description": "Need to refill Fresh Citrus oil for City Center outlet",
+      "status": "resolved",
+      "priority": "medium", 
+      "createdDate": "2024-09-10",
+      "resolvedDate": "2024-09-12",
+      "outlet": "MRS City Center",
+      "assignedTo": "Sales Team"
+    }
+  ],
+  "referrals": [
+    {
+      "id": "ref-001", 
+      "companyName": "Elite Fashion Hub",
+      "contactPerson": "Amit Patel",
+      "email": "amit@elitefashion.com",
+      "status": "converted",
+      "referralDate": "2024-08-15",
+      "conversionDate": "2024-09-05",
+      "reward": 5000
+    },
+    {
+      "id": "ref-002",
+      "companyName": "Tech World Store", 
+      "contactPerson": "Neha Singh",
+      "email": "neha@techworld.com",
+      "status": "pending",
+      "referralDate": "2024-09-10",
+      "reward": 0
+    }
+  ],
+  "stats": {
+    "totalPurchases": 67500,
+    "activeDevices": 2,
+    "monthlyFragranceUsage": "750ml",
+    "customerSatisfactionScore": 4.7,
+    "referralRewards": 5000,
+    "pendingQuotes": 1,
+    "activeTickets": 1
+  }
+}
