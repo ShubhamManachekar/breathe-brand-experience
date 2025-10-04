@@ -177,12 +177,32 @@
     animation: fadeInScale 0.6s ease-out forwards;
   }
 
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
 
   .animate-glow {
     animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200 ease-out;
+  }
+
+  .hover-scale:hover {
+    @apply scale-105;
+  }
+
+  .hover-scale:active {
+    @apply scale-95;
   }
 
   .gradient-hero {
@@ -195,6 +215,10 @@
 
   .gradient-accent {
     background: var(--gradient-accent);
+  }
+
+  .gradient-subtle {
+    background: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
   }
 
   .shadow-elegant {
@@ -215,6 +239,26 @@
 
   .transition-bounce {
     transition: var(--transition-bounce);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

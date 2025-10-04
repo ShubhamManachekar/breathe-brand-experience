@@ -114,39 +114,41 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle p-4 md:p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-subtle p-3 sm:p-4 md:p-6 lg:p-8 animate-fade-in">
+      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
         {/* Header */}
-        <Card className="gradient-card shadow-elegant">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <Avatar className="h-16 w-16 shadow-card">
+        <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300 animate-scale-in">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center space-x-3 sm:space-x-4 w-full sm:w-auto">
+                <Avatar className="h-14 w-14 sm:h-16 sm:w-16 shadow-card ring-2 ring-primary/10">
                   <AvatarImage src={user.avatar} alt={auth.user?.name || user.name} />
-                  <AvatarFallback className="bg-primary/10 text-primary text-xl font-semibold">
+                  <AvatarFallback className="bg-primary/10 text-primary text-lg sm:text-xl font-semibold">
                     {(auth.user?.name || user.name).split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
-                <div>
-                  <h1 className="text-3xl font-bold text-foreground">Welcome back, {auth.user?.name || user.name}!</h1>
-                  <p className="text-muted-foreground text-lg">{user.role} at {company.name}</p>
-                  <div className="flex items-center space-x-2 mt-2">
-                    <Building className="h-4 w-4 text-primary" />
-                    <span className="text-sm text-muted-foreground">{company.totalOutlets} outlets managed since {company.since}</span>
+                <div className="flex-1 min-w-0">
+                  <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground truncate">
+                    Welcome, {auth.user?.name?.split(' ')[0] || user.name.split(' ')[0]}!
+                  </h1>
+                  <p className="text-muted-foreground text-sm sm:text-base md:text-lg truncate">{user.role} at {company.name}</p>
+                  <div className="flex items-center space-x-2 mt-1 sm:mt-2">
+                    <Building className="h-3 w-3 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-muted-foreground truncate">{company.totalOutlets} outlets · Since {company.since}</span>
                   </div>
                 </div>
               </div>
-              <div className="flex space-x-2">
-                <Button variant="outline" size="sm" onClick={handleLogout}>
+              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                <Button variant="outline" size="sm" onClick={handleLogout} className="flex-1 sm:flex-none hover-scale">
                   <LogOut className="h-4 w-4 mr-2" />
-                  Logout
+                  <span className="hidden sm:inline">Logout</span>
                 </Button>
                 
                 <Dialog open={isAccountSettingsOpen} onOpenChange={setIsAccountSettingsOpen}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" className="flex-1 sm:flex-none hover-scale">
                       <Settings className="h-4 w-4 mr-2" />
-                      Settings
+                      <span className="hidden sm:inline">Settings</span>
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-md">
@@ -217,9 +219,10 @@ const UserDashboard = () => {
 
                 <Dialog open={isNewQuoteOpen} onOpenChange={setIsNewQuoteOpen}>
                   <DialogTrigger asChild>
-                    <Button variant="premium" size="sm">
+                    <Button variant="premium" size="sm" className="flex-1 sm:flex-none hover-scale">
                       <Plus className="h-4 w-4 mr-2" />
-                      New Quote
+                      <span className="hidden sm:inline">New Quote</span>
+                      <span className="sm:hidden">Quote</span>
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
@@ -280,48 +283,48 @@ const UserDashboard = () => {
         </Card>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="gradient-card shadow-card">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Total Purchases</p>
-                  <p className="text-2xl font-bold text-primary">₹{stats.totalPurchases.toLocaleString()}</p>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 hover-scale animate-fade-in">
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Purchases</p>
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <TrendingUp className="h-8 w-8 text-primary" />
+                <p className="text-lg sm:text-2xl font-bold text-primary">₹{(stats.totalPurchases / 1000).toFixed(0)}K</p>
               </div>
             </CardContent>
           </Card>
-          <Card className="gradient-card shadow-card">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Active Devices</p>
-                  <p className="text-2xl font-bold text-primary">{stats.activeDevices}</p>
+          <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 hover-scale animate-fade-in" style={{ animationDelay: '100ms' }}>
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Active Devices</p>
+                  <Package className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <Package className="h-8 w-8 text-primary" />
+                <p className="text-lg sm:text-2xl font-bold text-primary">{stats.activeDevices}</p>
               </div>
             </CardContent>
           </Card>
-          <Card className="gradient-card shadow-card">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Satisfaction Score</p>
-                  <p className="text-2xl font-bold text-primary">{stats.customerSatisfactionScore}/5</p>
+          <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 hover-scale animate-fade-in" style={{ animationDelay: '200ms' }}>
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Satisfaction</p>
+                  <Star className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500 fill-current" />
                 </div>
-                <Star className="h-8 w-8 text-primary" />
+                <p className="text-lg sm:text-2xl font-bold text-primary">{stats.customerSatisfactionScore}/5</p>
               </div>
             </CardContent>
           </Card>
-          <Card className="gradient-card shadow-card">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Referral Rewards</p>
-                  <p className="text-2xl font-bold text-primary">₹{stats.referralRewards.toLocaleString()}</p>
+          <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 hover-scale animate-fade-in" style={{ animationDelay: '300ms' }}>
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Rewards</p>
+                  <Gift className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <Gift className="h-8 w-8 text-primary" />
+                <p className="text-lg sm:text-2xl font-bold text-primary">₹{(stats.referralRewards / 1000).toFixed(1)}K</p>
               </div>
             </CardContent>
           </Card>
@@ -329,22 +332,35 @@ const UserDashboard = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="flex space-x-2 w-full overflow-x-auto no-scrollbar bg-background/50 backdrop-blur-sm py-2">
-            <TabsTrigger className="flex-shrink-0" value="overview">Overview</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="devices">Devices</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="oils">Oils</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="quotes">Quotes</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="tickets">Tickets</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="reviews">Reviews</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="referrals">Referrals</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="subscriptions">Subscriptions</TabsTrigger>
-            <TabsTrigger className="flex-shrink-0" value="account">Account</TabsTrigger>
-          </TabsList>
+          <div className="sticky top-16 z-10 bg-gradient-subtle pb-2 -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 px-3 sm:px-4 md:px-6 lg:px-8">
+            <ScrollArea className="w-full">
+              <TabsList className="inline-flex space-x-1 sm:space-x-2 w-full sm:w-auto bg-background/80 backdrop-blur-md border border-border/50 shadow-md rounded-lg p-1">
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground" value="overview">
+                  <span className="hidden sm:inline">Overview</span>
+                  <span className="sm:hidden">Home</span>
+                </TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="devices">Devices</TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="oils">Oils</TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="quotes">Quotes</TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="tickets">Tickets</TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="reviews">Reviews</TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="referrals">
+                  <span className="hidden sm:inline">Referrals</span>
+                  <span className="sm:hidden">Refer</span>
+                </TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="subscriptions">
+                  <span className="hidden sm:inline">Subscriptions</span>
+                  <span className="sm:hidden">Subs</span>
+                </TabsTrigger>
+                <TabsTrigger className="flex-shrink-0 text-xs sm:text-sm transition-all duration-200" value="account">Account</TabsTrigger>
+              </TabsList>
+            </ScrollArea>
+          </div>
 
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TabsContent value="overview" className="space-y-4 sm:space-y-6 mt-4 animate-fade-in">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {/* Company Info */}
-              <Card className="gradient-card shadow-elegant">
+              <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Building className="h-5 w-5 mr-2 text-primary" />
@@ -357,17 +373,21 @@ const UserDashboard = () => {
                     <p className="text-muted-foreground">{company.businessType}</p>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="font-medium">Outlets:</h4>
-                    {company.outlets.map((outlet) => (
-                      <div key={outlet.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                        <div>
-                          <p className="font-medium">{outlet.name}</p>
-                          <p className="text-sm text-muted-foreground flex items-center">
-                            <MapPin className="h-3 w-3 mr-1" />
-                            {outlet.location}
+                    <h4 className="font-medium text-sm sm:text-base">Outlets:</h4>
+                    {company.outlets.map((outlet, idx) => (
+                      <div 
+                        key={outlet.id} 
+                        className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-all duration-200 animate-fade-in"
+                        style={{ animationDelay: `${idx * 100}ms` }}
+                      >
+                        <div className="min-w-0 flex-1 mr-2">
+                          <p className="font-medium text-sm sm:text-base truncate">{outlet.name}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground flex items-center">
+                            <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                            <span className="truncate">{outlet.location}</span>
                           </p>
                         </div>
-                        <Badge variant="outline">{outlet.size}</Badge>
+                        <Badge variant="outline" className="flex-shrink-0 text-xs">{outlet.size}</Badge>
                       </div>
                     ))}
                   </div>
@@ -375,15 +395,15 @@ const UserDashboard = () => {
               </Card>
 
               {/* Recent Activity */}
-              <Card className="gradient-card shadow-elegant">
+              <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Calendar className="h-5 w-5 mr-2 text-primary" />
+                  <CardTitle className="flex items-center text-base sm:text-lg">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                     Recent Activity
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ScrollArea className="h-64">
+                  <ScrollArea className="h-64 sm:h-72">
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3 p-3 rounded-lg bg-green-50 border border-green-200">
                         <div className="h-2 w-2 bg-green-500 rounded-full"></div>
@@ -413,40 +433,44 @@ const UserDashboard = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="devices" className="space-y-4">
-            <Card className="gradient-card shadow-elegant">
+          <TabsContent value="devices" className="space-y-4 mt-4 animate-fade-in">
+            <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <Package className="h-5 w-5 mr-2 text-primary" />
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <span className="flex items-center text-base sm:text-lg">
+                    <Package className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                     Devices Purchased
                   </span>
-                  <Button size="sm" variant="premium" onClick={requestNewDevice}>
+                  <Button size="sm" variant="premium" onClick={requestNewDevice} className="w-full sm:w-auto hover-scale">
                     <Plus className="h-4 w-4 mr-2" />
-                    Request New Device
+                    Request Device
                   </Button>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-4">
-                  {devicesPurchased.map((device) => (
-                    <div key={device.id} className="p-4 rounded-lg border bg-background/50 backdrop-blur-sm">
-                      <div className="flex justify-between items-start">
-                        <div className="space-y-2">
-                          <h3 className="font-semibold text-lg">{device.name}</h3>
-                          <p className="text-muted-foreground">Model: {device.model}</p>
-                          <p className="text-sm flex items-center">
-                            <MapPin className="h-3 w-3 mr-1" />
-                            {device.outlet}
+                <div className="grid gap-3 sm:gap-4">
+                  {devicesPurchased.map((device, idx) => (
+                    <div 
+                      key={device.id} 
+                      className="p-3 sm:p-4 rounded-lg border bg-background/50 backdrop-blur-sm hover:bg-background/70 hover:shadow-md transition-all duration-300 animate-fade-in"
+                      style={{ animationDelay: `${idx * 100}ms` }}
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                        <div className="space-y-2 flex-1 min-w-0">
+                          <h3 className="font-semibold text-base sm:text-lg truncate">{device.name}</h3>
+                          <p className="text-sm text-muted-foreground">Model: {device.model}</p>
+                          <p className="text-xs sm:text-sm flex items-center">
+                            <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                            <span className="truncate">{device.outlet}</span>
                           </p>
-                          <div className="flex space-x-4 text-sm text-muted-foreground">
-                            <span>Coverage: {device.coverage}</span>
-                            <span>S/N: {device.serialNumber}</span>
+                          <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+                            <span className="truncate">Coverage: {device.coverage}</span>
+                            <span className="truncate">S/N: {device.serialNumber}</span>
                           </div>
                         </div>
-                        <div className="text-right space-y-2">
-                          <Badge className={getStatusColor(device.status)}>{device.status}</Badge>
-                          <p className="text-sm text-muted-foreground">
+                        <div className="flex sm:flex-col gap-2 sm:text-right w-full sm:w-auto">
+                          <Badge className={`${getStatusColor(device.status)} flex-1 sm:flex-none justify-center`}>{device.status}</Badge>
+                          <p className="text-xs sm:text-sm text-muted-foreground flex-1 sm:flex-none">
                             Warranty: {device.warrantyExpiry}
                           </p>
                         </div>
@@ -458,8 +482,8 @@ const UserDashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="oils" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TabsContent value="oils" className="space-y-4 sm:space-y-6 mt-4 animate-fade-in">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {/* Purchased Oils */}
               <Card className="gradient-card shadow-elegant">
                 <CardHeader>
@@ -524,36 +548,39 @@ const UserDashboard = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="quotes" className="space-y-4">
-            <Card className="gradient-card shadow-elegant">
+          <TabsContent value="quotes" className="space-y-4 mt-4 animate-fade-in">
+            <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <FileText className="h-5 w-5 mr-2 text-primary" />
+                <CardTitle className="flex flex-col gap-3">
+                  <span className="flex items-center text-base sm:text-lg">
+                    <FileText className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                     Quotes Tracker
                   </span>
-                  <div className="flex items-center space-x-2">
-                    <Filter className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Filter className="h-4 w-4 text-muted-foreground hidden sm:block" />
                     <Button 
                       size="sm" 
                       variant={quoteFilter === "all" ? "default" : "outline"}
                       onClick={() => setQuoteFilter("all")}
+                      className="flex-1 sm:flex-none text-xs sm:text-sm hover-scale"
                     >
-                      All Quotes
+                      All
                     </Button>
                     <Button 
                       size="sm" 
                       variant={quoteFilter === "device" ? "default" : "outline"}
                       onClick={() => setQuoteFilter("device")}
+                      className="flex-1 sm:flex-none text-xs sm:text-sm hover-scale"
                     >
-                      Device Quotes
+                      Devices
                     </Button>
                     <Button 
                       size="sm" 
                       variant={quoteFilter === "oil" ? "default" : "outline"}
                       onClick={() => setQuoteFilter("oil")}
+                      className="flex-1 sm:flex-none text-xs sm:text-sm hover-scale"
                     >
-                      Oil Quotes
+                      Oils
                     </Button>
                   </div>
                 </CardTitle>
@@ -591,17 +618,17 @@ const UserDashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="tickets" className="space-y-4">
-            <Card className="gradient-card shadow-elegant">
+          <TabsContent value="tickets" className="space-y-4 mt-4 animate-fade-in">
+            <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <Ticket className="h-5 w-5 mr-2 text-primary" />
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <span className="flex items-center text-base sm:text-lg">
+                    <Ticket className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                     Support Tickets
                   </span>
                   <Dialog open={isNewTicketOpen} onOpenChange={setIsNewTicketOpen}>
                     <DialogTrigger asChild>
-                      <Button size="sm" variant="premium">
+                      <Button size="sm" variant="premium" className="w-full sm:w-auto hover-scale">
                         <Plus className="h-4 w-4 mr-2" />
                         New Ticket
                       </Button>
@@ -666,25 +693,29 @@ const UserDashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {tickets.map((ticket) => (
-                    <div key={ticket.id} className="p-4 rounded-lg border bg-background/50">
-                      <div className="flex justify-between items-start mb-3">
-                        <div className="space-y-1">
-                          <h4 className="font-medium">{ticket.subject}</h4>
-                          <p className="text-sm text-muted-foreground">#{ticket.id}</p>
+                <div className="space-y-3 sm:space-y-4">
+                  {tickets.map((ticket, idx) => (
+                    <div 
+                      key={ticket.id} 
+                      className="p-3 sm:p-4 rounded-lg border bg-background/50 hover:bg-background/70 hover:shadow-md transition-all duration-300 animate-fade-in"
+                      style={{ animationDelay: `${idx * 100}ms` }}
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-3">
+                        <div className="space-y-1 flex-1 min-w-0">
+                          <h4 className="font-medium text-sm sm:text-base truncate">{ticket.subject}</h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground">#{ticket.id}</p>
                         </div>
-                        <div className="flex space-x-2">
-                          <Badge variant={ticket.priority === 'high' ? 'destructive' : 'outline'}>
+                        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                          <Badge variant={ticket.priority === 'high' ? 'destructive' : 'outline'} className="text-xs">
                             {ticket.priority}
                           </Badge>
-                          <Badge className={getStatusColor(ticket.status)}>{ticket.status}</Badge>
+                          <Badge className={`${getStatusColor(ticket.status)} text-xs`}>{ticket.status}</Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-2">{ticket.description}</p>
-                      <div className="flex justify-between items-center text-xs text-muted-foreground">
-                        <span>Assigned to: {ticket.assignedTo}</span>
-                        <span>{ticket.outlet}</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">{ticket.description}</p>
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 text-xs text-muted-foreground">
+                        <span className="truncate">Assigned: {ticket.assignedTo}</span>
+                        <span className="truncate">{ticket.outlet}</span>
                       </div>
                     </div>
                   ))}
@@ -693,37 +724,41 @@ const UserDashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="reviews" className="space-y-4">
-            <Card className="gradient-card shadow-elegant">
+          <TabsContent value="reviews" className="space-y-4 mt-4 animate-fade-in">
+            <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <MessageSquare className="h-5 w-5 mr-2 text-primary" />
+                <CardTitle className="flex items-center text-base sm:text-lg">
+                  <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                   Your Reviews
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {reviews.map((review) => (
-                    <div key={review.id} className="p-4 rounded-lg border bg-background/50">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="font-medium">{review.productName}</h4>
-                          <p className="text-sm text-muted-foreground capitalize">{review.productType}</p>
+                <div className="space-y-3 sm:space-y-4">
+                  {reviews.map((review, idx) => (
+                    <div 
+                      key={review.id} 
+                      className="p-3 sm:p-4 rounded-lg border bg-background/50 hover:bg-background/70 hover:shadow-md transition-all duration-300 animate-fade-in"
+                      style={{ animationDelay: `${idx * 100}ms` }}
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-sm sm:text-base truncate">{review.productName}</h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground capitalize">{review.productType}</p>
                         </div>
                         <div className="flex items-center space-x-1">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-4 w-4 ${
+                              className={`h-3 w-3 sm:h-4 sm:w-4 ${
                                 i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
                               }`}
                             />
                           ))}
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-2">{review.comment}</p>
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>{review.outlet}</span>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-3">{review.comment}</p>
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 text-xs text-muted-foreground">
+                        <span className="truncate">{review.outlet}</span>
                         <span>{review.date}</span>
                       </div>
                     </div>
@@ -733,17 +768,17 @@ const UserDashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="referrals" className="space-y-4">
-            <Card className="gradient-card shadow-elegant">
+          <TabsContent value="referrals" className="space-y-4 mt-4 animate-fade-in">
+            <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span className="flex items-center">
-                    <Gift className="h-5 w-5 mr-2 text-primary" />
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <span className="flex items-center text-base sm:text-lg">
+                    <Gift className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                     Referral Program
                   </span>
                   <Dialog open={isNewReferralOpen} onOpenChange={setIsNewReferralOpen}>
                     <DialogTrigger asChild>
-                      <Button size="sm" variant="premium">
+                      <Button size="sm" variant="premium" className="w-full sm:w-auto hover-scale">
                         <Plus className="h-4 w-4 mr-2" />
                         Add Referral
                       </Button>
@@ -798,24 +833,28 @@ const UserDashboard = () => {
                     </DialogContent>
                   </Dialog>
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-xs sm:text-sm">
                   Earn rewards by referring other businesses to EZE Aircare
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {referrals.map((referral) => (
-                    <div key={referral.id} className="p-4 rounded-lg border bg-background/50">
-                      <div className="flex justify-between items-start mb-2">
-                        <div>
-                          <h4 className="font-medium">{referral.companyName}</h4>
-                          <p className="text-sm text-muted-foreground">{referral.contactPerson}</p>
-                          <p className="text-sm text-muted-foreground">{referral.email}</p>
+                <div className="space-y-3 sm:space-y-4">
+                  {referrals.map((referral, idx) => (
+                    <div 
+                      key={referral.id} 
+                      className="p-3 sm:p-4 rounded-lg border bg-background/50 hover:bg-background/70 hover:shadow-md transition-all duration-300 animate-fade-in"
+                      style={{ animationDelay: `${idx * 100}ms` }}
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-sm sm:text-base truncate">{referral.companyName}</h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{referral.contactPerson}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{referral.email}</p>
                         </div>
-                        <div className="text-right">
-                          <Badge className={getStatusColor(referral.status)}>{referral.status}</Badge>
+                        <div className="flex flex-col items-start sm:items-end gap-1">
+                          <Badge className={`${getStatusColor(referral.status)} text-xs`}>{referral.status}</Badge>
                           {referral.reward > 0 && (
-                            <p className="text-sm font-medium text-green-600 mt-1">
+                            <p className="text-xs sm:text-sm font-medium text-green-600">
                               Reward: ₹{referral.reward}
                             </p>
                           )}
@@ -832,20 +871,20 @@ const UserDashboard = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="subscriptions" className="space-y-4">
+          <TabsContent value="subscriptions" className="space-y-4 mt-4 animate-fade-in">
             <SubscriptionManager />
           </TabsContent>
 
-          <TabsContent value="account" className="space-y-4">
-            <Card className="gradient-card shadow-elegant">
+          <TabsContent value="account" className="space-y-4 mt-4 animate-fade-in">
+            <Card className="gradient-card shadow-elegant hover:shadow-glow transition-all duration-300">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Settings className="h-5 w-5 mr-2 text-primary" />
+                <CardTitle className="flex items-center text-base sm:text-lg">
+                  <Settings className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-primary" />
                   Account Settings
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <CardContent className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div className="space-y-4">
                     <h3 className="font-medium flex items-center">
                       <Shield className="h-4 w-4 mr-2 text-primary" />
