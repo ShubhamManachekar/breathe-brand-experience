@@ -205,17 +205,32 @@ const Navigation = () => {
                   <div className="flex justify-center">
                     <ThemeToggle />
                   </div>
-                  <Link to="/login" className="block">
-                    <Button variant="glass" size="sm" className="w-full" onClick={() => setIsOpen(false)}>
-                      Login
-                    </Button>
-                  </Link>
-                  <Link to="/contact-quote" className="block">
-                    <Button variant="hero" size="sm" className="w-full group" onClick={() => setIsOpen(false)}>
-                      Get Demo
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
+                  {auth && auth.isAuthenticated && auth.user ? (
+                    <>
+                      <Link to="/user/dashboard" className="block">
+                        <Button variant="outline" size="sm" className="w-full" onClick={() => setIsOpen(false)}>
+                          Dashboard
+                        </Button>
+                      </Link>
+                      <Button variant="ghost" size="sm" className="w-full" onClick={() => { auth.logout(); setIsOpen(false); }}>
+                        Logout
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/login" className="block">
+                        <Button variant="glass" size="sm" className="w-full" onClick={() => setIsOpen(false)}>
+                          Login
+                        </Button>
+                      </Link>
+                      <Link to="/contact-quote" className="block">
+                        <Button variant="hero" size="sm" className="w-full group" onClick={() => setIsOpen(false)}>
+                          Get Demo
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

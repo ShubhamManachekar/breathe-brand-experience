@@ -58,12 +58,12 @@ const Login = () => {
               {!isLogin && (
                 <div className="grid gap-2">
                   <Label htmlFor="first-name">First name</Label>
-                  <Input id="first-name" placeholder="Max" required />
+                  <Input id="first-name" name="first-name" placeholder="Max" required />
                 </div>
               )}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input id="email" name="email" type="email" placeholder="m@example.com" required />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -74,7 +74,7 @@ const Login = () => {
                     </a>
                   )}
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required minLength={6} />
               </div>
               <Button type="submit" className="w-full">
                 {isLogin ? "Login" : "Create an account"}

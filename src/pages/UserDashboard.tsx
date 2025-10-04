@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/providers/AuthProvider";
 import { 
   Building, 
   Users, 
@@ -28,12 +30,15 @@ import {
   Shield,
   Plus,
   Edit,
-  Filter
+  Filter,
+  LogOut
 } from "lucide-react";
 import mockData from "@/lib/mockUserData.json";
 import SubscriptionManager from "@/components/SubscriptionManager";
 
 const UserDashboard = () => {
+  const navigate = useNavigate();
+  const auth = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
   const [quoteFilter, setQuoteFilter] = useState("all");
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
@@ -45,8 +50,18 @@ const UserDashboard = () => {
   const { user, company, devicesPurchased, oilsPurchased, suggestedOils, reviews, quotes, tickets, referrals, stats } = mockData;
   const { toast } = useToast();
   
-  // Form states
-  const [profileForm, setProfileForm] = useState({ name: user.name, email: user.email, phone: user.phone });
+  const handleLogout = () => {
+    auth.logout();
+    toast({ title: "Logged Out", description: "You have been successfully logged out." });
+    navigate("/");
+  };
+  
+  // Form states - use auth user data
+  const [profileForm, setProfileForm] = useState({ 
+    name: auth.user?.name || user.name, 
+    email: auth.user?.email || user.email, 
+    phone: user.phone 
+  });
   const [quoteForm, setQuoteForm] = useState({ type: "", items: "", outlet: "", notes: "" });
   const [ticketForm, setTicketForm] = useState({ subject: "", description: "", priority: "medium", outlet: "" });
   const [referralForm, setReferralForm] = useState({ companyName: "", contactPerson: "", email: "", phone: "" });
@@ -107,13 +122,13 @@ const UserDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Avatar className="h-16 w-16 shadow-card">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage src={user.avatar} alt={auth.user?.name || user.name} />
                   <AvatarFallback className="bg-primary/10 text-primary text-xl font-semibold">
-                    {user.name.split(' ').map(n => n[0]).join('')}
+                    {(auth.user?.name || user.name).split(' ').map(n => n[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-3xl font-bold text-foreground">Welcome back, {user.name}!</h1>
+                  <h1 className="text-3xl font-bold text-foreground">Welcome back, {auth.user?.name || user.name}!</h1>
                   <p className="text-muted-foreground text-lg">{user.role} at {company.name}</p>
                   <div className="flex items-center space-x-2 mt-2">
                     <Building className="h-4 w-4 text-primary" />
@@ -122,11 +137,16 @@ const UserDashboard = () => {
                 </div>
               </div>
               <div className="flex space-x-2">
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+                
                 <Dialog open={isAccountSettingsOpen} onOpenChange={setIsAccountSettingsOpen}>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm">
                       <Settings className="h-4 w-4 mr-2" />
-                      Account Settings
+                      Settings
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-md">
@@ -135,7 +155,7 @@ const UserDashboard = () => {
                       <DialogDescription>Manage your account preferences and security.</DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4">
-                      <Button variant="outline" className="w-full justify-start" onClick={() => setIsEditProfileOpen(true)}>
+                      <Button variant="outline" className="w-full justify-start" onClick={() => { setIsEditProfileOpen(true); setIsAccountSettingsOpen(false); }}>
                         <Edit className="h-4 w-4 mr-2" />
                         Edit Profile
                       </Button>
@@ -147,7 +167,51 @@ const UserDashboard = () => {
                         <Settings className="h-4 w-4 mr-2" />
                         Notification Settings
                       </Button>
+                      <Button variant="destructive" className="w-full justify-start" onClick={() => { setIsAccountSettingsOpen(false); handleLogout(); }}>
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                      </Button>
                     </div>
+                  </DialogContent>
+                </Dialog>
+
+                {/* Edit Profile Dialog */}
+                <Dialog open={isEditProfileOpen} onOpenChange={setIsEditProfileOpen}>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Edit Profile</DialogTitle>
+                      <DialogDescription>Update your personal information.</DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="profile-name">Full Name</Label>
+                        <Input 
+                          id="profile-name"
+                          value={profileForm.name}
+                          onChange={(e) => setProfileForm({...profileForm, name: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="profile-email">Email</Label>
+                        <Input 
+                          id="profile-email"
+                          type="email"
+                          value={profileForm.email}
+                          onChange={(e) => setProfileForm({...profileForm, email: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="profile-phone">Phone</Label>
+                        <Input 
+                          id="profile-phone"
+                          value={profileForm.phone}
+                          onChange={(e) => setProfileForm({...profileForm, phone: e.target.value})}
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button onClick={handleProfileUpdate} className="w-full">Save Changes</Button>
+                    </DialogFooter>
                   </DialogContent>
                 </Dialog>
 
