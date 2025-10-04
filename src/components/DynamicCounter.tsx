@@ -27,6 +27,7 @@ const DynamicCounter: React.FC<DynamicCounterProps> = ({
       <div className="text-4xl font-bold text-primary mb-2">
         {prefix}{count}{suffix}
       </div>
+      <p className="text-sm text-muted-foreground">{label}</p>
     </div>
   );
 };
