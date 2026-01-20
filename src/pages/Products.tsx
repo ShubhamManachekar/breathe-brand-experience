@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Wifi, Bluetooth, Zap, Shield, Settings, ArrowRight, RotateCcw, MousePointer, Info } from "lucide-react";
+import { Wifi, Bluetooth, Zap, Shield, Settings, ArrowRight, RotateCcw, MousePointer, Info, ChevronRight, Wind, Activity } from "lucide-react";
 import diffuserImage from "@/assets/diffuser-360.jpg";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const Products = () => {
   const [selectedHotspot, setSelectedHotspot] = useState<string | null>(null);
@@ -18,7 +19,8 @@ const Products = () => {
       features: ["Wi-Fi & Bluetooth", "HVAC Integration", "App Control", "Smart Scheduling"],
       price: "₹45,000",
       image: diffuserImage,
-      description: "Professional-grade diffuser perfect for large retail spaces and offices"
+      description: "Professional-grade diffuser perfect for large retail spaces and offices",
+      popular: true
     },
     {
       name: "EZE Compact",
@@ -27,7 +29,8 @@ const Products = () => {
       features: ["Bluetooth Control", "Portable Design", "Easy Installation", "Timer Function"],
       price: "₹18,000",
       image: diffuserImage,
-      description: "Compact solution ideal for boutiques, clinics, and small offices"
+      description: "Compact solution ideal for boutiques, clinics, and small offices",
+      popular: false
     },
     {
       name: "EZE Elite",
@@ -36,7 +39,8 @@ const Products = () => {
       features: ["Central HVAC", "Multi-Zone Control", "Professional Installation", "24/7 Monitoring"],
       price: "₹85,000",
       image: diffuserImage,
-      description: "Enterprise-level system for hotels, shopping malls, and large corporate spaces"
+      description: "Enterprise-level system for hotels, shopping malls, and large corporate spaces",
+      popular: false
     }
   ];
 
@@ -83,301 +87,363 @@ const Products = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-hidden">
       {/* Hero Section */}
-      <section className="pt-20 pb-16 gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-display text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
-            Professional Scent Diffusion Systems
-          </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Advanced atomization technology meets elegant design. Explore our range of
-            professional-grade diffusers engineered for reliable, consistent performance.
-          </p>
+      <section className="pt-32 pb-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background z-0" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <AnimatedSection animation="fadeInUp">
+            <Badge variant="outline" className="mb-6 px-4 py-1 text-sm border-primary/20 text-primary bg-primary/5 backdrop-blur-sm">
+              Engineering Excellence
+            </Badge>
+            <h1 className="font-display text-5xl md:text-7xl font-bold text-foreground mb-8 tracking-tight">
+              Professional Scent
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"> Diffusion Systems</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+              Advanced atomization technology meets elegant design. Explore our range of
+              professional-grade diffusers engineered for reliability.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Interactive 360° Product Explorer */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-              360° Product Explorer
+      <section className="py-20 bg-muted/20 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Interactive 360° Explorer
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Interact with our flagship diffuser. Click hotspots to learn about key features.
+            <p className="text-lg text-muted-foreground">
+              Interact with our flagship diffuser. Click hotspots to discover key features.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* 360° Viewer */}
-            <div className="gradient-card rounded-2xl p-8 shadow-elegant">
-              <div className="relative aspect-square bg-background rounded-xl overflow-hidden">
-                <img
-                  src={diffuserImage}
-                  alt="EZE AirCare Pro Diffuser 360 View"
-                  className="w-full h-full object-cover transition-transform duration-300"
-                  style={{ transform: `rotate(${rotation}deg)` }}
-                />
+            <AnimatedSection animation="fadeInScale" className="gradient-card rounded-3xl p-1 shadow-2xl border border-white/20 bg-white/5 backdrop-blur-xl">
+              <div className="bg-background rounded-[1.4rem] p-8 h-full relative overflow-hidden">
+                <div className="absolute inset-0 grid grid-cols-[repeat(20,1fr)] grid-rows-[repeat(20,1fr)] opacity-[0.03] pointer-events-none">
+                  {[...Array(400)].map((_, i) => <div key={i} className="border-r border-b border-foreground" />)}
+                </div>
 
-                {/* Hotspots */}
-                {hotspots.map((hotspot) => (
-                  <button
-                    key={hotspot.id}
-                    className={`absolute w-6 h-6 rounded-full border-2 border-accent bg-accent/20 hover:bg-accent hover:scale-125 transition-all duration-200 ${
-                      selectedHotspot === hotspot.id ? 'bg-accent scale-125' : ''
-                    }`}
-                    style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
-                    onClick={() => setSelectedHotspot(selectedHotspot === hotspot.id ? null : hotspot.id)}
-                  >
-                    <MousePointer className="w-3 h-3 text-accent-foreground m-auto" />
-                  </button>
-                ))}
+                <div className="relative aspect-square flex items-center justify-center">
+                  <img
+                    src={diffuserImage}
+                    alt="EZE AirCare Pro Diffuser 360 View"
+                    className="w-full h-full object-contain transition-transform duration-300 drop-shadow-2xl"
+                    style={{ transform: `rotate(${rotation}deg)` }}
+                  />
+
+                  {/* Hotspots */}
+                  {hotspots.map((hotspot) => (
+                    <button
+                      key={hotspot.id}
+                      className={`absolute w-8 h-8 rounded-full border-2 border-accent bg-accent/20 hover:bg-accent hover:text-white hover:scale-125 transition-all duration-300 flex items-center justify-center group z-20 ${selectedHotspot === hotspot.id ? 'bg-accent scale-125 text-white' : 'text-accent'
+                        }`}
+                      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+                      onClick={() => setSelectedHotspot(selectedHotspot === hotspot.id ? null : hotspot.id)}
+                    >
+                      <MousePointer className="w-4 h-4" />
+                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-popover text-popover-foreground text-xs px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {hotspot.title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
 
                 {/* Rotation Controls */}
-                <div className="absolute bottom-4 right-4 flex space-x-2">
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-background/80 backdrop-blur-md px-4 py-2 rounded-full border border-border/50 shadow-lg">
                   <Button
-                    size="sm"
-                    variant="glass"
-                    onClick={() => setRotation(r => r - 90)}
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => setRotation(r => r - 45)}
+                    className="hover:bg-accent/10 hover:text-accent rounded-full"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="w-5 h-5" />
                   </Button>
+                  <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Rotate</span>
                   <Button
-                    size="sm"
-                    variant="glass"
-                    onClick={() => setRotation(r => r + 90)}
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => setRotation(r => r + 45)}
+                    className="hover:bg-accent/10 hover:text-accent rounded-full"
                   >
-                    <RotateCcw className="w-4 h-4 scale-x-[-1]" />
+                    <RotateCcw className="w-5 h-5 scale-x-[-1]" />
                   </Button>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
 
             {/* Feature Details */}
             <div className="space-y-6">
-              {selectedHotspot ? (
-                <Card className="gradient-card shadow-card animate-fade-in-scale">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <Info className="w-5 h-5 text-accent" />
-                      <span>{hotspots.find(h => h.id === selectedHotspot)?.title}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      {hotspots.find(h => h.id === selectedHotspot)?.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card className="gradient-card shadow-card">
-                  <CardHeader>
-                    <CardTitle>EZE Pro Diffuser EP-500</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-muted-foreground">
-                      Click on the hotspots to explore the advanced features of our flagship
-                      professional diffuser system.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary">
-                        <Wifi className="w-3 h-3 mr-1" />
-                        Wi-Fi Enabled
-                      </Badge>
-                      <Badge variant="secondary">
-                        <Bluetooth className="w-3 h-3 mr-1" />
-                        Bluetooth 5.0
-                      </Badge>
-                      <Badge variant="secondary">
-                        <Zap className="w-3 h-3 mr-1" />
-                        Heat-Free Technology
-                      </Badge>
-                      <Badge variant="secondary">
-                        <Shield className="w-3 h-3 mr-1" />
-                        2-Year Warranty
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+              <div className="min-h-[140px]">
+                {selectedHotspot ? (
+                  <Card className="gradient-card shadow-lg animate-fade-in-scale border-accent/20 bg-accent/5">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center gap-3 text-xl">
+                        <div className="p-2 rounded-lg bg-accent/10">
+                          <Info className="w-5 h-5 text-accent" />
+                        </div>
+                        <span>{hotspots.find(h => h.id === selectedHotspot)?.title}</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {hotspots.find(h => h.id === selectedHotspot)?.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card className="gradient-card shadow-sm border-dashed border-2 bg-transparent">
+                    <CardContent className="flex flex-col items-center justify-center p-8 text-center h-full">
+                      <MousePointer className="w-8 h-8 text-muted-foreground/50 mb-4 animate-bounce" />
+                      <p className="text-lg font-medium text-foreground">Select a hotspot</p>
+                      <p className="text-muted-foreground text-sm">
+                        Click on the indicators to view technical details
+                      </p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
 
               {/* Specifications */}
-              <Card className="gradient-card shadow-card">
+              <Card className="gradient-card shadow-md">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
+                  <CardTitle className="flex items-center gap-2">
                     <Settings className="w-5 h-5 text-accent" />
-                    <span>Technical Specifications</span>
+                    Technical Specifications
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    {specifications.map((spec, index) => (
-                      <div key={spec.label} className="flex justify-between">
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                    {specifications.map((spec) => (
+                      <div key={spec.label} className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-border/30 last:border-0">
                         <span className="text-muted-foreground text-sm">{spec.label}</span>
-                        <span className="font-medium text-sm">{spec.value}</span>
+                        <span className="font-medium text-sm text-foreground">{spec.value}</span>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
+
+              <div className="flex flex-wrap gap-3 pt-4">
+                <Badge variant="secondary" className="px-3 py-1.5 text-sm gap-1.5"><Wifi className="w-3.5 h-3.5" /> Wi-Fi Enabled</Badge>
+                <Badge variant="secondary" className="px-3 py-1.5 text-sm gap-1.5"><Bluetooth className="w-3.5 h-3.5" /> Bluetooth 5.0</Badge>
+                <Badge variant="secondary" className="px-3 py-1.5 text-sm gap-1.5"><Wind className="w-3.5 h-3.5" /> HVAC Ready</Badge>
+                <Badge variant="secondary" className="px-3 py-1.5 text-sm gap-1.5"><Shield className="w-3.5 h-3.5" /> 2-Year Warranty</Badge>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Product Range */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
             <h2 className="font-display text-4xl font-bold text-foreground mb-4">
               Complete Product Range
             </h2>
             <p className="text-xl text-muted-foreground">
               Professional diffusers designed for every space size and application
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {products.map((product, index) => (
-              <Card key={product.model} className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 animate-fade-in-scale" style={{ animationDelay: `${index * 0.2}s` }}>
-                <CardHeader className="text-center">
-                  <div className="aspect-square bg-muted/30 rounded-lg mb-4 overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardTitle className="font-display text-xl">{product.name}</CardTitle>
-                  <p className="text-muted-foreground">{product.model}</p>
-                  <div className="text-2xl font-bold text-primary">{product.price}</div>
-                </CardHeader>
+              <AnimatedSection key={product.model} animation="fadeInUp" delay={index * 200}>
+                <Card className={`gradient-card h-full transition-all duration-500 hover:shadow-elegant group relative overflow-hidden border-border/50 ${product.popular ? 'border-accent/40 shadow-lg' : ''}`}>
+                  {product.popular && (
+                    <div className="absolute top-0 right-0 bg-accent text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-sm z-10">
+                      MOST POPULAR
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">{product.description}</p>
-                  
-                  <div className="text-center">
-                    <Badge variant="secondary" className="text-accent">
-                      {product.coverage}
-                    </Badge>
-                  </div>
+                  <CardHeader className="text-center pb-2 relative z-10">
+                    <div className="aspect-square bg-muted/20 rounded-2xl mb-6 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover mix-blend-multiply"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                    <CardTitle className="font-display text-2xl mb-1">{product.name}</CardTitle>
+                    <p className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{product.model}</p>
+                  </CardHeader>
 
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">Key Features</h4>
-                    <ul className="space-y-1">
+                  <CardContent className="space-y-6 relative z-10">
+                    <div className="text-center pb-2 border-b border-border/30">
+                      <div className="text-3xl font-bold text-primary mb-1">{product.price}</div>
+                      <p className="text-xs text-muted-foreground">+ GST</p>
+                    </div>
+
+                    <p className="text-muted-foreground text-center text-sm leading-relaxed min-h-[40px]">
+                      {product.description}
+                    </p>
+
+                    <div className="space-y-3">
                       {product.features.map((feature, i) => (
-                        <li key={i} className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-accent rounded-full" />
-                          <span className="text-sm text-muted-foreground">{feature}</span>
-                        </li>
+                        <div key={i} className="flex items-center gap-3 text-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent/60" />
+                          <span className="text-muted-foreground group-hover:text-foreground transition-colors">{feature}</span>
+                        </div>
                       ))}
-                    </ul>
-                  </div>
+                    </div>
 
-                  <div className="pt-4">
-                    <Link to={`/products/${product.model}`}>
-                      <Button className="w-full" variant="hero">
-                        View Details
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+                    <div className="flex items-center justify-between text-xs font-medium text-accent bg-accent/5 rounded-lg p-3">
+                      <span className="flex items-center gap-1.5"><Activity className="w-3.5 h-3.5" /> Coverage</span>
+                      <span>{product.coverage}</span>
+                    </div>
+
+                    <div className="pt-2">
+                      <Link to={`/products/${product.model}`}>
+                        <Button className="w-full group" variant="hero">
+                          View Details
+                          <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform opacity-70" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
       {/* Technology Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="py-24 bg-muted/20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-                Advanced Atomization Technology
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Our patented turbofan atomization system creates ultra-fine scent particles
-                without heat, ensuring pure fragrance delivery and extended oil life.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <Zap className="w-6 h-6 text-accent mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground">Heat-Free Operation</h3>
-                    <p className="text-muted-foreground">Preserves fragrance integrity and prevents degradation</p>
-                  </div>
+              <AnimatedSection animation="fadeInUp">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                  <Zap className="w-3.5 h-3.5" />
+                  Core Technology
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Shield className="w-6 h-6 text-accent mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground">Safe & Clean</h3>
-                    <p className="text-muted-foreground">No residue, stains, or harmful emissions</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Settings className="w-6 h-6 text-accent mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground">Precise Control</h3>
-                    <p className="text-muted-foreground">Adjustable intensity and smart scheduling</p>
-                  </div>
-                </div>
+                <h2 className="font-display text-4xl font-bold text-foreground mb-6 leading-tight">
+                  Patented Cold-Air <br />
+                  <span className="text-accent">Diffusion Technology</span>
+                </h2>
+                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                  Our proprietary turbofan atomization system creates scent particles smaller than 1 micron—50x smaller than traditional sprays. This ensures scent remains suspended in the air longer and maintains the true integrity of the fragrance profile.
+                </p>
+              </AnimatedSection>
+
+              <div className="space-y-6">
+                {[
+                  { icon: Wind, title: "Heat-Free Operation", desc: "Preserves fragrance integrity and therapeutic properties by avoiding thermal degradation." },
+                  { icon: Shield, title: "Hypoallergenic & Safe", desc: "No resident, parabens, or harmful VOCs. Perfectly safe for pets and children." },
+                  { icon: Settings, title: "Micro-Dosing Control", desc: "Precise intensity management allows for subtle background scenting or bold statements." }
+                ].map((item, i) => (
+                  <AnimatedSection key={i} animation="fadeInUp" delay={200 + (i * 100)}>
+                    <div className="flex gap-4 p-4 rounded-xl bg-background/50 border border-border/50 hover:border-accent/30 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0 text-accent">
+                        <item.icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-foreground mb-1">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                ))}
               </div>
             </div>
-            
-            <Card className="gradient-card shadow-elegant">
-              <CardContent className="p-8">
-                <h3 className="font-display text-2xl font-bold text-foreground mb-6">
-                  Performance Benefits
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Scent Coverage Efficiency</span>
-                    <span className="font-bold text-primary">95%</span>
+
+            <AnimatedSection animation="fadeInScale" delay={400}>
+              <Card className="gradient-card shadow-2xl border-0 bg-gradient-to-br from-primary/90 to-accent text-white overflow-hidden relative">
+                <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -left-20 -bottom-20 w-80 h-80 bg-black/10 rounded-full blur-3xl pointer-events-none" />
+
+                <CardContent className="p-12 relative z-10 flex flex-col h-full justify-between gap-12">
+                  <div>
+                    <h3 className="font-display text-3xl font-bold mb-8">Performance Metrics</h3>
+                    <div className="space-y-8">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-medium opacity-90">
+                          <span>Scent Coverage Efficiency</span>
+                          <span>98.5%</span>
+                        </div>
+                        <div className="h-2 bg-black/20 rounded-full overflow-hidden">
+                          <div className="h-full bg-white w-[98.5%] rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-medium opacity-90">
+                          <span>Fragrance Oil Economy</span>
+                          <span>40% More Efficient</span>
+                        </div>
+                        <div className="h-2 bg-black/20 rounded-full overflow-hidden">
+                          <div className="h-full bg-white w-[85%] rounded-full opacity-80" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm font-medium opacity-90">
+                          <span>Silent Operation</span>
+                          <span>&lt; 30dB (Whisper Quiet)</span>
+                        </div>
+                        <div className="h-2 bg-black/20 rounded-full overflow-hidden">
+                          <div className="h-full bg-white w-[95%] rounded-full opacity-80" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Energy Consumption</span>
-                    <span className="font-bold text-primary">12W</span>
+
+                  <div className="pt-8 border-t border-white/20">
+                    <div className="grid grid-cols-2 gap-8">
+                      <div>
+                        <div className="text-4xl font-bold mb-1">60<span className="text-xl opacity-60 ml-1">Days</span></div>
+                        <div className="text-sm opacity-70">Average Refill Cycle</div>
+                      </div>
+                      <div>
+                        <div className="text-4xl font-bold mb-1">12<span className="text-xl opacity-60 ml-1">Watts</span></div>
+                        <div className="text-sm opacity-70">Energy Consumption</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Noise Level</span>
-                    <span className="font-bold text-primary">&lt; 35dB</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Fragrance Oil Life</span>
-                    <span className="font-bold text-primary">60 days</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 gradient-hero">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-4xl font-bold text-primary-foreground mb-6">
-            Experience Professional Scent Technology
-          </h2>
-          <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Ready to transform your space with our advanced diffusion systems?
-            Get a personalized quote and professional consultation.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact-quote">
-              <Button variant="glass" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-                Get Custom Quote
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <Link to="/aroma-library">
-                      <Button variant="outline" size="lg" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                        Explore Fragrances
-                      </Button>
-            </Link>
-          </div>
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-primary/95" />
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605371924599-2d0365da1ae0?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+
+        <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp">
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+              Experience the Difference
+            </h2>
+            <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Transform your environment with EZE AirCare. Get a personalized consultation and discover the perfect scent branding strategy for your business.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/contact-quote">
+                <Button size="xl" className="bg-white text-primary hover:bg-gray-100 font-bold px-8 shadow-xl hover:shadow-2xl transition-all">
+                  Get Custom Quote
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/aroma-library">
+                <Button variant="outline" size="xl" className="border-white/40 text-white hover:bg-white/10 backdrop-blur-sm px-8">
+                  Browse Fragrance Library
+                </Button>
+              </Link>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </div>

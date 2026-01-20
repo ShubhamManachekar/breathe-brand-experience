@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { ArrowRight, Brain, TrendingUp, Users, Heart, Building2, Store, Briefcase, Zap, Shield, Eye, Award, Target, Lightbulb } from "lucide-react";
+import { ArrowRight, Brain, TrendingUp, Users, Heart, Building2, Store, Briefcase, Zap, Shield, Eye, Award, Target, Lightbulb, Sparkles, Activity } from "lucide-react";
 
 const Index = () => {
   const caseStudies = [
@@ -22,7 +22,7 @@ const Index = () => {
     },
     {
       brand: "Shangri-La Hotels",
-      industry: "Hospitality", 
+      industry: "Hospitality",
       result: "+35% Guest Satisfaction",
       description: "Signature scent improved brand recall and repeat bookings",
       icon: Building2,
@@ -32,7 +32,7 @@ const Index = () => {
     {
       brand: "Singapore Airlines",
       industry: "Corporate",
-      result: "+70% Brand Recall", 
+      result: "+70% Brand Recall",
       description: "Stefan Floridian Waters became synonymous with premium service",
       icon: Briefcase,
       metric: 70,
@@ -49,7 +49,7 @@ const Index = () => {
       statLabel: "of emotions triggered by smell"
     },
     {
-      icon: TrendingUp, 
+      icon: TrendingUp,
       title: "Proven ROI",
       description: "Measurable increases in dwell time, purchase intent, and perceived value",
       stat: "240%",
@@ -64,7 +64,7 @@ const Index = () => {
     },
     {
       icon: Heart,
-      title: "Heritage & Innovation", 
+      title: "Heritage & Innovation",
       description: "Indian perfumery tradition meets modern atomization technology",
       stat: "20+",
       statLabel: "years of expertise"
@@ -79,25 +79,29 @@ const Index = () => {
   ];
 
   return (
-    <div>
+    <div className="overflow-hidden">
       {/* Hero Section */}
       <HeroSection />
 
-      {/* Industry Metrics Section */}
-      <AnimatedSection animation="fadeInUp" className="py-12 bg-muted/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Industry Metrics Section - Enhanced */}
+      <AnimatedSection animation="fadeInUp" className="py-16 bg-muted/20 border-y border-border/30 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-transparent" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {industryMetrics.map((metric, index) => (
-              <div key={metric.label} className="text-center">
-                <div className="flex flex-col items-center space-y-2">
-                  <metric.icon className="w-8 h-8 text-accent mb-2" />
+              <div key={metric.label} className="text-center group">
+                <div className="flex flex-col items-center space-y-3">
+                  <div className="p-3 rounded-full bg-accent/5 group-hover:bg-accent/10 transition-colors duration-300">
+                    <metric.icon className="w-6 h-6 text-accent" />
+                  </div>
                   <DynamicCounter
                     endValue={metric.value}
                     label={metric.label}
                     suffix={metric.suffix || ''}
                     duration={3000}
-                    className="text-2xl font-bold text-primary"
+                    className="text-3xl font-display font-bold text-foreground"
                   />
+                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wide opacity-80">{metric.label}</span>
                 </div>
               </div>
             ))}
@@ -106,50 +110,55 @@ const Index = () => {
       </AnimatedSection>
 
       {/* Enhanced Why Scent Works Section */}
-      <section className="py-20 bg-gradient-to-br from-muted/40 via-background to-muted/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium text-sm mb-6">
-              <Brain className="w-4 h-4 mr-2" />
-              Science-Based Approach
+      <section className="py-24 relative">
+        {/* Subtle background elements */}
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl opacity-50 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-20">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium text-sm mb-6 shadow-sm">
+              <Sparkles className="w-4 h-4 mr-2" />
+              The Science of Presence
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Why Scent Marketing 
-              <span className="text-accent font-extrabold"> Transforms Business</span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 tracking-tight">
+              Why Scent Marketing
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"> Transforms Business</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Up to <span className="text-accent font-semibold">75% of daily emotions</span> are triggered by smell—more than sight, sound, or touch. 
-              Harness this powerful connection to create <span className="text-primary font-semibold">unforgettable customer experiences</span>.
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+              Up to <span className="text-accent font-semibold">75% of daily emotions</span> are triggered by smell—more than sight, sound, or touch.
+              We harness this biological connection to create <span className="text-primary font-semibold">unforgettable brand experiences</span> that resonate on a deeper level.
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, index) => (
-              <AnimatedSection 
-                key={benefit.title} 
-                animation="fadeInScale" 
-                delay={index * 200}
+              <AnimatedSection
+                key={benefit.title}
+                animation="fadeInScale"
+                delay={index * 150}
                 className="h-full"
               >
-                <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-500 group h-full border-border/50 hover:border-accent/30">
-                  <CardContent className="p-8 text-center h-full flex flex-col">
+                <Card className="gradient-card shadow-sm hover:shadow-elegant transition-all duration-500 group h-full border-border/40 hover:border-accent/30 overflow-hidden bg-background/50 backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <CardContent className="p-8 text-center h-full flex flex-col relative z-10">
                     <div className="flex-1">
-                      <div className="relative mb-6">
-                        <div className="absolute -inset-3 gradient-accent opacity-0 group-hover:opacity-20 rounded-full blur transition-all duration-500" />
-                        <benefit.icon className="w-14 h-14 text-accent mx-auto relative group-hover:scale-110 transition-transform duration-300" />
+                      <div className="relative mb-6 inline-block">
+                        <div className="absolute -inset-4 bg-accent/10 rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-500 blur-md" />
+                        <benefit.icon className="w-12 h-12 text-foreground group-hover:text-accent transition-colors duration-300 relative z-10" />
                       </div>
-                      <h3 className="font-display text-xl font-semibold text-foreground mb-4 group-hover:text-primary transition-colors">
+                      <h3 className="font-display text-xl font-semibold text-foreground mb-4">
                         {benefit.title}
                       </h3>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
+                      <p className="text-muted-foreground mb-8 leading-relaxed text-sm">
                         {benefit.description}
                       </p>
                     </div>
-                    <div className="border-t border-border/30 pt-4 mt-auto">
-                      <div className="text-2xl font-bold text-accent mb-1">
+                    <div className="border-t border-border/30 pt-6 mt-auto">
+                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2">
                         {benefit.stat}
                       </div>
-                      <div className="text-xs text-muted-foreground uppercase tracking-wider">
+                      <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">
                         {benefit.statLabel}
                       </div>
                     </div>
@@ -162,58 +171,58 @@ const Index = () => {
       </section>
 
       {/* Enhanced Case Studies Section */}
-      <section className="py-20 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--accent)) 1px, transparent 0)`,
-            backgroundSize: '30px 30px'
-          }} />
-        </div>
+      <section className="py-24 relative overflow-hidden bg-muted/10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--primary)) 1px, transparent 0)`,
+          backgroundSize: '40px 40px',
+          opacity: 0.03
+        }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent font-medium text-sm mb-6">
-              <Award className="w-4 h-4 mr-2" />
-              Success Stories
+              <Activity className="w-4 h-4 mr-2" />
+              Measurable Impact
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Real Results from 
-              <span className="text-accent font-extrabold"> Global Brands</span>
+              Real Results,
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary"> Real Growth</span>
             </h2>
-            <p className="text-xl text-muted-foreground">
-              See how leading companies use scent marketing to drive <span className="text-primary font-medium">measurable business outcomes</span>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
+              See how industry leaders are leveraging scent to drive <span className="font-semibold text-foreground">measurable business outcomes</span>.
             </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {caseStudies.map((study, index) => (
-              <AnimatedSection 
-                key={study.brand} 
-                animation="fadeInUp" 
-                delay={index * 300}
+              <AnimatedSection
+                key={study.brand}
+                animation="fadeInUp"
+                delay={index * 200}
               >
-                <Card className="gradient-card shadow-card hover:shadow-elegant transition-all duration-500 group overflow-hidden h-full">
-                  <div className={`h-2 bg-gradient-to-r ${study.bgGradient}`} />
+                <Card className="shadow-lg hover:shadow-2xl transition-all duration-500 group overflow-hidden h-full border-border/50 bg-card">
+                  <div className={`h-1.5 w-full bg-gradient-to-r ${study.bgGradient}`} />
                   <CardContent className="p-8 relative">
                     {/* Background Number */}
-                    <div className="absolute top-4 right-4 text-6xl font-bold text-accent/10 group-hover:text-accent/20 transition-colors duration-500">
+                    <div className="absolute top-4 right-6 text-7xl font-display font-bold text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">
                       {study.metric}
                     </div>
-                    
-                    <div className="relative z-10">
-                      <study.icon className="w-12 h-12 text-accent mb-6 group-hover:scale-110 transition-transform duration-300" />
-                      <h3 className="font-display text-xl font-bold text-foreground mb-2">
+
+                    <div className="relative z-10 pt-4">
+                      <div className="p-3 bg-muted/50 rounded-xl w-fit mb-6 group-hover:bg-accent/10 transition-colors duration-300">
+                        <study.icon className="w-8 h-8 text-foreground group-hover:text-accent transition-colors duration-300" />
+                      </div>
+                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">
                         {study.brand}
                       </h3>
-                      <Badge variant="secondary" className="mb-4 text-accent border-accent/30">
+                      <Badge variant="outline" className="mb-6 border-accent/30 text-accent bg-accent/5">
                         {study.industry}
                       </Badge>
-                      <div className="text-3xl font-bold text-primary mb-4 group-hover:scale-105 transition-transform duration-300">
+                      <div className="text-2xl font-bold text-primary mb-4 group-hover:translate-x-1 transition-transform duration-300">
                         {study.result}
                       </div>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {study.description}
+                      <p className="text-muted-foreground leading-relaxed text-sm">
+                        "{study.description}"
                       </p>
                     </div>
                   </CardContent>
@@ -222,11 +231,11 @@ const Index = () => {
             ))}
           </div>
 
-          <AnimatedSection animation="fadeInUp" delay={1000} className="text-center mt-12">
+          <AnimatedSection animation="fadeInUp" delay={800} className="text-center mt-16">
             <Link to="/why-scent-marketing">
-              <Button variant="hero" size="lg" className="group">
+              <Button variant="outline" size="lg" className="group border-primary/20 hover:bg-primary/5 hover:text-primary gap-2">
                 Explore More Case Studies
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </AnimatedSection>
@@ -239,43 +248,46 @@ const Index = () => {
       {/* Scent Finder Quiz */}
       <ScentFinderQuiz />
 
-      {/* Enhanced CTA Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 gradient-hero" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-foreground/5 to-accent/5 opacity-40" />
-        
-        <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      {/* Enhanced CTA Section - Premium Footer Lead-in */}
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#0A0A0F]" /> {/* Dark background for contrast */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 opacity-30 animate-pulse-slow" />
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'
+        }} />
+
+        <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInScale">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary-foreground/20 border border-primary-foreground/30 text-primary-foreground font-medium text-sm mb-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white font-medium text-sm mb-8 backdrop-blur-md">
               <Heart className="w-4 h-4 mr-2" />
-              Transform Your Business Today
+              Elevate Your Environment
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground mb-6">
-              Ready to Create Memorable
+            <h2 className="font-display text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
+              Ready to Define Your
               <br />
-              <span className="relative">
-                Customer Experiences?
-                <div className="absolute -inset-2 bg-primary-foreground/10 rounded-lg blur-xl -z-10" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">
+                Brand Signature?
               </span>
             </h2>
-            <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Join leading brands who use EZE AirCare to create <span className="font-semibold">memorable experiences</span> 
-              and drive <span className="font-semibold">measurable results</span>. Start with a free consultation.
+            <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+              Join the world's most distinguished brands using EZE AirCare to <span className="text-white font-medium">captivate audiences</span> and <span className="text-white font-medium">inspire loyalty</span>.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <Link to="/contact-quote">
-                <Button variant="glass" size="xl" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 group shadow-glow">
-                  Schedule Free Demo
+                <Button size="xl" className="h-14 px-8 text-lg bg-white text-primary hover:bg-white/90 shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] transition-all duration-300 rounded-full group">
+                  Schedule Consultation
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to="/products">
-                <Button variant="outline" size="xl" className="bg-background/20 backdrop-blur-sm border-2 border-primary-foreground/50 text-primary-foreground font-semibold hover:bg-primary-foreground hover:text-primary group shadow-lg">
+                <Button variant="outline" size="xl" className="h-14 px-8 text-lg border-white/30 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm rounded-full">
                   Explore Products
-                  <Eye className="w-5 h-5 ml-2 group-hover:scale-110 transition-transform" />
                 </Button>
               </Link>
             </div>
+            <p className="mt-8 text-white/40 text-sm">
+              No commitment required • Free demo units available
+            </p>
           </AnimatedSection>
         </div>
       </section>

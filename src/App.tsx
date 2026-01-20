@@ -21,6 +21,7 @@ import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import ProductDetail from "./pages/ProductDetail";
 import AboutUs from "./pages/AboutUs";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ function App() {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
+              <Footer />
               <Chatbot />
             </div>
           </BrowserRouter>

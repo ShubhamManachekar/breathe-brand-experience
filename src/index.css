@@ -3,123 +3,127 @@
 @tailwind utilities;
 
 /* EZE AirCare Premium Design System
-   Colors, typography, gradients, and animations for sensorial B2B experience
-   All colors MUST be HSL format for consistent theming.
+   Updated to match EZE Brand Guidelines
+   Primary: Navy Blue #252442
+   Secondary: Titanium #E5E5E5
+   Accent: Gold #D4AF37 (subtle golden highlight)
 */
 
 @layer base {
   :root {
-    /* Core Brand Colors */
-    --background: 31 20% 97%; /* Neutral Light #F9F6F2 */
-    --foreground: 214 15% 17%; /* Neutral Dark #212529 */
+    /* Core Brand Colors - EZE Brand Guidelines */
+    --background: 0 0% 98%;
+    --foreground: 240 29% 20%;
 
     /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 214 15% 17%;
+    --card-foreground: 240 29% 20%;
 
     /* Popover System */
     --popover: 0 0% 100%;
-    --popover-foreground: 214 15% 17%;
+    --popover-foreground: 240 29% 20%;
 
-    /* Primary Brand - Deep Teal */
-    --primary: 191 83% 21%; /* #0F4C5C */
+    /* Primary Brand - EZE Navy Blue #252442 */
+    --primary: 242 29% 20%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 191 83% 35%;
-    
-    /* Secondary Brand - Warm Beige */
-    --secondary: 31 26% 85%; /* #E3D5CA */
-    --secondary-foreground: 191 83% 21%;
-    
-    /* Accent Brand - Amber Gold */
-    --accent: 35 100% 65%; /* #FFB74D */
-    --accent-foreground: 214 15% 17%;
+    --primary-glow: 242 35% 30%;
+
+    /* Secondary Brand - EZE Titanium */
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 242 29% 20%;
+
+    /* Accent Brand - Subtle Gold #D4AF37 */
+    --accent: 43 72% 52%;
+    --accent-foreground: 240 29% 15%;
 
     /* Muted Tones */
-    --muted: 31 26% 90%;
-    --muted-foreground: 214 15% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 240 10% 45%;
 
     /* Interactive States */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     /* Form Elements */
-    --border: 31 26% 85%;
+    --border: 0 0% 88%;
     --input: 0 0% 100%;
-    --ring: 191 83% 21%;
+    --ring: 242 29% 20%;
 
     /* Design System Extensions */
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Premium Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--background)), hsl(var(--muted)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(35 100% 75%));
-    
-    /* Elegant Shadows */
-    --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.2);
-    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.3);
-    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.1);
-    
+    /* Premium Gradients - Navy with Gold Accent */
+    --gradient-hero: linear-gradient(135deg, hsl(242 29% 18%), hsl(242 35% 28%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(43 72% 52%), hsl(38 80% 58%));
+    --gradient-light: linear-gradient(180deg, hsl(0 0% 100%), hsl(40 30% 97%));
+    --gradient-dark: linear-gradient(180deg, hsl(242 29% 18%), hsl(242 35% 25%));
+
+    /* Elegant Shadows - More refined */
+    --shadow-elegant: 0 4px 24px -4px hsl(242 29% 20% / 0.12);
+    --shadow-glow: 0 0 30px hsl(43 72% 52% / 0.2);
+    --shadow-card: 0 2px 12px -2px hsl(242 29% 20% / 0.08);
+
     /* Smooth Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     /* Sidebar System */
-    --sidebar-background: 31 20% 97%;
-    --sidebar-foreground: 214 15% 17%;
-    --sidebar-primary: 191 83% 21%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 31 26% 85%;
-    --sidebar-accent-foreground: 191 83% 21%;
-    --sidebar-border: 31 26% 80%;
-    --sidebar-ring: 191 83% 21%;
+    --sidebar-background: 242 25% 16%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 43 72% 52%;
+    --sidebar-primary-foreground: 242 29% 15%;
+    --sidebar-accent: 242 20% 22%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 242 20% 25%;
+    --sidebar-ring: 43 72% 52%;
   }
 
   .dark {
-    /* Dark Mode - Sophisticated Depth */
-    --background: 214 25% 8%; /* Rich Dark */
-    --foreground: 31 20% 95%;
+    /* Dark Mode - EZE Navy Blue Sophistication */
+    --background: 242 30% 6%;
+    --foreground: 0 0% 96%;
 
-    --card: 214 20% 12%;
-    --card-foreground: 31 20% 95%;
+    --card: 242 25% 10%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 214 20% 12%;
-    --popover-foreground: 31 20% 95%;
+    --popover: 242 25% 10%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 191 83% 45%; /* Brighter Teal for Dark */
-    --primary-foreground: 214 25% 8%;
-    --primary-glow: 191 83% 60%;
+    --primary: 242 40% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 242 50% 65%;
 
-    --secondary: 214 20% 15%;
-    --secondary-foreground: 31 20% 95%;
+    --secondary: 242 20% 16%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 214 20% 15%;
-    --muted-foreground: 214 15% 60%;
+    --muted: 242 20% 14%;
+    --muted-foreground: 240 10% 55%;
 
-    --accent: 35 100% 70%; /* Brighter Amber for Dark */
-    --accent-foreground: 214 25% 8%;
+    --accent: 43 80% 55%;
+    --accent-foreground: 242 30% 10%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 20% 20%;
-    --input: 214 20% 15%;
-    --ring: 191 83% 45%;
-    
+    --border: 242 20% 18%;
+    --input: 242 20% 14%;
+    --ring: 242 40% 55%;
+
     /* Dark Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
-    --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.5);
-    --shadow-glow: 0 0 40px hsl(var(--accent) / 0.4);
-    
-    --sidebar-background: 214 20% 12%;
-    --sidebar-foreground: 31 20% 95%;
-    --sidebar-primary: 191 83% 45%;
-    --sidebar-primary-foreground: 214 25% 8%;
-    --sidebar-accent: 214 20% 15%;
-    --sidebar-accent-foreground: 31 20% 95%;
-    --sidebar-border: 214 20% 20%;
-    --sidebar-ring: 191 83% 45%;
+    --gradient-hero: linear-gradient(135deg, hsl(242 30% 15%), hsl(242 35% 22%));
+    --gradient-card: linear-gradient(145deg, hsl(242 25% 10%), hsl(242 20% 14%));
+    --shadow-elegant: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 30px hsl(43 80% 55% / 0.15);
+
+    --sidebar-background: 242 30% 8%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 43 80% 55%;
+    --sidebar-primary-foreground: 242 30% 10%;
+    --sidebar-accent: 242 20% 14%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 242 20% 18%;
+    --sidebar-ring: 43 80% 55%;
   }
 }
 
@@ -129,18 +133,21 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body antialiased;
     font-feature-settings: "liga" 1, "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Typography System */
+  /* Typography System - Clean & Professional */
   .font-display {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-feature-settings: "liga" 1, "kern" 1;
+    letter-spacing: -0.02em;
   }
 
   .font-body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: "liga" 1, "kern" 1;
   }
 
@@ -149,32 +156,84 @@
     scroll-behavior: smooth;
   }
 
-  /* Custom Scrollbar */
+  /* Refined Scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-muted;
+    @apply bg-muted/50;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary rounded-full;
+    @apply bg-primary/30 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-glow;
+    @apply bg-primary/50;
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: hsl(43 72% 52% / 0.2);
+    color: hsl(242 29% 20%);
+  }
+}
+
+/* Premium Component Styles */
+@layer components {
+
+  /* Professional Card Styling */
+  .card-polished {
+    @apply bg-card rounded-lg border border-border/50 shadow-card;
+    @apply hover:shadow-elegant hover:border-border transition-all duration-200;
+  }
+
+  /* Refined Button Styles */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground font-medium;
+    @apply hover:bg-primary/90 active:bg-primary/95;
+    @apply transition-all duration-200;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-foreground font-medium;
+    @apply hover:bg-accent/90 active:bg-accent/95;
+    @apply shadow-sm hover:shadow-glow;
+    @apply transition-all duration-200;
+  }
+
+  /* Grid Layout Utilities */
+  .grid-professional {
+    @apply grid gap-4 md:gap-6;
+  }
+
+  /* Stats Card */
+  .stat-card {
+    @apply p-5 rounded-lg bg-card border border-border/40;
+    @apply hover:border-accent/30 transition-colors duration-200;
+  }
+
+  /* Section Spacing */
+  .section-spacing {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Container */
+  .container-polished {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
 
 /* Premium Animation System */
 @layer utilities {
   .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 0.6s ease-out forwards;
   }
 
   .animate-fade-in-scale {
-    animation: fadeInScale 0.6s ease-out forwards;
+    animation: fadeInScale 0.4s ease-out forwards;
   }
 
   .animate-float {
@@ -182,7 +241,7 @@
   }
 
   .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 3s ease-in-out infinite alternate;
   }
 
   .gradient-hero {
@@ -195,6 +254,14 @@
 
   .gradient-accent {
     background: var(--gradient-accent);
+  }
+
+  .gradient-light {
+    background: var(--gradient-light);
+  }
+
+  .gradient-dark {
+    background: var(--gradient-dark);
   }
 
   .shadow-elegant {
@@ -216,13 +283,30 @@
   .transition-bounce {
     transition: var(--transition-bounce);
   }
+
+  /* Text gradient for accent */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(43 72% 52%), hsl(38 80% 45%));
+  }
+
+  /* Gold border accent */
+  .border-accent-subtle {
+    border-color: hsl(43 72% 52% / 0.3);
+  }
+
+  /* Hover states */
+  .hover-lift {
+    @apply hover:-translate-y-0.5 hover:shadow-elegant transition-all duration-200;
+  }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -232,8 +316,9 @@
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -241,19 +326,23 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
 @keyframes glow {
   from {
-    filter: drop-shadow(0 0 20px hsl(var(--accent) / 0.4));
+    filter: drop-shadow(0 0 15px hsl(43 72% 52% / 0.3));
   }
+
   to {
-    filter: drop-shadow(0 0 30px hsl(var(--accent) / 0.8));
+    filter: drop-shadow(0 0 25px hsl(43 72% 52% / 0.5));
   }
 }
