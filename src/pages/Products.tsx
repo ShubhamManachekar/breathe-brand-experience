@@ -301,11 +301,15 @@ const Products = () => {
                       <span>{product.coverage}</span>
                     </div>
 
-                    <div className="pt-2">
-                      <Link to={`/products/${product.model}`}>
+                    <div className="pt-2 flex gap-3">
+                      <Link to={`/products/${product.model}`} className="flex-1">
                         <Button className="w-full group" variant="hero">
                           View Details
-                          <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform opacity-70" />
+                        </Button>
+                      </Link>
+                      <Link to="/contact-quote" state={{ interest: `${product.name} (${product.model})` }} className="flex-1">
+                        <Button className="w-full" variant="outline">
+                          Request Quote
                         </Button>
                       </Link>
                     </div>
@@ -431,7 +435,7 @@ const Products = () => {
               Transform your environment with EZE AirCare. Get a personalized consultation and discover the perfect scent branding strategy for your business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact-quote">
+              <Link to="/contact-quote" state={{ interest: "General Product Inquiry" }}>
                 <Button size="xl" className="bg-white text-primary hover:bg-gray-100 font-bold px-8 shadow-xl hover:shadow-2xl transition-all">
                   Get Custom Quote
                   <ArrowRight className="w-5 h-5 ml-2" />

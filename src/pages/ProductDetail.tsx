@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,75 +7,75 @@ import diffuserImage from "@/assets/diffuser-360.jpg";
 import { useState } from "react";
 
 const products = [
-    {
-      name: "EZE Pro Diffuser",
-      model: "EP-500",
-      coverage: "Up to 500 sqm",
-      features: ["Wi-Fi & Bluetooth", "HVAC Integration", "App Control", "Smart Scheduling"],
-      price: "₹45,000",
-      image: diffuserImage,
-      description: "Professional-grade diffuser perfect for large retail spaces and offices"
-    },
-    {
-      name: "EZE Compact",
-      model: "EC-200", 
-      coverage: "Up to 200 sqm",
-      features: ["Bluetooth Control", "Portable Design", "Easy Installation", "Timer Function"],
-      price: "₹18,000",
-      image: diffuserImage,
-      description: "Compact solution ideal for boutiques, clinics, and small offices"
-    },
-    {
-      name: "EZE Elite",
-      model: "EE-1000",
-      coverage: "Up to 1000 sqm",
-      features: ["Central HVAC", "Multi-Zone Control", "Professional Installation", "24/7 Monitoring"],
-      price: "₹85,000",
-      image: diffuserImage,
-      description: "Enterprise-level system for hotels, shopping malls, and large corporate spaces"
-    }
-  ];
+  {
+    name: "EZE Pro Diffuser",
+    model: "EP-500",
+    coverage: "Up to 500 sqm",
+    features: ["Wi-Fi & Bluetooth", "HVAC Integration", "App Control", "Smart Scheduling"],
+    price: "₹45,000",
+    image: diffuserImage,
+    description: "Professional-grade diffuser perfect for large retail spaces and offices"
+  },
+  {
+    name: "EZE Compact",
+    model: "EC-200",
+    coverage: "Up to 200 sqm",
+    features: ["Bluetooth Control", "Portable Design", "Easy Installation", "Timer Function"],
+    price: "₹18,000",
+    image: diffuserImage,
+    description: "Compact solution ideal for boutiques, clinics, and small offices"
+  },
+  {
+    name: "EZE Elite",
+    model: "EE-1000",
+    coverage: "Up to 1000 sqm",
+    features: ["Central HVAC", "Multi-Zone Control", "Professional Installation", "24/7 Monitoring"],
+    price: "₹85,000",
+    image: diffuserImage,
+    description: "Enterprise-level system for hotels, shopping malls, and large corporate spaces"
+  }
+];
 
 const hotspots = [
-    {
-      id: "nozzle",
-      x: 35,
-      y: 40,
-      title: "Atomization Nozzle",
-      description: "Patented turbofan atomization technology ensures even scent distribution without heat or residue. Creates ultra-fine particles for optimal coverage."
-    },
-    {
-      id: "control",
-      x: 65,
-      y: 25,
-      title: "Smart Control Panel",
-      description: "Wi-Fi and Bluetooth enabled control system. Manage intensity, scheduling, and monitoring remotely via smartphone app or web dashboard."
-    },
-    {
-      id: "cartridge",
-      x: 50,
-      y: 70,
-      title: "Fragrance Cartridge",
-      description: "Easy-swap capsule system with leak-proof design. Each cartridge lasts 30-60 days depending on usage intensity and coverage area."
-    },
-    {
-      id: "hvac",
-      x: 20,
-      y: 60,
-      title: "HVAC Connection",
-      description: "Direct integration with existing air conditioning systems for seamless building-wide scent distribution through existing ductwork."
-    }
+  {
+    id: "nozzle",
+    x: 35,
+    y: 40,
+    title: "Atomization Nozzle",
+    description: "Patented turbofan atomization technology ensures even scent distribution without heat or residue. Creates ultra-fine particles for optimal coverage."
+  },
+  {
+    id: "control",
+    x: 65,
+    y: 25,
+    title: "Smart Control Panel",
+    description: "Wi-Fi and Bluetooth enabled control system. Manage intensity, scheduling, and monitoring remotely via smartphone app or web dashboard."
+  },
+  {
+    id: "cartridge",
+    x: 50,
+    y: 70,
+    title: "Fragrance Cartridge",
+    description: "Easy-swap capsule system with leak-proof design. Each cartridge lasts 30-60 days depending on usage intensity and coverage area."
+  },
+  {
+    id: "hvac",
+    x: 20,
+    y: 60,
+    title: "HVAC Connection",
+    description: "Direct integration with existing air conditioning systems for seamless building-wide scent distribution through existing ductwork."
+  }
 ];
 
 const specifications = [
-    { label: "Dimensions", value: "25cm × 15cm × 10cm" },
-    { label: "Weight", value: "2.5 kg" },
-    { label: "Power Consumption", value: "12W" },
-    { label: "Noise Level", value: "< 35dB" },
-    { label: "Connectivity", value: "Wi-Fi, Bluetooth 5.0" },
-    { label: "Operating Temperature", value: "5°C to 45°C" },
-    { label: "Cartridge Capacity", value: "500ml" },
-    { label: "Coverage Area", value: "Up to 500 sqm" }
+  { label: "Dimensions", value: "25cm × 15cm × 10cm" },
+  { label: "Weight", value: "2.5 kg" },
+  { label: "Power Consumption", value: "12W" },
+  { label: "Noise Level", value: "< 35dB" },
+  { label: "Connectivity", value: "Wi-Fi, Bluetooth 5.0" },
+  { label: "Operating Temperature", value: "5°C to 45°C" },
+  { label: "Cartridge Capacity", value: "500ml" },
+  { label: "Coverage Area", value: "Up to 500 sqm" }
 ];
 
 const ProductDetail = () => {
@@ -113,21 +113,20 @@ const ProductDetail = () => {
                   className="w-full h-full object-cover transition-transform duration-300"
                   style={{ transform: `rotate(${rotation}deg)` }}
                 />
-                
+
                 {/* Hotspots */}
                 {hotspots.map((hotspot) => (
                   <button
                     key={hotspot.id}
-                    className={`absolute w-6 h-6 rounded-full border-2 border-accent bg-accent/20 hover:bg-accent hover:scale-125 transition-all duration-200 ${
-                      selectedHotspot === hotspot.id ? 'bg-accent scale-125' : ''
-                    }`}
+                    className={`absolute w-6 h-6 rounded-full border-2 border-accent bg-accent/20 hover:bg-accent hover:scale-125 transition-all duration-200 ${selectedHotspot === hotspot.id ? 'bg-accent scale-125' : ''
+                      }`}
                     style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
                     onClick={() => setSelectedHotspot(selectedHotspot === hotspot.id ? null : hotspot.id)}
                   >
                     <MousePointer className="w-3 h-3 text-accent-foreground m-auto" />
                   </button>
                 ))}
-                
+
                 {/* Rotation Controls */}
                 <div className="absolute bottom-4 right-4 flex space-x-2">
                   <Button
@@ -216,10 +215,12 @@ const ProductDetail = () => {
                 </CardContent>
               </Card>
 
-              <Button size="lg" className="w-full">
-                Request a Quote for the {product.model}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              <Link to="/contact-quote" state={{ interest: `${product.name} (${product.model})` }}>
+                <Button size="lg" className="w-full">
+                  Request a Quote for the {product.model}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ const AromaLibrary = () => {
       icon: Sparkles,
       color: "text-amber-500",
       bgColor: "from-amber-500/10 to-orange-600/20",
-      mood: "Indulgent & Luxurious", 
+      mood: "Indulgent & Luxurious",
       applications: ["Luxury retail", "Hotel lobbies", "Premium services", "Executive offices"]
     },
     {
@@ -67,7 +67,7 @@ const AromaLibrary = () => {
     },
     {
       id: "citrus-sparkle",
-      name: "Citrus Sparkle", 
+      name: "Citrus Sparkle",
       family: "citrus-fresh",
       notes: ["Orange", "Bergamot", "Rosemary", "White Tea"],
       description: "A sophisticated citrus blend with herbal undertones. Encourages focus while maintaining a welcoming atmosphere.",
@@ -76,12 +76,12 @@ const AromaLibrary = () => {
       bestFor: ["Boutiques", "Cafes", "Creative studios"],
       mood: "Fresh & Sophisticated"
     },
-    
+
     // Aromatic Cool Collection
     {
       id: "tranquil-mist",
       name: "Tranquil Mist",
-      family: "aromatic-cool", 
+      family: "aromatic-cool",
       notes: ["Lavender", "Eucalyptus", "Chamomile", "Cedar"],
       description: "A calming blend that reduces stress and promotes relaxation. Ideal for wellness environments and waiting areas.",
       intensity: "Medium-Low",
@@ -96,7 +96,7 @@ const AromaLibrary = () => {
       notes: ["Sage", "Sea Salt", "Mint", "Bamboo"],
       description: "Fresh and clean with marine influences. Creates a sense of space and clarity in any environment.",
       intensity: "Light-Medium",
-      longevity: "4-6 hours", 
+      longevity: "4-6 hours",
       bestFor: ["Offices", "Clinics", "Reception areas"],
       mood: "Clean & Refreshing"
     },
@@ -108,7 +108,7 @@ const AromaLibrary = () => {
       family: "amber-musk",
       notes: ["Amber", "Sandalwood", "Vanilla", "Patchouli"],
       description: "Rich and opulent blend that creates an atmosphere of luxury and sophistication. Perfect for premium experiences.",
-      intensity: "High", 
+      intensity: "High",
       longevity: "8-10 hours",
       bestFor: ["Luxury retail", "Five-star hotels", "Executive suites"],
       mood: "Opulent & Sophisticated"
@@ -140,7 +140,7 @@ const AromaLibrary = () => {
     {
       id: "fresh-meadow",
       name: "Fresh Meadow",
-      family: "green-florals", 
+      family: "green-florals",
       notes: ["Lily of the Valley", "Green Leaves", "Cucumber", "White Musk"],
       description: "Light and airy floral blend that creates a sense of freshness and purity. Ideal for clean, modern spaces.",
       intensity: "Light",
@@ -152,17 +152,17 @@ const AromaLibrary = () => {
 
   const filteredFragrances = fragrances.filter(fragrance => {
     const matchesFamily = !selectedFamily || fragrance.family === selectedFamily;
-    const matchesSearch = !searchTerm || 
+    const matchesSearch = !searchTerm ||
       fragrance.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       fragrance.notes.some(note => note.toLowerCase().includes(searchTerm.toLowerCase())) ||
       fragrance.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     return matchesFamily && matchesSearch;
   });
 
   const getIntensityColor = (intensity: string) => {
     if (intensity.includes('Light')) return 'text-green-500';
-    if (intensity.includes('Medium')) return 'text-yellow-500';  
+    if (intensity.includes('Medium')) return 'text-yellow-500';
     if (intensity.includes('High')) return 'text-red-500';
     return 'text-gray-500';
   };
@@ -176,7 +176,7 @@ const AromaLibrary = () => {
             Curated Aroma Library
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Discover our expertly crafted fragrance collection. Each scent is designed to evoke 
+            Discover our expertly crafted fragrance collection. Each scent is designed to evoke
             specific emotions and create memorable experiences for your customers.
           </p>
         </div>
@@ -238,16 +238,15 @@ const AromaLibrary = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {fragranceFamilies.map((family, index) => (
-              <Card 
-                key={family.id} 
-                className={`gradient-card shadow-card hover:shadow-elegant transition-all duration-300 cursor-pointer animate-fade-in-scale ${
-                  selectedFamily === family.id ? 'ring-2 ring-accent' : ''
-                }`}
+              <Card
+                key={family.id}
+                className={`gradient-card shadow-card hover:shadow-elegant transition-all duration-300 cursor-pointer animate-fade-in-scale ${selectedFamily === family.id ? 'ring-2 ring-accent' : ''
+                  }`}
                 style={{ animationDelay: `${index * 0.2}s` }}
                 onClick={() => setSelectedFamily(family.id)}
               >
                 <div className={`h-2 bg-gradient-to-r ${family.bgColor}`} />
-                
+
                 <CardHeader className="text-center">
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${family.bgColor} flex items-center justify-center mx-auto mb-4`}>
                     <family.icon className={`w-8 h-8 ${family.color}`} />
@@ -286,7 +285,7 @@ const AromaLibrary = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-              {selectedFamily 
+              {selectedFamily
                 ? `${fragranceFamilies.find(f => f.id === selectedFamily)?.name} Collection`
                 : "Complete Fragrance Collection"
               }
@@ -299,15 +298,15 @@ const AromaLibrary = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredFragrances.map((fragrance, index) => {
               const family = fragranceFamilies.find(f => f.id === fragrance.family);
-              
+
               return (
-                <Card 
-                  key={fragrance.id} 
+                <Card
+                  key={fragrance.id}
                   className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 animate-fade-in-scale"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className={`h-2 bg-gradient-to-r ${family?.bgColor}`} />
-                  
+
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <CardTitle className="font-display text-xl">{fragrance.name}</CardTitle>
@@ -360,9 +359,11 @@ const AromaLibrary = () => {
                     </div>
 
                     <div className="pt-2">
-                      <Button className="w-full" variant="hero" size="sm">
-                        Request Sample
-                      </Button>
+                      <Link to="/contact-quote" state={{ interest: `Sample: ${fragrance.name}` }}>
+                        <Button className="w-full" variant="hero" size="sm">
+                          Request Sample
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -392,11 +393,11 @@ const AromaLibrary = () => {
               Need Something Unique?
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Our master perfumers can create a custom signature scent that perfectly 
+              Our master perfumers can create a custom signature scent that perfectly
               captures your brand essence and creates a truly unique sensory experience.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact-quote">
+              <Link to="/contact-quote" state={{ interest: "Custom Fragrance Design" }}>
                 <Button variant="hero" size="lg">
                   Discuss Custom Fragrance
                   <ArrowRight className="w-5 h-5 ml-2" />
