@@ -46,22 +46,23 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
 
             <Tabs defaultValue="profile" className="space-y-6">
                 <AnimatedSection animation="fadeInUp" delay={100}>
-                    <TabsList className="gradient-card p-1 flex-wrap h-auto">
-                        <TabsTrigger value="profile" className="gap-2">
+                    <TabsList className="gradient-card p-1 h-auto flex flex-wrap sm:flex-nowrap justify-start gap-1 sm:gap-0 w-full overflow-x-auto">
+                        <TabsTrigger value="profile" className="gap-2 flex-1 sm:flex-initial min-w-[80px]">
                             <User className="w-4 h-4" />
-                            Profile
+                            <span className="hidden xs:inline">Profile</span>
                         </TabsTrigger>
-                        <TabsTrigger value="billing" className="gap-2">
+                        <TabsTrigger value="billing" className="gap-2 flex-1 sm:flex-initial min-w-[80px]">
                             <CreditCard className="w-4 h-4" />
-                            Billing
+                            <span className="hidden xs:inline">Billing</span>
                         </TabsTrigger>
-                        <TabsTrigger value="notifications" className="gap-2">
+                        <TabsTrigger value="notifications" className="gap-2 flex-1 sm:flex-initial min-w-[80px]">
                             <Bell className="w-4 h-4" />
-                            Notifications
+                            <span className="hidden sm:inline">Notifications</span>
+                            <span className="xs:inline sm:hidden hidden">Alerts</span>
                         </TabsTrigger>
-                        <TabsTrigger value="security" className="gap-2">
+                        <TabsTrigger value="security" className="gap-2 flex-1 sm:flex-initial min-w-[80px]">
                             <Shield className="w-4 h-4" />
-                            Security
+                            <span className="hidden xs:inline">Security</span>
                         </TabsTrigger>
                     </TabsList>
                 </AnimatedSection>

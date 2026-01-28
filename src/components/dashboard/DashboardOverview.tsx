@@ -137,7 +137,7 @@ const DashboardOverview = ({ onNavigate }: DashboardOverviewProps) => {
 
             {/* Stats Grid */}
             <AnimatedSection animation="fadeInUp" delay={100}>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {stats.map((stat) => (
                         <Card
                             key={stat.label}
@@ -196,7 +196,7 @@ const DashboardOverview = ({ onNavigate }: DashboardOverviewProps) => {
                                         {currentMonthData.selections.map((selection) => (
                                             <div
                                                 key={selection.deviceId}
-                                                className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                                                className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
                                             >
                                                 <div className="flex items-center gap-3">
                                                     <div
@@ -208,7 +208,7 @@ const DashboardOverview = ({ onNavigate }: DashboardOverviewProps) => {
                                                         <span className="text-muted-foreground text-sm"> • {selection.deviceType.oilCapacityMl}ml</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-2 justify-end sm:justify-start">
                                                     <Badge variant="outline" className="text-xs">
                                                         {selection.selectedOil?.name || 'Not selected'}
                                                     </Badge>
@@ -248,7 +248,7 @@ const DashboardOverview = ({ onNavigate }: DashboardOverviewProps) => {
                                     {recentOrders.map((order) => (
                                         <div
                                             key={order.id}
-                                            className="flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
+                                            className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors"
                                         >
                                             <div className="flex items-center gap-3 flex-1 min-w-0">
                                                 <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
@@ -260,7 +260,7 @@ const DashboardOverview = ({ onNavigate }: DashboardOverviewProps) => {
                                                 </div>
                                             </div>
                                             <Badge
-                                                className={`${order.statusColor} text-white border-0 text-xs flex items-center gap-1 ml-3`}
+                                                className={`${order.statusColor} text-white border-0 text-xs flex items-center gap-1 sm:ml-3 self-start sm:self-auto`}
                                             >
                                                 {getStatusIcon(order.status)}
                                                 {order.status}

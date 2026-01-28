@@ -1,27 +1,30 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navigation from "@/components/Navigation";
-import Index from "./pages/Index";
-import WhyScentMarketing from "./pages/WhyScentMarketing";
-import Solutions from "./pages/Solutions";
-import SolutionsHospitality from "./pages/SolutionsHospitality";
-import SolutionsRetail from "./pages/SolutionsRetail";
-import SolutionsCorporate from "./pages/SolutionsCorporate";
-import SolutionsWellness from "./pages/SolutionsWellness";
-import Products from "./pages/Products";
-import AromaLibrary from "./pages/AromaLibrary";
-import ContactQuote from "./pages/ContactQuote";
-import NotFound from "./pages/NotFound";
-import Chatbot from "./components/Chatbot";
-import Login from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
-import ProductDetail from "./pages/ProductDetail";
-import AboutUs from "./pages/AboutUs";
-import Footer from "./components/Footer";
+import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
+import PageSkeleton from "@/components/PageSkeleton";
+
+// Lazy load all page components for better performance
+const Index = lazy(() => import("./pages/Index"));
+const WhyScentMarketing = lazy(() => import("./pages/WhyScentMarketing"));
+const Solutions = lazy(() => import("./pages/Solutions"));
+const SolutionsHospitality = lazy(() => import("./pages/SolutionsHospitality"));
+const SolutionsRetail = lazy(() => import("./pages/SolutionsRetail"));
+const SolutionsCorporate = lazy(() => import("./pages/SolutionsCorporate"));
+const SolutionsWellness = lazy(() => import("./pages/SolutionsWellness"));
+const Products = lazy(() => import("./pages/Products"));
+const AromaLibrary = lazy(() => import("./pages/AromaLibrary"));
+const ContactQuote = lazy(() => import("./pages/ContactQuote"));
+const Login = lazy(() => import("./pages/Login"));
+const UserDashboard = lazy(() => import("./pages/UserDashboard"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const AboutUs = lazy(() => import("./pages/AboutUs"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -29,13 +32,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="eze-aircare-theme">
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <div className="min-h-screen bg-background text-foreground">
-              <Navigation />
-              <main className="pt-16">
+        <Toaster />
+        <BrowserRouter>
+          <div className="min-h-screen bg-background text-foreground">
+            <Navigation />
+            <main className="pt-16">
+              <Suspense fallback={<PageSkeleton />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/why-scent-marketing" element={<WhyScentMarketing />} />
@@ -54,12 +56,12 @@ function App() {
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </main>
-              <Footer />
-              <Chatbot />
-            </div>
-          </BrowserRouter>
-        </TooltipProvider>
+              </Suspense>
+            </main>
+            <Footer />
+            <Chatbot />
+          </div>
+        </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );

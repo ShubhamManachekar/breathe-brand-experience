@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { ArrowRight, Brain, TrendingUp, Users, Heart, Building2, Store, Briefcase, Zap, Shield, Eye, Award, Target, Lightbulb, Sparkles, Activity } from "lucide-react";
+import PageMeta, { organizationSchema, websiteSchema } from "@/components/PageMeta";
 
 const Index = () => {
   const caseStudies = [
@@ -80,6 +81,14 @@ const Index = () => {
 
   return (
     <div className="overflow-hidden">
+      <PageMeta
+        title="EZE AirCare - Premium Fragrance Technology | Before They Buy, They BREATHE"
+        description="Transform your business space with EZE AirCare's premium scent technology. Increase dwell time by 30%, boost purchase intent by 17%. Where Indian perfumery heritage meets modern innovation."
+        keywords="scent marketing, ambient scenting, fragrance technology, retail scenting, hospitality scenting, B2B fragrance solutions, aroma diffuser, commercial diffuser"
+        ogType="website"
+        structuredData={[organizationSchema, websiteSchema]}
+      />
+
       {/* Hero Section */}
       <HeroSection />
 

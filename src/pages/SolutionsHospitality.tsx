@@ -4,8 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Building2, Users, Star, TrendingUp, ArrowRight, Timer, DollarSign, Award, Building, Zap, Target, Lightbulb, Coffee, Sparkles } from "lucide-react";
+import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
 
 const SolutionsHospitality = () => {
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "https://ezeaircare.com" },
+    { name: "Solutions", url: "https://ezeaircare.com/solutions" },
+    { name: "Hospitality", url: "https://ezeaircare.com/solutions/hospitality" }
+  ]);
+
   const caseStudies = [
     {
       hotel: "Shangri-La Hotels Asia",
@@ -35,14 +42,14 @@ const SolutionsHospitality = () => {
       percentage: "70%"
     },
     {
-      title: "Luxury Perception", 
+      title: "Luxury Perception",
       description: "Premium aromatherapy elevates brand positioning and justifies higher room rates",
       icon: Star,
       percentage: "25%"
     },
     {
       title: "Guest Comfort",
-      description: "Welcoming scents reduce travel stress and enhance overall satisfaction", 
+      description: "Welcoming scents reduce travel stress and enhance overall satisfaction",
       icon: Coffee,
       percentage: "35%"
     },
@@ -62,7 +69,7 @@ const SolutionsHospitality = () => {
       icon: Target
     },
     {
-      step: "2", 
+      step: "2",
       title: "Guest Journey Mapping",
       description: "Strategic placement throughout guest touchpoints from lobby to rooms for cohesive experience",
       icon: Lightbulb
@@ -83,6 +90,14 @@ const SolutionsHospitality = () => {
 
   return (
     <div className="min-h-screen pt-20">
+      <PageMeta
+        title="Hotel & Hospitality Scent Marketing Solutions"
+        description="Create unforgettable guest experiences with signature hotel scents. +35% guest satisfaction, +42% brand recall, +28% rebooking rates. Trusted by Shangri-La, Marriott, and luxury resorts."
+        keywords="hotel scent marketing, hospitality aromatherapy, signature hotel scent, lobby fragrance, guest experience scenting, luxury hotel aroma"
+        ogType="article"
+        structuredData={breadcrumbSchema}
+      />
+
       <section className="py-20 gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Building2 className="w-16 h-16 text-primary-foreground mx-auto mb-6" />
@@ -90,7 +105,7 @@ const SolutionsHospitality = () => {
             Hospitality & Hotel Solutions
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Create unforgettable guest experiences with signature scents that enhance satisfaction, 
+            Create unforgettable guest experiences with signature scents that enhance satisfaction,
             build emotional connections, command premium rates, and transform stays into lasting memories.
           </p>
         </div>
@@ -278,7 +293,7 @@ const SolutionsHospitality = () => {
               </span>
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Transform your hotel into a sensory destination that guests remember, recommend, and return to. 
+              Transform your hotel into a sensory destination that guests remember, recommend, and return to.
               Join luxury hospitality leaders creating signature experiences with scent marketing.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

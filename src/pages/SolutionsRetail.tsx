@@ -4,8 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Store, ShoppingCart, Eye, TrendingUp, ArrowRight, Users, Timer, DollarSign, Award, Building, Zap, Target, Lightbulb } from "lucide-react";
+import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
 
 const SolutionsRetail = () => {
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "https://ezeaircare.com" },
+    { name: "Solutions", url: "https://ezeaircare.com/solutions" },
+    { name: "Retail", url: "https://ezeaircare.com/solutions/retail" }
+  ]);
+
   const caseStudies = [
     {
       brand: "Nike Tokyo Flagship",
@@ -35,7 +42,7 @@ const SolutionsRetail = () => {
       icon: Target
     },
     {
-      step: "2", 
+      step: "2",
       title: "Custom Blend Creation",
       description: "Our perfumery experts create unique scent blends that align with your brand and target customer emotions",
       icon: Lightbulb
@@ -56,6 +63,14 @@ const SolutionsRetail = () => {
 
   return (
     <div className="min-h-screen pt-20">
+      <PageMeta
+        title="Retail Store Scent Marketing Solutions"
+        description="Boost retail sales with strategic scent marketing. +23% dwell time, +28% purchase intent, +18% revenue increase. Trusted by Nike, Zara, and Apple stores worldwide."
+        keywords="retail scent marketing, store fragrance, shopping atmosphere scent, retail aromatherapy, in-store scenting, commercial diffuser retail"
+        ogType="article"
+        structuredData={breadcrumbSchema}
+      />
+
       <section className="py-20 gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Store className="w-16 h-16 text-primary-foreground mx-auto mb-6" />
@@ -63,7 +78,7 @@ const SolutionsRetail = () => {
             Retail & Shopping Solutions
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Transform your retail space into a sensory destination that increases customer dwell time, 
+            Transform your retail space into a sensory destination that increases customer dwell time,
             drives purchase decisions, and builds lasting brand loyalty through strategic scent marketing.
           </p>
         </div>
@@ -225,7 +240,7 @@ const SolutionsRetail = () => {
               </span>
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Join successful retailers using scent marketing to increase sales, improve customer experience, 
+              Join successful retailers using scent marketing to increase sales, improve customer experience,
               and build stronger brand connections. Get your custom retail scent strategy today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

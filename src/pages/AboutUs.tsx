@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Heart, Users, Lightbulb, Award, ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import PageMeta, { organizationSchema } from "@/components/PageMeta";
 
 export default function AboutUs() {
   const timelineEvents = [
@@ -65,6 +66,14 @@ export default function AboutUs() {
 
   return (
     <div className="min-h-screen">
+      <PageMeta
+        title="About EZE AirCare - Our Story & Heritage"
+        description="Discover the story behind EZE AirCare. A fusion of Sawai Fragrances' artisanal mastery and Eze Perfumes' innovation excellence, creating premium scent marketing solutions since 1965."
+        keywords="EZE AirCare about, scent marketing company, fragrance innovation, Sawai Fragrances, Eze Perfumes, perfumery heritage"
+        ogType="website"
+        structuredData={organizationSchema}
+      />
+
       {/* Hero Section - The Beginning of Our Story */}
       <section className="relative overflow-hidden bg-gradient-to-br from-background via-muted/30 to-accent/10 py-20">
         <div className="container mx-auto px-6">
@@ -76,7 +85,7 @@ export default function AboutUs() {
               Crafting Experiences,<br />One Scent at a Time
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              What started as a simple question - "Why do some spaces feel more memorable than others?" - 
+              What started as a simple question - "Why do some spaces feel more memorable than others?" -
               evolved into a mission to transform environments through the art and science of scent.
             </p>
           </AnimatedSection>
@@ -89,7 +98,7 @@ export default function AboutUs() {
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-bold mb-4">The EZE Aircare Story</h2>
               </div>
-              
+
               <div className="prose prose-lg max-w-none text-muted-foreground">
                 <p className="text-lg leading-relaxed mb-6">
                   The legacy of EZE Aircare begins with two remarkable stories of excellence in fragrance artistry. Sawai Fragrances, with their rich legacy spanning decades, established themselves as masters of harvest-to-fragrance integration, becoming suppliers to several market leaders through world-class innovation backed by creative zeal.
@@ -118,9 +127,9 @@ export default function AboutUs() {
 
           <div className="max-w-4xl mx-auto">
             {timelineEvents.map((event, index) => (
-              <AnimatedSection 
-                key={event.year} 
-                animation="fadeInLeft" 
+              <AnimatedSection
+                key={event.year}
+                animation="fadeInLeft"
                 delay={index * 100}
                 className="relative"
               >
@@ -154,9 +163,9 @@ export default function AboutUs() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <AnimatedSection 
-                key={value.title} 
-                animation="fadeInScale" 
+              <AnimatedSection
+                key={value.title}
+                animation="fadeInScale"
                 delay={index * 100}
               >
                 <Card className="text-center p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-border/50">
@@ -180,73 +189,73 @@ export default function AboutUs() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection animation="fadeInLeft">
               <div>
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-              The Legacy of EZE:<br />Where Tradition Meets Innovation
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              The legacy of EZE Aircare represents the fusion of two industry legends - Sawai Fragrances' decades-spanning artisanal expertise meets Eze Perfumes' innovative diffusion mastery, creating the most advanced scent marketing solutions built on strong foundations of sustained excellence.
-            </p>
-            
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-xl border border-primary/20">
-                <h3 className="text-xl font-semibold mb-3 text-primary">Sawai Fragrances Legacy</h3>
-                <ul className="space-y-2 text-muted-foreground">  
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                    Rich legacy spanning decades of excellence
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                    Harvest-to-fragrance integration mastery
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                    World-class innovation backed by creative zeal
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                    Strong foundations of sustained relationships
-                  </li>
-                </ul>
-              </div>
-              
-              <div className="bg-gradient-to-br from-accent/10 to-accent/5 p-6 rounded-xl border border-accent/20">
-                <h3 className="text-xl font-semibold mb-3 text-accent">Eze Perfumes Heritage</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
-                    Rich heritage since 1965
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
-                    Commitment to fragrance innovation
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
-                    Excellence in perfumery artistry
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
-                    Advanced diffusion technology mastery
-                  </li>
-                </ul>
-              </div>
-            </div>
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+                  The Legacy of EZE:<br />Where Tradition Meets Innovation
+                </h2>
+                <p className="text-xl text-muted-foreground mb-8">
+                  The legacy of EZE Aircare represents the fusion of two industry legends - Sawai Fragrances' decades-spanning artisanal expertise meets Eze Perfumes' innovative diffusion mastery, creating the most advanced scent marketing solutions built on strong foundations of sustained excellence.
+                </p>
 
-            <div className="space-y-4 mb-8">
-              {[
-                "Premium Sawai fragrances crafting experiences from fine fragrances to familiar detergents",
-                "Eze's cutting-edge diffusion systems with traditional techniques excellence",
-                "10,000+ spaces transformed through the legacy of EZE worldwide",
-                "99.8% client satisfaction built on decades of industry expertise",
-                "Strong business ethics and sustained relationships throughout the community"
-              ].map((feature, index) => (
-                <div key={index} className="flex items-center">
-                  <CheckCircle className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                  <span className="text-muted-foreground">{feature}</span>
+                <div className="grid md:grid-cols-2 gap-8 mb-8">
+                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-xl border border-primary/20">
+                    <h3 className="text-xl font-semibold mb-3 text-primary">Sawai Fragrances Legacy</h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                        Rich legacy spanning decades of excellence
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                        Harvest-to-fragrance integration mastery
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                        World-class innovation backed by creative zeal
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
+                        Strong foundations of sustained relationships
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-accent/10 to-accent/5 p-6 rounded-xl border border-accent/20">
+                    <h3 className="text-xl font-semibold mb-3 text-accent">Eze Perfumes Heritage</h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                        Rich heritage since 1965
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                        Commitment to fragrance innovation
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                        Excellence in perfumery artistry
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-accent mr-2 flex-shrink-0" />
+                        Advanced diffusion technology mastery
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              ))}
-            </div>
+
+                <div className="space-y-4 mb-8">
+                  {[
+                    "Premium Sawai fragrances crafting experiences from fine fragrances to familiar detergents",
+                    "Eze's cutting-edge diffusion systems with traditional techniques excellence",
+                    "10,000+ spaces transformed through the legacy of EZE worldwide",
+                    "99.8% client satisfaction built on decades of industry expertise",
+                    "Strong business ethics and sustained relationships throughout the community"
+                  ].map((feature, index) => (
+                    <div key={index} className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </div>
+                  ))}
+                </div>
 
                 <Link to="/contact-quote">
                   <Button size="lg" className="group">

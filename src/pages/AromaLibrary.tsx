@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Flower2, Leaf, Sparkles, Wind, Filter, Search, ArrowRight } from "lucide-react";
+import PageMeta from "@/components/PageMeta";
 
 const AromaLibrary = () => {
   const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
@@ -169,6 +170,13 @@ const AromaLibrary = () => {
 
   return (
     <div className="min-h-screen">
+      <PageMeta
+        title="Fragrance Library - Premium Aroma Collection"
+        description="Explore EZE AirCare's curated collection of 50+ premium fragrances. Citrus, floral, amber, and aromatic blends designed for retail, hospitality, corporate, and wellness environments."
+        keywords="fragrance library, aroma collection, commercial scents, ambient fragrances, citrus scents, floral scents, amber musk, aromatherapy blends"
+        ogType="website"
+      />
+
       {/* Hero Section */}
       <section className="pt-20 pb-16 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

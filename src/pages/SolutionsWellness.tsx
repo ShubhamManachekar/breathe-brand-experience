@@ -4,8 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Heart, Shield, Smile, TrendingUp, ArrowRight, Users, Timer, Activity, Award, Building, Zap, Target, Lightbulb, Stethoscope, Brain } from "lucide-react";
+import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
 
 const SolutionsWellness = () => {
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "https://ezeaircare.com" },
+    { name: "Solutions", url: "https://ezeaircare.com/solutions" },
+    { name: "Wellness", url: "https://ezeaircare.com/solutions/wellness" }
+  ]);
+
   const caseStudies = [
     {
       facility: "Mayo Clinic Wellness Center",
@@ -35,14 +42,14 @@ const SolutionsWellness = () => {
       percentage: "40%"
     },
     {
-      title: "Anxiety Relief", 
+      title: "Anxiety Relief",
       description: "Scientifically proven aromatherapy reduces pre-treatment anxiety",
       icon: Heart,
       percentage: "45%"
     },
     {
       title: "Pain Management",
-      description: "Peppermint and eucalyptus help manage chronic pain perception", 
+      description: "Peppermint and eucalyptus help manage chronic pain perception",
       icon: Activity,
       percentage: "25%"
     },
@@ -62,7 +69,7 @@ const SolutionsWellness = () => {
       icon: Stethoscope
     },
     {
-      step: "2", 
+      step: "2",
       title: "Therapeutic Blend Design",
       description: "Our aromatherapy experts create custom blends based on proven therapeutic benefits and patient needs",
       icon: Brain
@@ -83,6 +90,14 @@ const SolutionsWellness = () => {
 
   return (
     <div className="min-h-screen pt-20">
+      <PageMeta
+        title="Wellness & Healthcare Aromatherapy Solutions"
+        description="Improve patient outcomes with therapeutic aromatherapy. -45% patient anxiety, +35% satisfaction, +28% treatment effectiveness. Trusted by Mayo Clinic, spas, and senior care facilities."
+        keywords="healthcare aromatherapy, wellness scent solutions, spa fragrance, therapeutic scenting, patient anxiety reduction, medical aromatherapy"
+        ogType="article"
+        structuredData={breadcrumbSchema}
+      />
+
       <section className="py-20 gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Heart className="w-16 h-16 text-primary-foreground mx-auto mb-6" />
@@ -90,7 +105,7 @@ const SolutionsWellness = () => {
             Wellness & Healthcare Solutions
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Transform healing environments with therapeutic aromatherapy that reduces patient anxiety, 
+            Transform healing environments with therapeutic aromatherapy that reduces patient anxiety,
             enhances treatment outcomes, and creates calming spaces that promote wellness and recovery.
           </p>
         </div>
@@ -268,7 +283,7 @@ const SolutionsWellness = () => {
               </span>
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Transform your healthcare facility with evidence-based aromatherapy solutions that reduce patient anxiety, 
+              Transform your healthcare facility with evidence-based aromatherapy solutions that reduce patient anxiety,
               improve satisfaction scores, and enhance therapeutic outcomes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

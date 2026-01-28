@@ -215,27 +215,27 @@ const DashboardSubscription = ({ onNavigate }: DashboardSubscriptionProps) => {
                     </CardHeader>
                     <CardContent>
                         {/* Month Navigation - Large and Easy */}
-                        <div className="flex items-center justify-between mb-6 p-4 bg-muted/30 rounded-xl">
+                        <div className="flex items-center justify-between mb-6 p-3 sm:p-4 bg-muted/30 rounded-xl">
                             <Button
                                 variant="outline"
                                 size="lg"
                                 onClick={goToPrevMonth}
                                 disabled={!canGoBack}
-                                className="h-12 px-6"
+                                className="h-10 sm:h-12 px-2 sm:px-6"
                             >
-                                <ChevronLeft className="w-5 h-5 mr-2" />
-                                Previous
+                                <ChevronLeft className="w-5 h-5 sm:mr-2" />
+                                <span className="hidden sm:inline">Previous</span>
                             </Button>
 
-                            <div className="text-center flex-1 px-4">
-                                <h3 className="text-xl font-bold text-foreground">
+                            <div className="text-center flex-1 px-2 sm:px-4">
+                                <h3 className="text-base sm:text-xl font-bold text-foreground">
                                     {formatMonthFull(currentMonth.month)}
                                 </h3>
-                                <div className="flex items-center justify-center gap-2 mt-1">
+                                <div className="flex items-center justify-center gap-2 mt-1 flex-wrap">
                                     {getStatusBadge(currentMonth.status)}
                                     {currentMonth.canModify && currentMonth.daysUntilDeadline > 0 && (
-                                        <span className="text-sm text-amber-600">
-                                            {currentMonth.daysUntilDeadline} days to modify
+                                        <span className="text-xs sm:text-sm text-amber-600">
+                                            {currentMonth.daysUntilDeadline}d left
                                         </span>
                                     )}
                                 </div>
@@ -246,10 +246,10 @@ const DashboardSubscription = ({ onNavigate }: DashboardSubscriptionProps) => {
                                 size="lg"
                                 onClick={goToNextMonth}
                                 disabled={!canGoForward}
-                                className="h-12 px-6"
+                                className="h-10 sm:h-12 px-2 sm:px-6"
                             >
-                                Next
-                                <ChevronRight className="w-5 h-5 ml-2" />
+                                <span className="hidden sm:inline">Next</span>
+                                <ChevronRight className="w-5 h-5 sm:ml-2" />
                             </Button>
                         </div>
 

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Wifi, Bluetooth, Zap, Shield, Settings, ArrowRight, RotateCcw, MousePointer, Info, ChevronRight, Wind, Activity } from "lucide-react";
 import diffuserImage from "@/assets/diffuser-360.jpg";
 import AnimatedSection from "@/components/AnimatedSection";
+import PageMeta, { createProductSchema, createBreadcrumbSchema } from "@/components/PageMeta";
 
 const Products = () => {
   const [selectedHotspot, setSelectedHotspot] = useState<string | null>(null);
@@ -18,6 +19,7 @@ const Products = () => {
       coverage: "Up to 500 sqm",
       features: ["Wi-Fi & Bluetooth", "HVAC Integration", "App Control", "Smart Scheduling"],
       price: "₹45,000",
+      priceNumber: 45000,
       image: diffuserImage,
       description: "Professional-grade diffuser perfect for large retail spaces and offices",
       popular: true
@@ -28,6 +30,7 @@ const Products = () => {
       coverage: "Up to 200 sqm",
       features: ["Bluetooth Control", "Portable Design", "Easy Installation", "Timer Function"],
       price: "₹18,000",
+      priceNumber: 18000,
       image: diffuserImage,
       description: "Compact solution ideal for boutiques, clinics, and small offices",
       popular: false
@@ -38,11 +41,25 @@ const Products = () => {
       coverage: "Up to 1000 sqm",
       features: ["Central HVAC", "Multi-Zone Control", "Professional Installation", "24/7 Monitoring"],
       price: "₹85,000",
+      priceNumber: 85000,
       image: diffuserImage,
       description: "Enterprise-level system for hotels, shopping malls, and large corporate spaces",
       popular: false
     }
   ];
+
+  // Generate structured data for all products
+  const productSchemas = products.map(p => createProductSchema({
+    name: p.name,
+    model: p.model,
+    description: p.description,
+    price: p.priceNumber
+  }));
+
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "https://ezeaircare.com/" },
+    { name: "Products", url: "https://ezeaircare.com/products" }
+  ]);
 
   const hotspots = [
     {
@@ -88,6 +105,14 @@ const Products = () => {
 
   return (
     <div className="min-h-screen overflow-hidden">
+      <PageMeta
+        title="Premium Scent Diffusers & Products"
+        description="Explore EZE AirCare's range of professional scent diffusers. From compact units for boutiques to enterprise HVAC systems for large venues. Wi-Fi enabled, smart scheduling, 2-year warranty."
+        keywords="scent diffuser, commercial diffuser, HVAC scenting, professional aromatherapy, ambient scenting machine, fragrance dispenser"
+        ogType="website"
+        structuredData={[breadcrumbSchema, ...productSchemas]}
+      />
+
       {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background z-0" />
@@ -270,6 +295,7 @@ const Products = () => {
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-cover mix-blend-multiply"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>

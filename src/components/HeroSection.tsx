@@ -20,22 +20,23 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <InteractiveBackground />
-      
+
       {/* Enhanced Background with Parallax */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-background/60 to-accent/30 z-20" />
-        <div 
+        <div
           ref={parallaxRef}
           className="absolute inset-0 z-10"
           style={{ transform: `translateY(${offset}px)` }}
         >
-          <img 
+          <img
             src={heroImage}
             alt="EZE AirCare Premium Scent Technology"
             className="w-full h-full object-cover scale-110"
+            loading="lazy"
           />
         </div>
-        
+
         {/* Dynamic Floating Elements */}
         <div className="absolute inset-0 z-30">
           {[...Array(15)].map((_, i) => (
@@ -49,8 +50,8 @@ const HeroSection = () => {
                 animationDuration: `${6 + Math.random() * 4}s`
               }}
             >
-              <Sparkles 
-                className="text-accent/40 transition-all duration-300 hover:text-accent/80 hover:scale-125" 
+              <Sparkles
+                className="text-accent/40 transition-all duration-300 hover:text-accent/80 hover:scale-125"
                 size={12 + Math.random() * 16}
               />
             </div>
@@ -86,9 +87,9 @@ const HeroSection = () => {
           {/* Enhanced Subheadline */}
           <AnimatedSection animation="fadeInUp" delay={600}>
             <p className="text-xl sm:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
-              Where <span className="text-accent font-medium">Indian perfumery heritage</span> meets 
-              <span className="text-primary font-medium"> modern scent technology</span>. 
-              Transform your business with premium fragrance solutions that drive 
+              Where <span className="text-accent font-medium">Indian perfumery heritage</span> meets
+              <span className="text-primary font-medium"> modern scent technology</span>.
+              Transform your business with premium fragrance solutions that drive
               <span className="text-accent font-medium"> measurable results</span>.
             </p>
           </AnimatedSection>
@@ -102,7 +103,7 @@ const HeroSection = () => {
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              
+
               <Button variant="glass" size="xl" className="group backdrop-blur-md">
                 <PlayCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Watch Our Story
@@ -114,20 +115,20 @@ const HeroSection = () => {
           <AnimatedSection animation="fadeInScale" delay={1000}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {metrics.map((metric, index) => (
-                <div 
+                <div
                   key={metric.label}
                   className="relative group"
                   style={{ animationDelay: `${1200 + index * 200}ms` }}
                 >
                   {/* Background Glow Effect */}
                   <div className="absolute -inset-1 gradient-accent opacity-0 group-hover:opacity-30 rounded-xl blur transition-all duration-500" />
-                  
+
                   {/* Card Content */}
                   <div className="relative gradient-card p-8 rounded-xl shadow-card backdrop-blur-sm border border-border/50 hover:shadow-elegant transition-all duration-300 hover:scale-105 hover:border-accent/50">
                     <metric.icon className={`w-10 h-10 ${metric.color} mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`} />
-                    
+
                     <div className="mb-3">
-                      <DynamicCounter 
+                      <DynamicCounter
                         endValue={metric.value}
                         label={metric.label}
                         suffix={metric.suffix}
@@ -136,11 +137,11 @@ const HeroSection = () => {
                         className={`text-4xl font-bold ${metric.color}`}
                       />
                     </div>
-                    
+
                     <div className="text-sm text-muted-foreground font-medium leading-tight mb-2">
                       {metric.label}
                     </div>
-                    
+
                     {/* Hover Effect Indicator */}
                     <div className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import PageMeta from "@/components/PageMeta";
 
 const ContactQuote = () => {
   const location = useLocation();
@@ -27,6 +28,13 @@ const ContactQuote = () => {
 
   return (
     <div className="min-h-screen pt-20">
+      <PageMeta
+        title="Get a Quote - Request Demo & Consultation"
+        description="Request a personalized quote for EZE AirCare scent solutions. Free consultation, custom fragrance recommendations, and competitive pricing for your business space."
+        keywords="scent marketing quote, diffuser pricing, fragrance consultation, ambient scenting cost, commercial diffuser quote"
+        ogType="website"
+      />
+
       <section className="py-20 gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-display text-5xl font-bold text-primary-foreground mb-6">

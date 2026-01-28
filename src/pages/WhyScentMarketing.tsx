@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Brain, Eye, TrendingUp, Heart, ArrowRight, Users, Building2, Store } from "lucide-react";
+import PageMeta, { createFAQSchema } from "@/components/PageMeta";
 
 const WhyScentMarketing = () => {
   const researchData = [
@@ -70,8 +71,32 @@ const WhyScentMarketing = () => {
     }
   ];
 
+  // Create FAQ structured data for SEO
+  const faqSchema = createFAQSchema([
+    {
+      question: "What is scent marketing?",
+      answer: "Scent marketing uses strategically chosen fragrances to influence customer behavior, emotions, and brand perception. Research shows that scent is directly connected to the brain's limbic system, making it the most powerful sense for triggering emotions and memories."
+    },
+    {
+      question: "Does scent marketing really work?",
+      answer: "Yes, extensive research proves scent marketing effectiveness. Studies show 20-30% increase in dwell time, 70% improvement in brand recall, and 17% boost in purchase intent when the right fragrances are used strategically."
+    },
+    {
+      question: "How can scent marketing help my business?",
+      answer: "Scent marketing can increase customer dwell time, boost purchase intent, improve brand recall, enhance perceived value, and create memorable customer experiences that drive loyalty and repeat visits."
+    }
+  ]);
+
   return (
     <div className="min-h-screen">
+      <PageMeta
+        title="Why Scent Marketing Works - The Science of Fragrance"
+        description="Discover the neuroscience behind scent marketing. Learn how fragrances trigger 75% of daily emotions, boost brand recall by 70%, and increase dwell time by 20-30%. Backed by Harvard research."
+        keywords="scent marketing science, why scent marketing works, fragrance psychology, olfactory marketing, scent branding research, limbic system marketing"
+        ogType="article"
+        structuredData={faqSchema}
+      />
+
       {/* Hero Section */}
       <section className="pt-20 pb-16 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -79,7 +104,7 @@ const WhyScentMarketing = () => {
             The Science of Scent Marketing
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Discover how leading brands harness the power of scent to create deeper emotional 
+            Discover how leading brands harness the power of scent to create deeper emotional
             connections, drive measurable business results, and transform customer experiences.
           </p>
         </div>
@@ -93,7 +118,7 @@ const WhyScentMarketing = () => {
               The Neuroscience Behind Scent
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Research proves that scent is the most powerful sense for triggering emotions and memories. 
+              Research proves that scent is the most powerful sense for triggering emotions and memories.
               Unlike other senses, smell bypasses the thalamus and directly impacts the limbic system.
             </p>
           </div>
@@ -219,13 +244,13 @@ const WhyScentMarketing = () => {
                       </h3>
                       <p className="text-accent font-medium">{study.industry}</p>
                     </div>
-                    
+
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">Challenge & Solution</h4>
                       <p className="text-muted-foreground mb-4">{study.challenge}</p>
                       <p className="text-foreground font-medium">{study.solution}</p>
                     </div>
-                    
+
                     <div>
                       <h4 className="font-semibold text-foreground mb-3">Results</h4>
                       <ul className="space-y-2">
@@ -252,7 +277,7 @@ const WhyScentMarketing = () => {
             Ready to Harness the Power of Scent?
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Discover how EZE AirCare can transform your business with scientifically-proven 
+            Discover how EZE AirCare can transform your business with scientifically-proven
             scent marketing solutions tailored to your industry.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

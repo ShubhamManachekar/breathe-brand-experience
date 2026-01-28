@@ -135,7 +135,6 @@ const DashboardOrders = ({ onNavigate }: DashboardOrdersProps) => {
                 </Card>
             </AnimatedSection>
 
-            {/* Orders Table */}
             <AnimatedSection animation="fadeInUp" delay={200}>
                 <Card className="gradient-card shadow-card overflow-hidden">
                     <CardHeader>
@@ -145,7 +144,52 @@ const DashboardOrders = ({ onNavigate }: DashboardOrdersProps) => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <div className="overflow-x-auto">
+                        {/* Mobile Card View */}
+                        <div className="md:hidden space-y-3 p-4">
+                            {filteredOrders.map((order) => (
+                                <div
+                                    key={order.id}
+                                    className="p-4 rounded-xl bg-muted/30 border border-border/50 space-y-3"
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-semibold text-foreground">{order.id}</span>
+                                        <Badge
+                                            variant="secondary"
+                                            className={`${order.statusColor} text-white border-0 flex items-center gap-1`}
+                                        >
+                                            {getStatusIcon(order.status)}
+                                            {order.status}
+                                        </Badge>
+                                    </div>
+                                    <div className="text-sm text-muted-foreground">{order.date}</div>
+                                    <div className="text-sm text-foreground">
+                                        {order.products.map((product, idx) => (
+                                            <span key={idx}>
+                                                {product}
+                                                {idx < order.products.length - 1 && ", "}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center justify-between pt-2 border-t border-border/50">
+                                        <span className="font-bold text-foreground">{order.total}</span>
+                                        <div className="flex items-center gap-1">
+                                            <Button variant="ghost" size="icon" title="View Details">
+                                                <Eye className="w-4 h-4" />
+                                            </Button>
+                                            <Button variant="ghost" size="icon" title="Reorder" onClick={() => onNavigate?.("aroma-oils")}>
+                                                <RefreshCw className="w-4 h-4" />
+                                            </Button>
+                                            <Button variant="ghost" size="icon" title="Download Invoice">
+                                                <Download className="w-4 h-4" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Desktop Table View */}
+                        <div className="hidden md:block overflow-x-auto">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="bg-muted/30">

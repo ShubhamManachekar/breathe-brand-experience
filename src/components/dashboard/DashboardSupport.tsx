@@ -200,7 +200,7 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
                                 <div
                                     key={ticket.id}
                                     onClick={() => setSelectedTicket(ticket)}
-                                    className="flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 cursor-pointer transition-all border border-transparent hover:border-accent/20 group"
+                                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 cursor-pointer transition-all border border-transparent hover:border-accent/20 group"
                                 >
                                     <div>
                                         <p className="font-medium text-foreground group-hover:text-primary transition-colors">{ticket.subject}</p>
@@ -208,7 +208,7 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
                                             {ticket.id} • {new Date(ticket.createdAt).toLocaleDateString()}
                                         </p>
                                     </div>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-3 self-end sm:self-auto">
                                         <Badge
                                             variant="secondary"
                                             className={`${getStatusColor(ticket.status)} text-white border-0 flex items-center gap-1 capitalize`}
@@ -233,7 +233,7 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
 
             {/* Ticket Details Dialog */}
             <Dialog open={!!selectedTicket} onOpenChange={(open) => !open && setSelectedTicket(null)}>
-                <DialogContent className="max-w-2xl h-[80vh] flex flex-col p-0 gap-0 overflow-hidden">
+                <DialogContent className="max-w-2xl h-[90vh] sm:h-[80vh] flex flex-col p-0 gap-0 overflow-hidden">
                     {selectedTicket && (
                         <>
                             <DialogHeader className="p-6 pb-4 border-b border-border/50 bg-muted/20">
@@ -269,8 +269,8 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
                                         </div>
                                         <div className={`flex flex-col gap-1 max-w-[80%] ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
                                             <div className={`p-4 rounded-2xl text-sm leading-relaxed ${msg.sender === 'user'
-                                                    ? 'bg-primary text-primary-foreground rounded-tr-none'
-                                                    : 'bg-card border border-border/50 rounded-tl-none shadow-sm'
+                                                ? 'bg-primary text-primary-foreground rounded-tr-none'
+                                                : 'bg-card border border-border/50 rounded-tl-none shadow-sm'
                                                 }`}>
                                                 {msg.text}
                                             </div>

@@ -4,8 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Briefcase, Brain, Users, TrendingUp, ArrowRight, Timer, DollarSign, Award, Building, Zap, Target, Lightbulb, Coffee, Focus } from "lucide-react";
+import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
 
 const SolutionsCorporate = () => {
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "https://ezeaircare.com" },
+    { name: "Solutions", url: "https://ezeaircare.com/solutions" },
+    { name: "Corporate", url: "https://ezeaircare.com/solutions/corporate" }
+  ]);
+
   const caseStudies = [
     {
       company: "Google Workspace India",
@@ -35,14 +42,14 @@ const SolutionsCorporate = () => {
       percentage: "22%"
     },
     {
-      title: "Stress Reduction", 
+      title: "Stress Reduction",
       description: "Lavender and eucalyptus blends reduce workplace stress and anxiety",
       icon: Brain,
       percentage: "28%"
     },
     {
       title: "Energy Boost",
-      description: "Citrus scents increase alertness and combat afternoon fatigue", 
+      description: "Citrus scents increase alertness and combat afternoon fatigue",
       icon: Coffee,
       percentage: "35%"
     },
@@ -62,7 +69,7 @@ const SolutionsCorporate = () => {
       icon: Target
     },
     {
-      step: "2", 
+      step: "2",
       title: "Custom Scent Strategy",
       description: "Professional blend creation aligned with your brand identity and productivity goals",
       icon: Lightbulb
@@ -83,6 +90,14 @@ const SolutionsCorporate = () => {
 
   return (
     <div className="min-h-screen pt-20">
+      <PageMeta
+        title="Corporate Office Scent Marketing Solutions"
+        description="Boost workplace productivity with office scent solutions. +22% productivity, +30% client impression, -28% stress levels. Trusted by Google, Deloitte, and Microsoft offices."
+        keywords="office scent marketing, corporate aromatherapy, workplace productivity scent, office air freshener, professional scent solutions, employee wellness fragrance"
+        ogType="article"
+        structuredData={breadcrumbSchema}
+      />
+
       <section className="py-20 gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Briefcase className="w-16 h-16 text-primary-foreground mx-auto mb-6" />
@@ -90,7 +105,7 @@ const SolutionsCorporate = () => {
             Corporate & Office Solutions
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Transform your workplace into a high-performance environment that boosts productivity, 
+            Transform your workplace into a high-performance environment that boosts productivity,
             reduces stress, enhances employee satisfaction, and creates impressive spaces for clients and partners.
           </p>
         </div>
@@ -278,7 +293,7 @@ const SolutionsCorporate = () => {
               </span>
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Join leading corporations using scent marketing to boost productivity, reduce stress, 
+              Join leading corporations using scent marketing to boost productivity, reduce stress,
               and create impressive environments that attract top talent and impress clients.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

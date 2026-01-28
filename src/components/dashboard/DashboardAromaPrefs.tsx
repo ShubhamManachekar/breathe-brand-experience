@@ -114,7 +114,7 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
 
             <Tabs defaultValue="favorites" className="space-y-6">
                 <AnimatedSection animation="fadeInUp" delay={100}>
-                    <TabsList className="gradient-card p-1">
+                    <TabsList className="gradient-card p-1 w-full flex-wrap sm:flex-nowrap justify-start overflow-x-auto">
                         <TabsTrigger value="favorites" className="gap-2">
                             <Heart className="w-4 h-4" />
                             Favorites
@@ -217,7 +217,7 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                                 <CardDescription>Help us recommend the best scents for your space</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                                     {["Hospitality", "Retail", "Corporate", "Wellness"].map((industry) => (
                                         <Button
                                             key={industry}

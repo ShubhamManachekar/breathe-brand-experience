@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Building2, Store, Briefcase, Heart, ArrowRight, Users, Zap, Sparkles } from "lucide-react";
+import PageMeta from "@/components/PageMeta";
 
 const Solutions = () => {
   const solutions = [
@@ -58,7 +59,7 @@ const Solutions = () => {
       description: "We assess your space, understand your brand, and identify the best scent strategy"
     },
     {
-      step: "2", 
+      step: "2",
       title: "Custom Fragrance Selection",
       description: "Our perfumers create or select the perfect scent blend for your specific needs"
     },
@@ -76,6 +77,13 @@ const Solutions = () => {
 
   return (
     <div className="min-h-screen">
+      <PageMeta
+        title="Industry Solutions - Scent Marketing for Every Business"
+        description="Tailored scent marketing solutions for hospitality, retail, corporate, and wellness industries. +35% guest satisfaction, +23% dwell time, +14% task accuracy. Choose your industry."
+        keywords="scent marketing solutions, hotel scenting, retail fragrance, corporate aromatherapy, wellness scenting, industry-specific scent solutions"
+        ogType="website"
+      />
+
       {/* Hero Section */}
       <section className="pt-20 pb-16 gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -83,7 +91,7 @@ const Solutions = () => {
             Scent Solutions for Every Industry
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Tailored fragrance strategies that align with your business goals, enhance customer 
+            Tailored fragrance strategies that align with your business goals, enhance customer
             experiences, and deliver measurable results across all industry sectors.
           </p>
         </div>
@@ -96,7 +104,7 @@ const Solutions = () => {
             {solutions.map((solution, index) => (
               <Card key={solution.id} className="group hover:shadow-elegant transition-all duration-300 overflow-hidden animate-fade-in-scale" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div className={`h-2 bg-gradient-to-r ${solution.bgColor}`} />
-                
+
                 <CardHeader className="pb-4">
                   <div className="flex items-center space-x-4">
                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${solution.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform`}>
@@ -163,7 +171,7 @@ const Solutions = () => {
               Our Proven Process
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From initial consultation to ongoing optimization, we ensure your scent marketing 
+              From initial consultation to ongoing optimization, we ensure your scent marketing
               program delivers maximum impact with minimal effort on your part.
             </p>
           </div>
@@ -195,7 +203,7 @@ const Solutions = () => {
                 Industry Expertise & Heritage
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                With deep roots in Indian perfumery tradition and cutting-edge scent technology, 
+                With deep roots in Indian perfumery tradition and cutting-edge scent technology,
                 EZE AirCare brings unmatched expertise to every project.
               </p>
               <div className="space-y-4">
@@ -217,7 +225,7 @@ const Solutions = () => {
                 </div>
               </div>
             </div>
-            
+
             <Card className="gradient-card shadow-elegant">
               <CardContent className="p-8">
                 <h3 className="font-display text-2xl font-bold text-foreground mb-6">
@@ -254,7 +262,7 @@ const Solutions = () => {
             Transform Your Space Today
           </h2>
           <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Ready to experience the power of scent marketing? Schedule a free consultation 
+            Ready to experience the power of scent marketing? Schedule a free consultation
             to discover the perfect solution for your industry and space.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

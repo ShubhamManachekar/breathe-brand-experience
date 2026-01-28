@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Wifi, Bluetooth, Zap, Shield, Settings, RotateCcw, MousePointer, Info } from "lucide-react";
 import diffuserImage from "@/assets/diffuser-360.jpg";
 import { useState } from "react";
+import PageMeta, { createProductSchema, createBreadcrumbSchema } from "@/components/PageMeta";
 
 const products = [
   {
@@ -13,6 +14,7 @@ const products = [
     coverage: "Up to 500 sqm",
     features: ["Wi-Fi & Bluetooth", "HVAC Integration", "App Control", "Smart Scheduling"],
     price: "₹45,000",
+    priceNumber: 45000,
     image: diffuserImage,
     description: "Professional-grade diffuser perfect for large retail spaces and offices"
   },
@@ -22,6 +24,7 @@ const products = [
     coverage: "Up to 200 sqm",
     features: ["Bluetooth Control", "Portable Design", "Easy Installation", "Timer Function"],
     price: "₹18,000",
+    priceNumber: 18000,
     image: diffuserImage,
     description: "Compact solution ideal for boutiques, clinics, and small offices"
   },
@@ -31,6 +34,7 @@ const products = [
     coverage: "Up to 1000 sqm",
     features: ["Central HVAC", "Multi-Zone Control", "Professional Installation", "24/7 Monitoring"],
     price: "₹85,000",
+    priceNumber: 85000,
     image: diffuserImage,
     description: "Enterprise-level system for hotels, shopping malls, and large corporate spaces"
   }
@@ -88,8 +92,32 @@ const ProductDetail = () => {
     return <div>Product not found</div>;
   }
 
+  // Generate dynamic SEO data for the product
+  const productSchema = createProductSchema({
+    name: product.name,
+    description: product.description,
+    image: "https://ezeaircare.com/diffuser-360.jpg",
+    price: product.priceNumber,
+    currency: "INR",
+    url: `https://ezeaircare.com/products/${product.model}`
+  });
+
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "https://ezeaircare.com" },
+    { name: "Products", url: "https://ezeaircare.com/products" },
+    { name: product.name, url: `https://ezeaircare.com/products/${product.model}` }
+  ]);
+
   return (
     <div className="min-h-screen pt-20">
+      <PageMeta
+        title={`${product.name} (${product.model}) - Premium Scent Diffuser`}
+        description={`${product.description}. Coverage: ${product.coverage}. Features: ${product.features.join(", ")}. Price: ${product.price}. Free consultation available.`}
+        keywords={`${product.name}, ${product.model}, commercial diffuser, scent diffuser, ${product.coverage.toLowerCase()} diffuser, professional fragrance system`}
+        ogType="product"
+        structuredData={[breadcrumbSchema, productSchema]}
+      />
+
       <section className="py-20 gradient-hero">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-display text-5xl font-bold text-primary-foreground mb-6">
@@ -112,6 +140,7 @@ const ProductDetail = () => {
                   alt={`${product.name} 360 View`}
                   className="w-full h-full object-cover transition-transform duration-300"
                   style={{ transform: `rotate(${rotation}deg)` }}
+                  loading="lazy"
                 />
 
                 {/* Hotspots */}
