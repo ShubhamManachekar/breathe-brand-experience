@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -14,7 +14,6 @@ const ShopProducts = () => {
   const { addItem } = useCart();
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeDiffuserIndex, setActiveDiffuserIndex] = useState(0);
   const selectedCategory = searchParams.get("category") as ProductCategory | null;
 
   const filtered = useMemo(() => {
@@ -43,18 +42,6 @@ const ShopProducts = () => {
     ? productCategories.find((c) => c.id === selectedCategory)
     : null;
 
-  const featuredDiffusers = useMemo(
-    () => products.filter((product) => product.category !== "oil"),
-    [],
-  );
-
-  useEffect(() => {
-    const rotation = window.setInterval(() => {
-      setActiveDiffuserIndex((prev) => (prev + 1) % featuredDiffusers.length);
-    }, 4300);
-
-    return () => window.clearInterval(rotation);
-  }, [featuredDiffusers.length]);
 
   return (
     <div className="min-h-screen bg-loom overflow-hidden">
@@ -85,41 +72,6 @@ const ShopProducts = () => {
         </div>
       </section>
 
-      {/* Auto Carousel */}
-      <section className="pb-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="border border-border/50 bg-card overflow-hidden">
-            <CardContent className="p-0">
-              <div className="grid md:grid-cols-[320px_1fr] gap-0">
-                <div className="h-64 md:h-full border-r border-border/40 bg-muted/25">
-                  <img
-                    src={featuredDiffusers[activeDiffuserIndex].image}
-                    alt={featuredDiffusers[activeDiffuserIndex].name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6 md:p-8">
-                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Auto diffuser carousel</p>
-                  <h2 className="font-display text-3xl font-semibold text-foreground mt-2">{featuredDiffusers[activeDiffuserIndex].name}</h2>
-                  <p className="text-sm text-muted-foreground mt-1">{featuredDiffusers[activeDiffuserIndex].model} • {featuredDiffusers[activeDiffuserIndex].coverage}</p>
-                  <p className="text-muted-foreground mt-3 line-clamp-2">{featuredDiffusers[activeDiffuserIndex].description}</p>
-                  <div className="flex gap-2 mt-6">
-                    {featuredDiffusers.map((product, index) => (
-                      <button
-                        key={product.id}
-                        onClick={() => setActiveDiffuserIndex(index)}
-                        className={`h-1.5 rounded-full transition-all ${activeDiffuserIndex === index ? "w-8 bg-accent" : "w-4 bg-border"}`}
-                        aria-label={`Show ${product.name}`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
 
       {/* Category Filter */}
       <section className="py-5 border-y border-border/40 bg-background/70 sticky top-16 z-30 backdrop-blur-lg">
@@ -156,8 +108,8 @@ const ShopProducts = () => {
               const cat = productCategories.find((c) => c.id === product.category);
               return (
                 <AnimatedSection key={product.id} animation="fadeInUp" delay={index * 80}>
-                  <Card className="card-loom h-full overflow-hidden">
-                    <div className="relative">
+                  <Card className="card-loom h-full overflow-hidden flex flex-col">
+                    <div className="relative shrink-0">
                       {product.tag && (
                         <div className="absolute top-4 right-4 text-[10px] uppercase tracking-widest bg-foreground text-background px-2 py-1 rounded-full">
                           {product.tag}
@@ -167,7 +119,7 @@ const ShopProducts = () => {
                         <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
                       </div>
                     </div>
-                    <CardContent className="p-6 pt-2 flex flex-col h-full">
+                    <CardContent className="p-6 pt-2 flex flex-col flex-1">
                       <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
                         <span>{cat?.icon}</span>
                         <span>{cat?.name}</span>

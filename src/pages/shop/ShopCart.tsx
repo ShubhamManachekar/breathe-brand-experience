@@ -1,14 +1,55 @@
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, ArrowRight, ShieldCheck, Truck, CreditCard } from "lucide-react";
+import {
+    ShoppingCart,
+    Plus,
+    Minus,
+    Trash2,
+    ArrowLeft,
+    ArrowRight,
+    ShieldCheck,
+    Truck,
+    CreditCard,
+    Droplets,
+    Sparkles,
+    Star,
+} from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import AnimatedSection from "@/components/AnimatedSection";
 import PageMeta from "@/components/PageMeta";
+import { fragrances, aromaSizes } from "@/data/aromaData";
+import { products } from "@/data/productData";
 
 const ShopCart = () => {
-    const { items, updateQuantity, removeItem, clearCart, totalItems, totalPrice } = useCart();
+    const { items, updateQuantity, removeItem, clearCart, totalItems, totalPrice, addItem } = useCart();
+
+    /* ── Smart suggestions: if cart has diffusers, suggest oils; if oils, suggest diffusers ── */
+    const suggestedOils = useMemo(() => {
+        const hasDiffuser = items.some((i) => i.type === "diffuser");
+        const cartOilIds = new Set(items.filter((i) => i.type === "aroma").map((i) => i.id.split("-").slice(0, -1).join("-")));
+        if (!hasDiffuser) return [];
+        return fragrances.filter((f) => !cartOilIds.has(f.id)).slice(0, 4);
+    }, [items]);
+
+    const suggestedDiffusers = useMemo(() => {
+        const hasOil = items.some((i) => i.type === "aroma");
+        const cartDiffuserIds = new Set(items.filter((i) => i.type === "diffuser").map((i) => i.id));
+        if (!hasOil || items.some((i) => i.type === "diffuser")) return [];
+        return products.filter((p) => p.category !== "oil" && !cartDiffuserIds.has(p.id)).slice(0, 3);
+    }, [items]);
+
+    const handleAddOil = (oil: typeof fragrances[0]) => {
+        addItem({
+            id: `${oil.id}-${aromaSizes[0].label}`,
+            name: oil.name,
+            type: "aroma",
+            price: aromaSizes[0].price,
+            variant: aromaSizes[0].label,
+        });
+    };
 
     if (items.length === 0) {
         return (
@@ -115,6 +156,105 @@ const ShopCart = () => {
                                 </Card>
                             </AnimatedSection>
                         ))}
+
+                        {/* ═══════ SUGGESTED OILS (when cart has diffusers) ═══════ */}
+                        {suggestedOils.length > 0 && (
+                            <AnimatedSection animation="fadeInUp" delay={items.length * 100 + 100}>
+                                <div className="mt-8">
+                                    <div className="flex items-center gap-3 mb-5">
+                                        <div className="w-9 h-9 rounded-xl gradient-gold shadow-clay-sm flex items-center justify-center">
+                                            <Droplets className="w-4 h-4 text-accent-foreground" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-display text-lg font-semibold text-foreground">Complete Your Setup</h3>
+                                            <p className="text-xs text-muted-foreground">Add premium oils for your diffuser</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                        {suggestedOils.map((oil) => (
+                                            <Card key={oil.id} className="card-clay overflow-hidden hover:shadow-clay-lg transition-shadow duration-300">
+                                                <div className="aspect-square surface-sunken rounded-xl m-2.5 overflow-hidden flex items-center justify-center relative">
+                                                    <img src={oil.image} alt={oil.name} className="w-full h-full object-contain p-3" loading="lazy" />
+                                                    <div className="absolute bottom-1.5 right-1.5">
+                                                        <span className="pill-raised text-[8px] font-semibold px-1.5 py-0.5">{oil.intensity}</span>
+                                                    </div>
+                                                </div>
+                                                <CardContent className="p-3 pt-0">
+                                                    <h4 className="font-display text-sm font-semibold text-foreground truncate">{oil.name}</h4>
+                                                    <p className="text-[10px] text-muted-foreground italic">{oil.mood}</p>
+                                                    <div className="mt-2 flex items-center justify-between">
+                                                        <span className="text-sm font-semibold text-foreground">₹{aromaSizes[0].price.toLocaleString("en-IN")}</span>
+                                                        <span className="text-[10px] text-muted-foreground">{aromaSizes[0].label}</span>
+                                                    </div>
+                                                    <Button variant="hero" size="sm" className="w-full mt-2 text-xs h-8" onClick={() => handleAddOil(oil)}>
+                                                        <Plus className="w-3 h-3 mr-1" /> Add
+                                                    </Button>
+                                                </CardContent>
+                                            </Card>
+                                        ))}
+                                    </div>
+                                </div>
+                            </AnimatedSection>
+                        )}
+
+                        {/* ═══════ SUGGESTED DIFFUSERS (when cart has only oils) ═══════ */}
+                        {suggestedDiffusers.length > 0 && (
+                            <AnimatedSection animation="fadeInUp" delay={items.length * 100 + 100}>
+                                <div className="mt-8">
+                                    <div className="flex items-center gap-3 mb-5">
+                                        <div className="w-9 h-9 rounded-xl gradient-gold shadow-clay-sm flex items-center justify-center">
+                                            <Sparkles className="w-4 h-4 text-accent-foreground" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-display text-lg font-semibold text-foreground">You'll Need a Diffuser</h3>
+                                            <p className="text-xs text-muted-foreground">Pair your oils with a premium device</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                        {suggestedDiffusers.map((d) => (
+                                            <Link key={d.id} to={`/shop/products/${d.model}`}>
+                                                <Card className="card-clay overflow-hidden hover:shadow-clay-lg transition-shadow duration-300 cursor-pointer">
+                                                    <div className="flex items-center gap-3 p-3">
+                                                        <div className="w-16 h-16 surface-sunken rounded-xl flex items-center justify-center shrink-0">
+                                                            <img src={d.image} alt={d.name} className="w-full h-full object-contain p-2" />
+                                                        </div>
+                                                        <div className="min-w-0 flex-1">
+                                                            <h4 className="font-display text-sm font-semibold text-foreground truncate">{d.name}</h4>
+                                                            <p className="text-[10px] text-muted-foreground">{d.coverage}</p>
+                                                            <div className="flex items-center gap-1 mt-1">
+                                                                <Star className="w-3 h-3 text-accent fill-accent" />
+                                                                <span className="text-[10px] text-muted-foreground">{d.rating}</span>
+                                                            </div>
+                                                            <p className="text-sm font-semibold text-foreground mt-1">₹{d.price.toLocaleString("en-IN")}</p>
+                                                        </div>
+                                                    </div>
+                                                </Card>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </AnimatedSection>
+                        )}
+
+                        {/* ═══════ OFFER BANNER ═══════ */}
+                        <AnimatedSection animation="fadeInUp" delay={items.length * 100 + 200}>
+                            <Card className="overflow-hidden mt-6 bg-gradient-to-r from-accent/10 via-accent/5 to-transparent border-accent/20">
+                                <CardContent className="p-5 flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-2xl gradient-gold flex items-center justify-center shrink-0">
+                                        <Sparkles className="w-5 h-5 text-accent-foreground" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="font-display font-semibold text-foreground text-sm">Bundle & Save 10%</p>
+                                        <p className="text-xs text-muted-foreground mt-0.5">Buy any diffuser + 2 oils and get 10% off your entire order</p>
+                                    </div>
+                                    <Link to="/shop/products">
+                                        <Button variant="outline" size="sm" className="shrink-0 text-xs">
+                                            Shop Now <ArrowRight className="w-3 h-3 ml-1" />
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+                            </Card>
+                        </AnimatedSection>
                     </div>
 
                     {/* Order Summary */}

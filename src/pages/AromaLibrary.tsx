@@ -97,7 +97,7 @@ const AromaLibrary = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {fragranceFamilies.map((family, index) => (
               <AnimatedSection key={family.id} animation="fadeInUp" delay={index * 120}>
-                <Card className={`card-loom h-full ${selectedFamily === family.id ? "ring-2 ring-accent" : ""}`}>
+                <Card className={`card-clay h-full ${selectedFamily === family.id ? "ring-2 ring-accent" : ""}`}>
                   <CardContent className="p-6">
                     <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${family.bgColor} flex items-center justify-center mb-4`}>
                       <family.icon className={`w-6 h-6 ${family.color}`} />
@@ -126,8 +126,17 @@ const AromaLibrary = () => {
               const family = getFamilyForFragrance(fragrance.family);
               return (
                 <AnimatedSection key={fragrance.id} animation="fadeInUp" delay={index * 100}>
-                  <Card className="card-loom h-full">
+                  <Card className="card-clay h-full">
                     <CardContent className="p-6">
+                      {/* Fragrance Image */}
+                      <div className="aspect-[3/2] surface-sunken rounded-2xl mb-5 overflow-hidden flex items-center justify-center">
+                        <img
+                          src={fragrance.image}
+                          alt={fragrance.name}
+                          className="w-full h-full object-contain p-4"
+                          loading="lazy"
+                        />
+                      </div>
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs uppercase tracking-widest text-muted-foreground">{fragrance.mood}</p>
@@ -155,9 +164,9 @@ const AromaLibrary = () => {
                       </div>
                       <div className="mt-5">
                         <Link to="/business/contact" state={{ interest: `Signature scent: ${fragrance.name}` }}>
-                          <Button variant="outline" className="w-full">
+                          <Button variant="hero" className="w-full group">
                             Request sample
-                            <ArrowRight className="w-4 h-4 ml-2" />
+                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                           </Button>
                         </Link>
                       </div>

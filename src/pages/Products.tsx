@@ -132,7 +132,7 @@ const Products = () => {
               { icon: Wind, label: "HVAC Ready" },
               { icon: ShieldCheck, label: "2-Year Warranty" },
             ].map((item) => (
-              <div key={item.label} className="card-loom rounded-2xl px-4 py-5 flex items-center gap-3">
+              <div key={item.label} className="card-clay-sm rounded-2xl px-4 py-5 flex items-center gap-3">
                 <item.icon className="w-5 h-5 text-accent" />
                 <span className="text-sm text-foreground font-medium">{item.label}</span>
               </div>
@@ -167,9 +167,8 @@ const Products = () => {
                   {hotspots.map((hotspot) => (
                     <button
                       key={hotspot.id}
-                      className={`absolute w-8 h-8 rounded-full border border-accent bg-accent/20 hover:bg-accent hover:text-background hover:scale-110 transition-all duration-300 flex items-center justify-center ${
-                        selectedHotspot === hotspot.id ? "bg-accent text-background scale-110" : "text-accent"
-                      }`}
+                      className={`absolute w-8 h-8 rounded-full border border-accent bg-accent/20 hover:bg-accent hover:text-background hover:scale-110 transition-all duration-300 flex items-center justify-center ${selectedHotspot === hotspot.id ? "bg-accent text-background scale-110" : "text-accent"
+                        }`}
                       style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
                       onClick={() => setSelectedHotspot(selectedHotspot === hotspot.id ? null : hotspot.id)}
                     >
@@ -191,7 +190,7 @@ const Products = () => {
             </AnimatedSection>
 
             <div className="space-y-6">
-              <Card className="card-loom">
+              <Card className="card-clay">
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Info className="w-4 h-4 text-accent" />
@@ -209,7 +208,7 @@ const Products = () => {
                 </CardContent>
               </Card>
 
-              <Card className="card-loom">
+              <Card className="card-clay">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Settings className="w-4 h-4 text-accent" />
@@ -243,18 +242,20 @@ const Products = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {b2bProducts.map((product, index) => (
               <AnimatedSection key={product.model} animation="fadeInUp" delay={index * 120}>
-                <Card className="card-loom h-full overflow-hidden">
-                  <div className="relative">
+                <Card className="card-clay h-full overflow-hidden flex flex-col">
+                  <div className="relative shrink-0">
                     {product.tag && (
-                      <div className="absolute top-4 right-4 text-[10px] uppercase tracking-widest bg-foreground text-background px-2 py-1 rounded-full">
-                        {product.tag}
+                      <div className="absolute top-4 right-4 z-10">
+                        <span className="pill-gold text-[9px] font-bold uppercase tracking-wider px-2.5 py-1">
+                          {product.tag}
+                        </span>
                       </div>
                     )}
-                    <div className="aspect-[4/3] bg-muted/30 rounded-2xl m-4 overflow-hidden">
-                      <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+                    <div className="aspect-[4/3] surface-sunken rounded-2xl m-4 overflow-hidden flex items-center justify-center">
+                      <img src={product.image} alt={product.name} className="w-full h-full object-contain p-4" loading="lazy" />
                     </div>
                   </div>
-                  <CardContent className="p-6 flex flex-col h-full">
+                  <CardContent className="p-6 flex flex-col flex-1">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-display text-2xl font-semibold text-foreground">{product.name}</h3>
@@ -278,17 +279,18 @@ const Products = () => {
                         </Badge>
                       ))}
                     </div>
-                    <div className="mt-auto pt-6 flex gap-3">
-                      <Link to="/business/contact" state={{ interest: `${product.name} (${product.model})` }} className="flex-1">
-                        <Button className="w-full" variant="hero">
+                    <div className="mt-auto pt-6 space-y-3">
+                      <Link to="/business/contact" state={{ interest: `${product.name} (${product.model})` }}>
+                        <Button className="w-full group" variant="hero">
                           <Calendar className="w-4 h-4 mr-2" />
-                          Request quote
+                          Request Quote
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
                       <Link to={`/business/products/${product.model}`}>
-                        <Button variant="outline" className="w-full">
-                          Details
-                          <ArrowRight className="w-4 h-4 ml-2" />
+                        <Button variant="outline" className="w-full group shadow-clay-sm">
+                          View in Detail
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
                     </div>

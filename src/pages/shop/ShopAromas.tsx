@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,17 +13,9 @@ const ShopAromas = () => {
   const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSizes, setSelectedSizes] = useState<Record<string, number>>({});
-  const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
   const { addItem } = useCart();
   const { toast } = useToast();
 
-  useEffect(() => {
-    const rotation = window.setInterval(() => {
-      setActiveFeaturedIndex((prev) => (prev + 1) % fragrances.length);
-    }, 4200);
-
-    return () => window.clearInterval(rotation);
-  }, []);
 
   const filteredFragrances = fragrances.filter((f) => {
     const matchesFamily = !selectedFamily || f.family === selectedFamily;
@@ -83,45 +75,6 @@ const ShopAromas = () => {
         </div>
       </section>
 
-      {/* Auto Carousel */}
-      <section className="pb-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="border border-border/50 bg-card overflow-hidden">
-            <CardContent className="p-0">
-              <div className="grid md:grid-cols-[320px_1fr] gap-0">
-                <div className="h-64 md:h-full border-r border-border/40 bg-muted/25">
-                  <img
-                    src={fragrances[activeFeaturedIndex].image}
-                    alt={fragrances[activeFeaturedIndex].name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6 md:p-8">
-                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Auto oil carousel</p>
-                  <h2 className="font-display text-3xl font-semibold text-foreground mt-2">{fragrances[activeFeaturedIndex].name}</h2>
-                  <p className="text-muted-foreground mt-2">{fragrances[activeFeaturedIndex].description}</p>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {fragrances[activeFeaturedIndex].notes.map((note) => (
-                      <Badge key={note} variant="secondary" className="text-[10px]">{note}</Badge>
-                    ))}
-                  </div>
-                  <div className="flex gap-2 mt-6">
-                    {fragrances.map((fragrance, index) => (
-                      <button
-                        key={fragrance.id}
-                        onClick={() => setActiveFeaturedIndex(index)}
-                        className={`h-1.5 rounded-full transition-all ${activeFeaturedIndex === index ? "w-8 bg-accent" : "w-4 bg-border"}`}
-                        aria-label={`Show ${fragrance.name}`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
 
       {/* Search & Filter */}
       <section className="py-6 border-y border-border/40 bg-background/70 sticky top-16 z-30 backdrop-blur-lg">
@@ -207,9 +160,8 @@ const ShopAromas = () => {
                             <button
                               key={s.label}
                               onClick={() => setSelectedSizes((prev) => ({ ...prev, [fragrance.id]: i }))}
-                              className={`flex-1 text-center py-1.5 rounded-lg border text-xs font-medium transition-all ${
-                                sizeIdx === i ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground hover:border-accent/30"
-                              }`}
+                              className={`flex-1 text-center py-1.5 rounded-lg border text-xs font-medium transition-all ${sizeIdx === i ? "border-accent bg-accent/10 text-accent" : "border-border text-muted-foreground hover:border-accent/30"
+                                }`}
                             >
                               {s.label}
                             </button>
