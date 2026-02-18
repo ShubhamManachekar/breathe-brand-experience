@@ -10,21 +10,25 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const isShop = location.pathname.startsWith("/shop");
   const isBusiness = location.pathname.startsWith("/business");
   const isDashboard = location.pathname.startsWith("/user/") || location.pathname.startsWith("/shop/dashboard") || location.pathname.startsWith("/business/dashboard");
+  const isAuthPage = location.pathname === "/shop/login" || location.pathname === "/business/login" || location.pathname === "/login";
 
   const renderNav = () => {
-    if (isDashboard) return null;
+    if (isDashboard || isAuthPage) return null;
     if (isShop) return <ShopNavigation />;
     if (isBusiness) return <BusinessNavigation />;
     return <Navigation />;
   };
 
+  const showFooter = !isDashboard && !isAuthPage;
+  const showPadding = !isDashboard && !isAuthPage;
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {renderNav()}
-      <main className={isDashboard ? "" : "pt-16"}>
+      <main className={showPadding ? "pt-16" : ""}>
         {children}
       </main>
-      {!isDashboard && <Footer />}
+      {showFooter && <Footer />}
       <Chatbot />
     </div>
   );
