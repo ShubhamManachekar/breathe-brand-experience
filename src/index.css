@@ -3,85 +3,121 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
-   EZE AirCare — Neo-Heritage Design System
+   EZE AirCare — Scent-morphism Design System
 
    Direction:
-   • Warm, editorial minimalism with crafted details
-   • Distinct B2C/B2B accent palettes
-   • Soft gradients, subtle grain, confident typography
+   • Claymorphic softness (rounded, puffy, friendly)
+   • Skeuomorphic premium (textures, metallic edges, glass)
+   • Wellness/Retail (light) ↔ Corporate/Luxury (dark)
+   • "Mist glow" micro-interactions for diffuser imagery
    ═══════════════════════════════════════════════════════════ */
 
 @layer base {
   :root {
-    /* ── Base Palette (navy + ivory + titanium + gold) ── */
-    --background: 60 100% 97%;
-    --foreground: 242 96% 17%;
+    /* ── Base Palette (Soft Clay Gray + Sage — Wellness/Retail) ── */
+    --background: 228 20% 95%;
+    /* #F0F2F5 Soft Clay Gray */
+    --foreground: 220 25% 14%;
+    /* Deep charcoal-navy */
 
-    /* ── Cards ── */
+    /* ── Cards (White with blur backing) ── */
     --card: 0 0% 100%;
-    --card-foreground: 242 96% 17%;
+    --card-foreground: 220 25% 14%;
 
     /* ── Popover ── */
     --popover: 0 0% 100%;
-    --popover-foreground: 242 96% 17%;
+    --popover-foreground: 220 25% 14%;
 
-    /* ── Primary (ink navy) ── */
+    /* ── Primary (ink navy — kept for contrast) ── */
     --primary: 242 96% 17%;
-    --primary-foreground: 60 100% 97%;
+    --primary-foreground: 228 20% 95%;
     --primary-glow: 240 100% 32%;
 
-    /* ── Secondary (deep slate) ── */
+    /* ── Secondary ── */
     --secondary: 240 100% 25%;
-    --secondary-foreground: 60 100% 97%;
+    --secondary-foreground: 228 20% 95%;
 
     /* ── Titanium ── */
     --titanium: 220 14% 62%;
-    --titanium-foreground: 242 96% 17%;
+    --titanium-foreground: 220 25% 14%;
 
-    /* ── Accent (default: shop copper) ── */
-    --accent: 45 99% 41%;
-    --accent-foreground: 242 96% 12%;
+    /* ── Accent (Sage Matte — Wellness) ── */
+    --accent: 86 22% 53%;
+    /* #8E9775 Sage Matte */
+    --accent-foreground: 0 0% 100%;
+
+    /* ── Vibrant Accents ── */
+    --accent-teal: 174 72% 46%;
+    --accent-violet: 262 83% 58%;
+    --accent-coral: 12 90% 62%;
+    --accent-teal-foreground: 0 0% 100%;
+    --accent-violet-foreground: 0 0% 100%;
+    --accent-coral-foreground: 0 0% 100%;
 
     /* ── Muted ── */
-    --muted: 60 36% 93%;
-    --muted-foreground: 232 18% 35%;
+    --muted: 220 14% 90%;
+    /* Blue-gray muted */
+    --muted-foreground: 220 10% 40%;
 
     /* ── Interactive ── */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     /* ── Form ── */
-    --border: 224 18% 78%;
+    --border: 220 16% 82%;
+    /* Matches skeuo shadows */
     --input: 0 0% 100%;
-    --ring: 45 99% 41%;
-    --outline-soft: 224 20% 72%;
+    --ring: 86 22% 53%;
+    --outline-soft: 220 14% 74%;
     --outline-strong: 242 96% 22%;
 
     --radius: 1rem;
 
-    /* ── Refined Shadows (flattened) ── */
-    --shadow-clay:
-      0 8px 20px hsl(242 70% 12% / 0.08),
-      0 1px 2px hsl(242 70% 12% / 0.05);
-    --shadow-clay-hover:
-      0 12px 28px hsl(242 70% 12% / 0.12),
-      0 2px 5px hsl(242 70% 12% / 0.08);
-    --shadow-clay-pressed:
-      inset 0 1px 3px hsl(242 70% 12% / 0.12);
-    --shadow-clay-sm:
-      0 4px 12px hsl(242 70% 12% / 0.08);
-    --shadow-clay-lg:
-      0 18px 40px hsl(242 70% 12% / 0.14);
+    /* ── Skeuomorphic Tokens ── */
+    --skeuo-highlight: 0 0% 100%;
+    /* White top edge */
+    --skeuo-shadow: 220 22% 85%;
+    /* #D1D9E6 Soft Blue-Gray */
+    --skeuo-surface: 228 20% 95%;
+    /* #F0F2F5 base */
 
-    /* ── Gradients ── */
-    --gradient-hero: linear-gradient(135deg, hsl(242 96% 17%), hsl(240 100% 25%) 48%, hsl(242 88% 14%));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(60 40% 96%));
-    --gradient-accent: linear-gradient(135deg, hsl(45 99% 46%), hsl(42 92% 38%));
-    --gradient-raised: linear-gradient(180deg, hsl(0 0% 100%), hsl(60 35% 97%));
-    --gradient-sunken: linear-gradient(180deg, hsl(60 32% 94%), hsl(0 0% 100%));
-    --gradient-dark: linear-gradient(135deg, hsl(242 96% 17%), hsl(240 100% 25%));
+    /* ── Clay Shadows (soft, puffy feel) ── */
+    --shadow-clay:
+      0 8px 20px hsl(220 22% 85% / 0.55),
+      0 1px 2px hsl(220 22% 85% / 0.35);
+    --shadow-clay-hover:
+      0 12px 28px hsl(220 22% 85% / 0.65),
+      0 2px 5px hsl(220 22% 85% / 0.4);
+    --shadow-clay-pressed:
+      inset 0 1px 3px hsl(220 22% 85% / 0.5);
+    --shadow-clay-sm:
+      0 4px 12px hsl(220 22% 85% / 0.45);
+    --shadow-clay-lg:
+      0 18px 40px hsl(220 22% 85% / 0.6);
+
+    /* ── Skeuomorphic Shadows (dual-layer highlight + depth) ── */
+    --shadow-skeuo:
+      inset 0 1px 0 hsl(0 0% 100%),
+      0 6px 16px hsl(220 22% 85% / 0.55),
+      0 1px 3px hsl(220 22% 85% / 0.35);
+    --shadow-skeuo-hover:
+      inset 0 1px 0 hsl(0 0% 100%),
+      0 10px 28px hsl(220 22% 85% / 0.65),
+      0 2px 5px hsl(220 22% 85% / 0.4);
+
+    /* ── Gradients (Scent-morphism) ── */
+    --gradient-hero: linear-gradient(135deg, hsl(242 96% 17%), hsl(262 83% 30%) 40%, hsl(240 100% 25%) 70%, hsl(174 60% 22%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(228 20% 96%));
+    --gradient-accent: linear-gradient(135deg, hsl(86 22% 53%), hsl(86 30% 42%));
+    --gradient-raised: linear-gradient(180deg, hsl(0 0% 100%), hsl(228 18% 96%));
+    --gradient-sunken: linear-gradient(180deg, hsl(228 18% 92%), hsl(0 0% 100%));
+    --gradient-dark: linear-gradient(135deg, hsl(242 96% 17%), hsl(262 60% 28%) 50%, hsl(174 50% 18%));
     --gradient-gold: linear-gradient(135deg, hsl(45 99% 46%), hsl(40 95% 38%));
     --gradient-titanium: linear-gradient(135deg, hsl(220 16% 74%), hsl(220 12% 58%) 45%, hsl(220 10% 48%));
+    --gradient-vibrant: linear-gradient(135deg, hsl(262 83% 58%), hsl(174 72% 46%));
+    --gradient-sunset: linear-gradient(135deg, hsl(12 90% 62%), hsl(45 99% 46%));
+    --gradient-skeuo-btn: linear-gradient(180deg, hsl(0 0% 100% / 0.18), transparent 55%);
+    --gradient-metallic: linear-gradient(180deg, hsl(0 0% 100% / 0.6), hsl(228 18% 96%));
 
     /* ── Transition ── */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -98,77 +134,112 @@
     --sidebar-ring: 45 99% 41%;
 
     /* ── Segment Accent Overrides ── */
-    --accent-shop: 45 99% 41%;
+    --accent-shop: 86 22% 53%;
+    /* Sage for B2C */
     --accent-business: 44 92% 38%;
+    /* Warm gold for B2B */
   }
 
   .dark {
-    /* ── Background: industry-standard dark navy (readable) ── */
-    --background: 242 46% 12%;
-    --foreground: 210 30% 92%;
+    /* ── Background: Deep Obsidian (Corporate/Luxury) ── */
+    --background: 200 10% 10%;
+    /* #181A1B Deep Obsidian */
+    --foreground: 210 20% 90%;
 
-    /* ── Card: Dark Slate ── */
-    --card: 242 34% 16%;
-    --card-foreground: 210 30% 92%;
+    /* ── Card: Raised Matte Black ── */
+    --card: 200 7% 15%;
+    /* #242729 Matte Black */
+    --card-foreground: 210 20% 90%;
 
     /* ── Popover ── */
-    --popover: 242 34% 16%;
-    --popover-foreground: 210 30% 92%;
+    --popover: 200 7% 15%;
+    --popover-foreground: 210 20% 90%;
 
     /* ── Primary ── */
     --primary: 240 80% 60%;
-    --primary-foreground: 242 46% 12%;
+    --primary-foreground: 200 10% 10%;
     --primary-glow: 240 100% 72%;
 
     /* ── Secondary ── */
-    --secondary: 235 44% 28%;
-    --secondary-foreground: 210 30% 92%;
+    --secondary: 200 8% 22%;
+    --secondary-foreground: 210 20% 90%;
 
-    --titanium: 220 10% 52%;
-    --titanium-foreground: 210 30% 92%;
+    --titanium: 210 5% 45%;
+    --titanium-foreground: 210 20% 90%;
 
-    /* ── Accent ── */
-    --accent: 45 99% 45%;
-    --accent-foreground: 242 46% 12%;
+    /* ── Accent (Gold Glossy — Luxury) ── */
+    --accent: 40 56% 55%;
+    /* #C5A059 Gold Glossy */
+    --accent-foreground: 200 10% 10%;
+
+    /* ── Vibrant Accents (dark) ── */
+    --accent-teal: 174 72% 52%;
+    --accent-violet: 262 83% 66%;
+    --accent-coral: 12 90% 68%;
+    --accent-teal-foreground: 200 10% 10%;
+    --accent-violet-foreground: 200 10% 10%;
+    --accent-coral-foreground: 200 10% 10%;
 
     /* ── Muted ── */
-    --muted: 242 26% 21%;
-    --muted-foreground: 216 20% 78%;
+    --muted: 200 5% 18%;
+    --muted-foreground: 210 10% 68%;
 
     /* ── Interactive ── */
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
     /* ── Form ── */
-    --border: 230 22% 34%;
-    --input: 242 32% 18%;
-    --ring: 45 99% 45%;
-    --outline-soft: 230 20% 44%;
+    --border: 200 5% 28%;
+    --input: 200 7% 18%;
+    --ring: 40 56% 55%;
+    --outline-soft: 200 5% 35%;
     --outline-strong: 240 80% 65%;
 
-    /* ── Dark Shadows (flattened) ── */
-    --shadow-clay:
-      0 10px 24px hsl(240 80% 2% / 0.44),
-      0 1px 4px hsl(240 80% 2% / 0.26);
-    --shadow-clay-hover:
-      0 14px 32px hsl(240 80% 2% / 0.52),
-      0 2px 7px hsl(240 80% 2% / 0.3);
-    --shadow-clay-pressed:
-      inset 0 1px 4px hsl(240 80% 2% / 0.42);
-    --shadow-clay-sm:
-      0 6px 14px hsl(240 80% 2% / 0.34);
-    --shadow-clay-lg:
-      0 22px 48px hsl(240 80% 2% / 0.5);
+    /* ── Skeuomorphic Tokens (dark) ── */
+    --skeuo-highlight: 210 5% 26%;
+    /* #3D4245 Metallic edge */
+    --skeuo-shadow: 0 0% 4%;
+    /* #0A0B0C Deep Void */
+    --skeuo-surface: 200 10% 10%;
+    /* #181A1B base */
 
-    /* ── Dark Gradients ── */
-    --gradient-hero: linear-gradient(135deg, hsl(242 52% 16%), hsl(240 48% 22%) 48%, hsl(242 44% 14%));
-    --gradient-card: linear-gradient(180deg, hsl(242 34% 18%), hsl(242 30% 15%));
-    --gradient-accent: linear-gradient(135deg, hsl(45 99% 48%), hsl(42 92% 40%));
-    --gradient-raised: linear-gradient(180deg, hsl(242 34% 18%), hsl(242 30% 15%));
-    --gradient-sunken: linear-gradient(180deg, hsl(242 28% 14%), hsl(242 32% 17%));
-    --gradient-dark: linear-gradient(135deg, hsl(242 46% 12%), hsl(240 40% 18%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 99% 48%), hsl(40 95% 40%));
-    --gradient-titanium: linear-gradient(135deg, hsl(220 10% 48%), hsl(220 9% 38%) 45%, hsl(220 9% 30%));
+    /* ── Dark Clay Shadows ── */
+    --shadow-clay:
+      0 10px 24px hsl(0 0% 0% / 0.5),
+      0 1px 4px hsl(0 0% 0% / 0.3);
+    --shadow-clay-hover:
+      0 14px 32px hsl(0 0% 0% / 0.6),
+      0 2px 7px hsl(0 0% 0% / 0.35);
+    --shadow-clay-pressed:
+      inset 0 1px 4px hsl(0 0% 0% / 0.5);
+    --shadow-clay-sm:
+      0 6px 14px hsl(0 0% 0% / 0.4);
+    --shadow-clay-lg:
+      0 22px 48px hsl(0 0% 0% / 0.55);
+
+    /* ── Dark Skeuomorphic Shadows ── */
+    --shadow-skeuo:
+      inset 0 1px 0 hsl(210 5% 26% / 0.35),
+      0 8px 24px hsl(0 0% 0% / 0.7),
+      0 2px 4px hsl(0 0% 0% / 0.5);
+    --shadow-skeuo-hover:
+      inset 0 1px 0 hsl(210 5% 26% / 0.45),
+      0 12px 32px hsl(0 0% 0% / 0.8),
+      0 2px 6px hsl(0 0% 0% / 0.55);
+
+    /* ── Dark Gradients (Scent-morphism) ── */
+    --gradient-hero: linear-gradient(135deg, hsl(200 10% 8%), hsl(262 40% 16%) 40%, hsl(200 8% 12%) 70%, hsl(174 30% 12%));
+    --gradient-card: linear-gradient(180deg, hsl(200 7% 16%), hsl(200 7% 13%));
+    --gradient-accent: linear-gradient(135deg, hsl(40 56% 55%), hsl(40 60% 42%));
+    --gradient-raised: linear-gradient(180deg, hsl(200 7% 17%), hsl(200 7% 14%));
+    --gradient-sunken: linear-gradient(180deg, hsl(200 6% 12%), hsl(200 7% 15%));
+    --gradient-dark: linear-gradient(135deg, hsl(200 10% 8%), hsl(262 30% 14%) 50%, hsl(174 25% 10%));
+    --gradient-gold: linear-gradient(135deg, hsl(40 56% 58%), hsl(40 60% 44%));
+    --gradient-titanium: linear-gradient(135deg, hsl(210 5% 40%), hsl(210 5% 30%) 45%, hsl(210 5% 24%));
+    --gradient-vibrant: linear-gradient(135deg, hsl(262 83% 66%), hsl(174 72% 52%));
+    --gradient-sunset: linear-gradient(135deg, hsl(12 90% 68%), hsl(40 56% 55%));
+    --gradient-skeuo-btn: linear-gradient(180deg, hsl(210 5% 26% / 0.2), transparent 55%);
+    --gradient-metallic: linear-gradient(180deg, hsl(210 5% 28%), hsl(200 7% 15%));
 
     /* ── Sidebar ── */
     --sidebar-background: 242 52% 12%;
@@ -226,38 +297,38 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(220 18% 90%);
+    background: hsl(228 18% 92%);
     border-radius: 10px;
   }
 
   .dark ::-webkit-scrollbar-track {
-    background: hsl(242 58% 10%);
+    background: hsl(200 10% 8%);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(145deg, hsl(242 96% 24%), hsl(240 100% 18%));
+    background: linear-gradient(145deg, hsl(220 14% 70%), hsl(220 14% 58%));
     border-radius: 10px;
-    border: 2px solid hsl(220 18% 90%);
+    border: 2px solid hsl(228 18% 92%);
   }
 
   .dark ::-webkit-scrollbar-thumb {
-    background: linear-gradient(145deg, hsl(240 80% 62%), hsl(240 74% 46%));
-    border-color: hsl(242 58% 10%);
+    background: linear-gradient(145deg, hsl(210 5% 35%), hsl(210 5% 24%));
+    border-color: hsl(200 10% 8%);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(145deg, hsl(45 99% 45%), hsl(45 99% 38%));
+    background: linear-gradient(145deg, hsl(86 22% 53%), hsl(86 30% 42%));
   }
 
   /* ── Selection ── */
   ::selection {
-    background-color: hsl(45 99% 41% / 0.25);
-    color: hsl(242 96% 14%);
+    background-color: hsl(86 22% 53% / 0.2);
+    color: hsl(220 25% 14%);
   }
 
   .dark ::selection {
-    background-color: hsl(45 99% 45% / 0.2);
-    color: hsl(60 50% 95%);
+    background-color: hsl(40 56% 55% / 0.2);
+    color: hsl(210 20% 92%);
   }
 }
 
@@ -265,9 +336,10 @@
   .bg-loom {
     background:
       radial-gradient(1400px 760px at 10% -18%, hsl(var(--accent) / 0.18), transparent 58%),
-      radial-gradient(1000px 560px at 90% 8%, hsl(var(--primary) / 0.14), transparent 56%),
-      radial-gradient(620px 280px at 76% 62%, hsl(var(--titanium) / 0.17), transparent 65%),
-      radial-gradient(380px 190px at 24% 72%, hsl(var(--accent) / 0.1), transparent 68%),
+      radial-gradient(900px 500px at 85% 5%, hsl(var(--accent-violet) / 0.12), transparent 56%),
+      radial-gradient(1000px 560px at 90% 35%, hsl(var(--primary) / 0.14), transparent 56%),
+      radial-gradient(620px 280px at 76% 62%, hsl(var(--accent-teal) / 0.1), transparent 65%),
+      radial-gradient(480px 240px at 24% 72%, hsl(var(--accent-coral) / 0.08), transparent 68%),
       linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
   }
 
@@ -307,10 +379,10 @@
 
   .bg-diffuser-atmosphere {
     background:
-      radial-gradient(420px 180px at 15% 22%, hsl(var(--primary) / 0.08), transparent 72%),
-      radial-gradient(380px 160px at 78% 26%, hsl(var(--secondary) / 0.09), transparent 74%),
+      radial-gradient(420px 180px at 15% 22%, hsl(var(--accent-violet) / 0.06), transparent 72%),
+      radial-gradient(380px 160px at 78% 26%, hsl(var(--accent-teal) / 0.07), transparent 74%),
       radial-gradient(260px 130px at 68% 74%, hsl(var(--accent) / 0.08), transparent 76%),
-      radial-gradient(220px 120px at 22% 84%, hsl(var(--titanium) / 0.1), transparent 78%),
+      radial-gradient(220px 120px at 22% 84%, hsl(var(--accent-coral) / 0.05), transparent 78%),
       linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
   }
 
@@ -329,11 +401,30 @@
   .card-loom {
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border) / 0.7);
-    box-shadow: 0 3px 10px hsl(var(--foreground) / 0.06);
+    box-shadow: var(--shadow-skeuo);
+    border-radius: 1rem;
   }
 
   .dark .card-loom {
-    border-color: hsl(var(--outline-soft) / 0.7);
+    border-color: hsl(var(--skeuo-highlight) / 0.15);
+  }
+
+  /* ── Skeuomorphic Card: full metallic treatment ── */
+  .card-skeuo {
+    background: var(--gradient-metallic);
+    border: 1px solid hsl(var(--skeuo-highlight) / 0.7);
+    box-shadow: var(--shadow-skeuo);
+    border-radius: 1.25rem;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-skeuo:hover {
+    box-shadow: var(--shadow-skeuo-hover);
+    transform: translateY(-3px);
+  }
+
+  .dark .card-skeuo {
+    border-color: hsl(var(--skeuo-highlight) / 0.25);
   }
 
   .section-shell {
@@ -369,10 +460,10 @@
 
   .dark .bg-diffuser-atmosphere {
     background:
-      radial-gradient(420px 180px at 15% 22%, hsl(var(--primary) / 0.12), transparent 72%),
-      radial-gradient(380px 160px at 78% 26%, hsl(var(--secondary) / 0.13), transparent 74%),
+      radial-gradient(420px 180px at 15% 22%, hsl(var(--accent-violet) / 0.1), transparent 72%),
+      radial-gradient(380px 160px at 78% 26%, hsl(var(--accent-teal) / 0.1), transparent 74%),
       radial-gradient(260px 130px at 68% 74%, hsl(var(--accent) / 0.12), transparent 76%),
-      radial-gradient(220px 120px at 22% 84%, hsl(var(--titanium) / 0.12), transparent 78%),
+      radial-gradient(220px 120px at 22% 84%, hsl(var(--accent-coral) / 0.08), transparent 78%),
       linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
   }
 
@@ -387,40 +478,62 @@
   .outline-navy {
     border: 1px solid hsl(var(--outline-strong) / 0.45);
   }
+
+  /* ── Skeuomorphic Stone Texture (hero backgrounds) ── */
+  .bg-skeuo-texture {
+    position: relative;
+  }
+
+  .bg-skeuo-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .dark .bg-skeuo-texture::before {
+    opacity: 0.06;
+    mix-blend-mode: screen;
+  }
 }
 
 /* ═══════════ CLAY + SKEU COMPONENT STYLES ═══════════ */
 @layer components {
 
-  /* ── Claymorphic Card: puffy, 3D, rounded ── */
+  /* ── Claymorphic Card: puffy, 3D, rounded + skeuo highlight ── */
   .card-clay {
     background: var(--gradient-raised);
     border-radius: 1.25rem;
-    box-shadow: var(--shadow-clay);
-    border: 1px solid hsl(0 0% 100% / 0.6);
+    box-shadow: var(--shadow-skeuo);
+    border: 1px solid hsl(var(--skeuo-highlight) / 0.6);
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .card-clay:hover {
-    box-shadow: var(--shadow-clay-hover);
+    box-shadow: var(--shadow-skeuo-hover);
     transform: translateY(-4px);
   }
 
   .dark .card-clay {
-    border-color: hsl(242 60% 20% / 0.4);
+    border-color: hsl(var(--skeuo-highlight) / 0.2);
   }
 
   /* ── Claymorphic Card Small ── */
   .card-clay-sm {
     background: var(--gradient-raised);
     border-radius: 1rem;
-    box-shadow: var(--shadow-clay-sm);
-    border: 1px solid hsl(0 0% 100% / 0.5);
+    box-shadow: var(--shadow-skeuo);
+    border: 1px solid hsl(var(--skeuo-highlight) / 0.5);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card-clay-sm:hover {
-    box-shadow: var(--shadow-clay);
+    box-shadow: var(--shadow-skeuo-hover);
     transform: translateY(-2px);
   }
 
@@ -429,19 +542,19 @@
     background: var(--gradient-sunken);
     border-radius: 0.75rem;
     box-shadow: var(--shadow-clay-pressed);
-    border: 1px solid hsl(55 20% 86% / 0.5);
+    border: 1px solid hsl(var(--skeuo-shadow) / 0.3);
   }
 
   .dark .surface-sunken {
-    border-color: hsl(242 50% 16% / 0.3);
+    border-color: hsl(0 0% 0% / 0.3);
   }
 
   /* ── Raised Pill (badges, tags) ── */
   .pill-raised {
     background: var(--gradient-raised);
-    box-shadow: var(--shadow-clay-sm);
+    box-shadow: var(--shadow-skeuo);
     border-radius: 999px;
-    border: 1px solid hsl(0 0% 100% / 0.5);
+    border: 1px solid hsl(var(--skeuo-highlight) / 0.5);
   }
 
   /* ── Gold Pill ── */
@@ -460,20 +573,14 @@
   .nav-clay {
     background: hsl(var(--card) / 0.85);
     backdrop-filter: blur(20px) saturate(180%);
-    box-shadow:
-      0 8px 32px hsl(242 50% 17% / 0.08),
-      0 2px 8px hsl(242 50% 17% / 0.04),
-      inset 0 1px 0 hsl(0 0% 100% / 0.7);
-    border: 1px solid hsl(0 0% 100% / 0.4);
+    box-shadow: var(--shadow-skeuo);
+    border: 1px solid hsl(var(--skeuo-highlight) / 0.4);
   }
 
   .dark .nav-clay {
     background: hsl(var(--card) / 0.8);
-    box-shadow:
-      0 8px 32px hsl(0 0% 0% / 0.3),
-      0 2px 8px hsl(0 0% 0% / 0.2),
-      inset 0 1px 0 hsl(242 60% 20% / 0.4);
-    border-color: hsl(242 60% 20% / 0.3);
+    box-shadow: var(--shadow-skeuo);
+    border-color: hsl(var(--skeuo-highlight) / 0.2);
   }
 
   /* ── Skeuomorphic Button Base ── */
@@ -580,6 +687,14 @@
     box-shadow: var(--shadow-clay-lg);
   }
 
+  .shadow-skeuo {
+    box-shadow: var(--shadow-skeuo);
+  }
+
+  .shadow-skeuo-hover {
+    box-shadow: var(--shadow-skeuo-hover);
+  }
+
   /* ── Gradient utilities ── */
   .gradient-hero {
     background: var(--gradient-hero);
@@ -613,6 +728,14 @@
     background: var(--gradient-gold);
   }
 
+  .gradient-skeuo-btn {
+    background-image: var(--gradient-skeuo-btn);
+  }
+
+  .gradient-metallic {
+    background: var(--gradient-metallic);
+  }
+
   .gradient-warm {
     background: var(--gradient-gold);
   }
@@ -635,6 +758,29 @@
   .text-gradient-blue {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(240 100% 40%), hsl(242 96% 17%));
+  }
+
+  .text-gradient-vibrant {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-vibrant);
+  }
+
+  .text-gradient-sunset {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-sunset);
+  }
+
+  /* ── Vibrant accent utilities ── */
+  .bg-accent-teal {
+    background: hsl(var(--accent-teal));
+  }
+
+  .bg-accent-violet {
+    background: hsl(var(--accent-violet));
+  }
+
+  .bg-accent-coral {
+    background: hsl(var(--accent-coral));
   }
 
   /* ── Decorative ── */
@@ -706,11 +852,11 @@
 
 @keyframes glow {
   from {
-    filter: drop-shadow(0 0 12px hsl(45 99% 41% / 0.3));
+    filter: drop-shadow(0 0 12px hsl(var(--accent) / 0.3));
   }
 
   to {
-    filter: drop-shadow(0 0 24px hsl(45 99% 41% / 0.5));
+    filter: drop-shadow(0 0 24px hsl(var(--accent) / 0.5));
   }
 }
 
@@ -768,4 +914,97 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* ── Particle Animations ── */
+@keyframes particleFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: var(--p-opacity, 0.3);
+  }
+
+  25% {
+    transform: translate(var(--p-dx, 40px), var(--p-dy, -60px)) scale(1.1);
+  }
+
+  50% {
+    transform: translate(calc(var(--p-dx, 40px) * -0.5), calc(var(--p-dy, -60px) * 1.5)) scale(0.9);
+    opacity: calc(var(--p-opacity, 0.3) * 1.4);
+  }
+
+  75% {
+    transform: translate(calc(var(--p-dx, 40px) * 0.8), calc(var(--p-dy, -60px) * -0.3)) scale(1.05);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: var(--p-opacity, 0.3);
+  }
+}
+
+@keyframes particlePulse {
+
+  0%,
+  100% {
+    opacity: var(--p-opacity, 0.3);
+    filter: blur(0px);
+  }
+
+  50% {
+    opacity: calc(var(--p-opacity, 0.3) * 1.6);
+    filter: blur(1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle {
+    animation: none !important;
+  }
+
+  .mist-glow {
+    animation: none !important;
+  }
+}
+
+/* ── Mist Glow: pulsing aroma diffuser micro-interaction (dark only) ── */
+.dark .mist-glow {
+  animation: mistPulse 4s ease-in-out infinite;
+}
+
+@keyframes mistPulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px hsl(var(--accent) / 0.15),
+      0 0 40px hsl(var(--accent) / 0.05);
+  }
+
+  50% {
+    box-shadow:
+      0 0 30px hsl(var(--accent) / 0.3),
+      0 0 60px hsl(var(--accent) / 0.12),
+      0 0 100px hsl(var(--accent) / 0.05);
+  }
+}
+
+/* ── Claymorphic Icon: inflated 3D container for category icons ── */
+.icon-clay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  background: var(--gradient-raised);
+  box-shadow: var(--shadow-skeuo);
+  border: 1px solid hsl(var(--skeuo-highlight) / 0.5);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.icon-clay:hover {
+  box-shadow: var(--shadow-skeuo-hover);
+  transform: scale(1.08) translateY(-2px);
+}
+
+.dark .icon-clay {
+  border-color: hsl(var(--skeuo-highlight) / 0.2);
 }

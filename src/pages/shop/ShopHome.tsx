@@ -18,6 +18,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { products } from "@/data/productData";
 import { fragranceFamilies, fragrances } from "@/data/aromaData";
 import PageMeta from "@/components/PageMeta";
+import ParticleField from "@/components/ParticleField";
 
 /* ── Decorative Divider ────────────────────────────────────── */
 const SectionDivider = () => (
@@ -47,12 +48,13 @@ const ShopHome = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="section-shell pt-32 relative bg-oil-texture">
+      <section className="section-shell pt-32 relative bg-oil-texture bg-skeuo-texture">
         <div className="absolute inset-0 bg-grid-fade" />
         <div className="absolute inset-0 bg-smoke-texture opacity-75" />
         <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
-        <div className="absolute -top-10 right-10 w-56 h-56 rounded-full bg-accent/20 blur-3xl animate-float-slower" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-primary/10 blur-3xl animate-float-slow" />
+        <ParticleField variant="shop" />
+        <div className="absolute -top-10 right-10 w-56 h-56 rounded-full bg-accent-coral/15 blur-3xl animate-float-slower" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-accent-violet/10 blur-3xl animate-float-slow" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
@@ -113,7 +115,7 @@ const ShopHome = () => {
                 {featured.map((product, idx) => (
                   <Card key={product.id} className="card-clay overflow-hidden">
                     <CardContent className="p-5 flex items-center gap-5">
-                      <div className="w-20 h-20 rounded-2xl overflow-hidden surface-sunken">
+                      <div className="w-20 h-20 rounded-2xl overflow-hidden surface-sunken mist-glow">
                         <img
                           src={product.image}
                           alt={product.name}
@@ -154,8 +156,8 @@ const ShopHome = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <AnimatedSection animation="fadeInUp">
             <div className="flex items-center gap-4">
-              <div className="w-11 h-11 rounded-2xl gradient-gold shadow-clay-sm flex items-center justify-center">
-                <Wind className="w-5 h-5 text-accent-foreground" />
+              <div className="icon-clay w-11 h-11 shadow-skeuo">
+                <Wind className="w-5 h-5 text-accent" />
               </div>
               <div className="flex-1">
                 <h2 className="font-display text-3xl font-semibold text-foreground">Premium Diffusers</h2>

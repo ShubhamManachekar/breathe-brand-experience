@@ -61,8 +61,8 @@ const BusinessNavigation = () => {
               </Link>
 
               {/* Desktop Nav */}
-              <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
-                <div className="flex items-center gap-1 bg-background/70 p-1.5 rounded-full border border-border/60 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center justify-center flex-1 mx-4">
+                <div className="flex items-center gap-0.5 bg-background/70 p-1.5 rounded-full border border-border/60 backdrop-blur-sm">
                   {navItems.map((item) => (
                     <div key={item.href} className="relative group">
                       {item.hasDropdown ? (
@@ -72,9 +72,9 @@ const BusinessNavigation = () => {
                           onMouseLeave={() => setSolutionsOpen(false)}
                         >
                           <button
-                            className={`flex items-center space-x-1 px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 ${location.pathname.startsWith('/business/solutions')
-                                ? 'text-primary-foreground relative z-10'
-                                : 'text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-white/10'
+                            className={`flex items-center space-x-1 px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${location.pathname.startsWith('/business/solutions')
+                              ? 'text-primary-foreground relative z-10'
+                              : 'text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-white/10'
                               }`}
                           >
                             {location.pathname.startsWith('/business/solutions') && (
@@ -106,9 +106,9 @@ const BusinessNavigation = () => {
                       ) : (
                         <Link
                           to={item.href}
-                          className={`relative block px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${isActive(item.href)
-                              ? 'text-primary-foreground'
-                              : 'text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-white/10'
+                          className={`relative block px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${isActive(item.href)
+                            ? 'text-primary-foreground'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-white/10'
                             }`}
                         >
                           {isActive(item.href) && (
@@ -123,7 +123,7 @@ const BusinessNavigation = () => {
               </div>
 
               {/* CTA */}
-              <div className="hidden lg:flex items-center gap-4">
+              <div className="hidden lg:flex items-center gap-3 shrink-0">
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
                   <div className="h-8 w-px bg-border/40 mx-1" />
@@ -149,7 +149,7 @@ const BusinessNavigation = () => {
                       <Button variant="glass" size="sm" className="rounded-full px-5 h-9">Login</Button>
                     </Link>
                     <Link to="/business/contact">
-                      <Button variant="hero" size="sm" className="rounded-full px-6 h-10 shadow-clay-sm hover:translate-y-[-2px] transition-transform group">
+                      <Button variant="hero" size="sm" className="rounded-full px-5 h-9 shadow-clay-sm hover:translate-y-[-2px] transition-transform group">
                         Get Demo
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                       </Button>
@@ -159,7 +159,7 @@ const BusinessNavigation = () => {
               </div>
 
               {/* Mobile menu */}
-                <button
+              <button
                 className="lg:hidden w-10 h-10 rounded-full ink-outline bg-background/80 flex items-center justify-center text-foreground hover:text-primary transition-all active:scale-95"
                 onClick={() => setIsOpen(!isOpen)}
               >
@@ -180,8 +180,8 @@ const BusinessNavigation = () => {
                   <Link
                     to={item.href}
                     className={`flex items-center justify-between p-3.5 text-base font-semibold rounded-xl transition-all duration-300 ${isActive(item.href)
-                        ? 'bg-primary/5 text-primary'
-                        : 'text-foreground hover:text-primary hover:bg-muted/30'
+                      ? 'bg-primary/5 text-primary'
+                      : 'text-foreground hover:text-primary hover:bg-muted/30'
                       }`}
                     onClick={() => setIsOpen(false)}
                   >
@@ -219,7 +219,7 @@ const BusinessNavigation = () => {
                 {user ? (
                   <>
                     <Link to="/business/dashboard" className="block" onClick={() => setIsOpen(false)}>
-                        <Button variant="glass" size="lg" className="w-full gap-2 rounded-xl justify-start pl-4">
+                      <Button variant="glass" size="lg" className="w-full gap-2 rounded-xl justify-start pl-4">
                         <User className="w-4 h-4" />
                         {profile?.full_name || "My Account"}
                       </Button>

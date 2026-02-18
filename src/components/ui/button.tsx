@@ -10,27 +10,27 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground rounded-xl shadow-clay-sm border border-white/10 hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+          "bg-primary text-primary-foreground rounded-xl shadow-skeuo border-t border-white/30 dark:border-white/10 hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-0.5",
         destructive:
-          "bg-destructive text-destructive-foreground rounded-xl shadow-clay-sm hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+          "bg-destructive text-destructive-foreground rounded-xl shadow-skeuo hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-0.5",
         outline:
           "bg-transparent border-2 border-border rounded-xl hover:bg-muted/50 transition-all duration-300 text-foreground",
         secondary:
-          "gradient-raised text-foreground rounded-xl shadow-clay-sm border border-white/50 dark:border-white/10 hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+          "gradient-raised text-foreground rounded-xl shadow-skeuo border border-white/50 dark:border-white/10 hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-0.5",
         ghost:
           "hover:bg-muted/50 rounded-xl transition-all duration-300 text-muted-foreground hover:text-foreground",
         link:
           "text-primary underline-offset-4 hover:underline",
         hero:
-          "gradient-hero text-primary-foreground rounded-2xl font-bold tracking-wide shadow-clay border border-white/10 hover:shadow-clay-lg transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
+          "gradient-hero text-primary-foreground rounded-2xl font-bold tracking-wide shadow-skeuo border-t border-white/20 hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] [background-image:var(--gradient-hero),var(--gradient-skeuo-btn)]",
         premium:
-          "gradient-gold text-accent-foreground rounded-2xl font-bold shadow-clay border border-yellow-300/30 hover:shadow-glow transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
+          "gradient-gold text-accent-foreground rounded-2xl font-bold shadow-skeuo border-t border-yellow-200/40 dark:border-yellow-400/20 hover:shadow-glow transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] [background-image:var(--gradient-gold),var(--gradient-skeuo-btn)]",
         glass:
-          "bg-card/70 backdrop-blur-xl rounded-xl border border-white/40 dark:border-white/10 text-foreground shadow-clay-sm hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+          "bg-card/70 backdrop-blur-xl rounded-xl border border-white/40 dark:border-white/10 text-foreground shadow-skeuo hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-0.5",
         luxury:
           "bg-transparent border-2 border-accent/40 text-foreground rounded-xl hover:bg-accent/5 hover:border-accent/70 font-semibold tracking-wide transition-all duration-300",
         floating:
-          "gradient-raised shadow-clay-lg hover:shadow-clay-hover animate-float rounded-2xl font-bold border border-white/50 dark:border-white/10",
+          "gradient-raised shadow-skeuo-hover hover:shadow-skeuo-hover animate-float rounded-2xl font-bold border border-white/50 dark:border-white/10",
       },
       size: {
         default: "h-11 px-5 py-2.5",

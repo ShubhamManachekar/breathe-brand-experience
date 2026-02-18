@@ -26,6 +26,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import DynamicCounter from "@/components/DynamicCounter";
 import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
+import ParticleField from "@/components/ParticleField";
 
 const INDUSTRIES = ["Hospitality", "Retail", "Corporate", "Wellness & Healthcare", "Real Estate", "Education", "Other"];
 
@@ -63,12 +64,13 @@ const BusinessHome = () => {
         ogType="website"
       />
       {/* Hero */}
-      <section className="section-shell pt-32 relative bg-oil-texture">
+      <section className="section-shell pt-32 relative bg-oil-texture bg-skeuo-texture">
         <div className="absolute inset-0 bg-grid-fade" />
         <div className="absolute inset-0 bg-smoke-texture opacity-75" />
         <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
-        <div className="absolute -top-16 left-10 w-72 h-72 rounded-full bg-accent/20 blur-3xl animate-float-slower" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-primary/10 blur-3xl animate-float-slow" />
+        <ParticleField variant="business" />
+        <div className="absolute -top-16 left-10 w-72 h-72 rounded-full bg-accent-violet/15 blur-3xl animate-float-slower" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-accent-teal/10 blur-3xl animate-float-slow" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
@@ -170,7 +172,7 @@ const BusinessHome = () => {
                 <Link to={sol.to}>
                   <Card className="card-loom h-full">
                     <CardContent className="p-6 text-center">
-                      <div className="w-12 h-12 rounded-2xl bg-accent/15 flex items-center justify-center mx-auto mb-4">
+                      <div className="icon-clay w-14 h-14 mx-auto mb-4">
                         <sol.icon className="w-6 h-6 text-accent" />
                       </div>
                       <h3 className="font-display text-xl font-semibold text-foreground">{sol.title}</h3>
