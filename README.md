@@ -178,9 +178,9 @@ npm run build
 The app is split into two core experience segments:
 
 - **B2C (Shop):** `/shop/*`
-	- Home, Products, Product Detail, Aromas, Cart/Checkout, Contact, Login, Dashboard
+	- Home, Products, Product Detail (with recommendations), Aromas, Cart (with suggestions & offers), Checkout, Contact, Login, Dashboard
 - **B2B (Business):** `/business/*`
-	- Home, Why Scent Marketing, Solutions (+ vertical pages), Products, Product Detail, Aromas, Contact, Login, Dashboard
+	- Home, Why Scent Marketing, Solutions (+ vertical pages), Products, Product Detail (with related diffusers), Aromas, Contact, Login, Dashboard
 
 Shared pages/components are reused across segments where appropriate. Legacy routes are redirected to the new segmented paths in `src/App.tsx`.
 
@@ -254,10 +254,13 @@ The following areas are now aligned with the new experience language:
 - Solutions and industry solution pages
 - About page and Why Scent Marketing page
 - Dashboard shell + dashboard module visual alignment
+- **Product detail page** with Amazon-style recommendations (oils, bundles, related diffusers)
+- **Cart page** with smart cross-sell suggestions and offer banners
+- **Recommendation engine** (`src/data/recommendations.ts`) for context-aware oil/diffuser pairing
 
-## Phase 1 status (started)
+## Phase 1 status (complete)
 
-Phase 1 quick-win work is now in progress with the following delivered:
+Phase 1 work is now complete with the following delivered:
 
 - **Dark mode visibility correction:** global dark palette tuned for better readability and contrast in all pages (`src/index.css`).
 - **Image optimization pipeline:** WebP conversion and responsive image variants available (`scripts/optimize-images.mjs`).
@@ -265,6 +268,10 @@ Phase 1 quick-win work is now in progress with the following delivered:
 - **SEO metadata coverage:** fallback route metadata added for pages that did not previously define `PageMeta` (`src/components/AppLayout.tsx`).
 - **SEO metadata hardening:** explicit page-level `PageMeta` added across shop/business/dashboard pages, with fallback coverage retained in `src/components/AppLayout.tsx`.
 - **Loading skeletons:** lazy-route fallback upgraded from spinner to structured skeleton layout (`src/App.tsx`).
+- **Recommendation engine:** context-aware oil and diffuser suggestions via `src/data/recommendations.ts`.
+- **Product detail enhancement:** three cross-sell sections (Complete Your Setup, Frequently Bought Together, You Might Also Like).
+- **Cart suggestions and offers:** smart cross-sell suggestions and Bundle and Save 10% offer banner in `ShopCart.tsx`.
+- **Carousel pricing:** aroma oil carousel now displays from pricing.
 
 ### Sample image pack
 

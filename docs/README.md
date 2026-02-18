@@ -25,6 +25,8 @@ The documentation reflects the current frontend architecture in this repository:
 - Shared metadata via `PageMeta`
 - Image optimization pipeline using `scripts/optimize-images.mjs`
 - GA4 integration via environment-gated initialization
+- **Recommendation engine** (`src/data/recommendations.ts`) for context-aware product pairing
+- **Cross-sell experience** on Product Detail and Cart pages (oil suggestions, bundles, related diffusers, offer banners)
 
 ## Ownership
 

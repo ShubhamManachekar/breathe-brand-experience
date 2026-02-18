@@ -4,6 +4,26 @@ All notable changes to this project are documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
+## [2.1.0] - 2026-02-18
+
+### Added
+
+- **Recommendation engine** (`src/data/recommendations.ts`) with context-aware scoring for oils and diffusers.
+- **Product detail page enhancements** (`ProductDetail.tsx`):
+  - "Complete Your Setup" — suggests aroma oils with size auto-matched to diffuser coverage.
+  - "Frequently Bought Together" — bundle pricing with 10% discount.
+  - "You Might Also Like" — related diffusers by category.
+- **Cart suggestions** (`ShopCart.tsx`):
+  - "Complete Your Setup" — suggests oils when cart contains a diffuser.
+  - "You'll Need a Diffuser" — suggests diffusers when cart has only oils.
+  - "Bundle & Save 10%" — promotional offer banner.
+- **Aroma oil pricing in carousel** (`ShopHome.tsx`) — oil cards now display "from ₹1,200 / 100ml".
+
+### Fixed
+
+- B2B product tile buttons ("Request Quote" / "View in Detail") not visible due to flex layout issue in `Products.tsx`.
+- B2C product tile buttons ("Add to Cart" / "View Details") not visible in `ShopProducts.tsx`.
+
 ## [2.0.0] - 2026-02-18
 
 ### Added
@@ -43,3 +63,4 @@ The format is based on Keep a Changelog and this project follows Semantic Versio
 ### Fixed
 
 - _TBD_
+
