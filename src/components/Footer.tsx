@@ -1,162 +1,166 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Facebook, Twitter, Instagram, Linkedin, Send, MapPin, Mail, Phone, ExternalLink } from "lucide-react";
-import AnimatedSection from "@/components/AnimatedSection";
+import { Facebook, Twitter, Instagram, Linkedin, Send, MapPin, Mail, Phone } from "lucide-react";
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const isShop = location.pathname.startsWith("/shop");
+  const isBusiness = location.pathname.startsWith("/business");
 
-    return (
-        <footer className="bg-background border-t border-border/50 pt-16 pb-8 relative overflow-hidden">
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-muted/20 pointer-events-none" />
+  const primaryLinks = isBusiness
+    ? [
+        { to: "/business/solutions/hospitality", label: "Hospitality" },
+        { to: "/business/solutions/retail", label: "Retail" },
+        { to: "/business/solutions/corporate", label: "Corporate" },
+        { to: "/business/solutions/wellness", label: "Wellness" },
+      ]
+    : [
+        { to: "/shop/products", label: "Diffusers" },
+        { to: "/shop/aromas", label: "Aroma Oils" },
+        { to: "/shop/cart", label: "Cart" },
+        { to: "/shop/contact", label: "Support" },
+      ];
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
-                    {/* Brand Column */}
-                    <div className="lg:col-span-4 space-y-6">
-                        <Link to="/" className="flex items-center space-x-3 group w-fit">
-                            <div className="relative">
-                                <div className="w-10 h-10 gradient-hero rounded-xl flex items-center justify-center shadow-glow transition-all duration-300 group-hover:shadow-elegant group-hover:scale-110">
-                                    <span className="text-primary-foreground font-display font-bold text-xl">E</span>
-                                </div>
-                                <div className="absolute -inset-1 gradient-accent rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10" />
-                            </div>
-                            <div className="font-display text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                                EZE AirCare
-                            </div>
-                        </Link>
-                        <p className="text-muted-foreground leading-relaxed max-w-sm">
-                            Transforming spaces through the science of scent. We engineer premium fragrance experiences for global brands, hospitality leaders, and wellness environments.
-                        </p>
-                        <div className="flex items-center gap-4">
-                            <a href="#" className="p-2 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300">
-                                <Linkedin className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="p-2 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300">
-                                <Instagram className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="p-2 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300">
-                                <Twitter className="w-5 h-5" />
-                            </a>
-                            <a href="#" className="p-2 rounded-full bg-accent/10 text-accent hover:bg-accent hover:text-white transition-all duration-300">
-                                <Facebook className="w-5 h-5" />
-                            </a>
-                        </div>
-                    </div>
+  const companyLinks = isBusiness
+    ? [
+        { to: "/about-us", label: "About Us" },
+        { to: "/business/products", label: "Products" },
+        { to: "/business/aromas", label: "Fragrance Library" },
+        { to: "/business/contact", label: "Request a Quote" },
+      ]
+    : [
+        { to: "/about-us", label: "About Us" },
+        { to: "/shop", label: "Shop Home" },
+        { to: "/business", label: "For Business" },
+        { to: "/shop/login", label: "My Account" },
+      ];
 
-                    {/* Quick Links */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <h4 className="font-display font-semibold text-foreground">Solutions</h4>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link to="/solutions/hospitality" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Hospitality
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/solutions/retail" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Retail
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/solutions/corporate" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Corporate
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/solutions/wellness" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Wellness
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+  return (
+    <footer className="relative overflow-hidden">
+      <div className="h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent" />
 
-                    {/* Company Links */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <h4 className="font-display font-semibold text-foreground">Company</h4>
-                        <ul className="space-y-3">
-                            <li>
-                                <Link to="/about-us" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    About Us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/products" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Products
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/aroma-library" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Fragrance Library
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/contact-quote" className="text-muted-foreground hover:text-primary transition-colors flex items-center group">
-                                    <span className="w-1 h-1 bg-accent rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    Contact & Support
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Newsletter Column */}
-                    <div className="lg:col-span-4 space-y-6">
-                        <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 shadow-sm">
-                            <h4 className="font-display font-semibold text-foreground mb-2">Stay Connected</h4>
-                            <p className="text-sm text-muted-foreground mb-4">
-                                Subscribe to our newsletter for the latest scent marketing trends and product updates.
-                            </p>
-                            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-                                <Input
-                                    placeholder="Enter your email"
-                                    className="bg-background/80 border-border/50 focus:border-primary/50"
-                                />
-                                <Button type="submit" variant="hero" size="icon" className="shrink-0">
-                                    <Send className="w-4 h-4" />
-                                </Button>
-                            </form>
-                        </div>
-
-                        <div className="space-y-3">
-                            <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                                <MapPin className="w-4 h-4 text-accent mt-1 shrink-0" />
-                                <span>101, Tech Park Avenue, Cyber City, Gurgaon, India</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                <Mail className="w-4 h-4 text-accent shrink-0" />
-                                <a href="mailto:hello@ezeaircare.com" className="hover:text-primary transition-colors">hello@ezeaircare.com</a>
-                            </div>
-                            <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                <Phone className="w-4 h-4 text-accent shrink-0" />
-                                <a href="tel:+919876543210" className="hover:text-primary transition-colors">+91 98765 43210</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className="border-t border-border/30 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-muted-foreground text-center md:text-left">
-                        © {currentYear} EZE AirCare Technologies. All rights reserved.
-                    </p>
-                    <div className="flex items-center gap-6 text-xs text-muted-foreground">
-                        <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-primary transition-colors">Cookie Policy</a>
-                    </div>
-                </div>
+      <div className="bg-background pt-20 pb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="surface-glass rounded-3xl p-8 md:p-12 mb-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div>
+              <div className="pill-label mb-4">{isBusiness ? "Business" : "Shop"}</div>
+              <h3 className="font-display text-3xl md:text-4xl font-semibold text-foreground">
+                {isBusiness ? "Ready for a tailored scent program?" : "Design your home scent ritual."}
+              </h3>
+              <p className="text-muted-foreground mt-3 max-w-xl">
+                {isBusiness
+                  ? "Book a strategy session and receive a custom deployment plan."
+                  : "Explore diffusers and aroma oils curated for every room."}
+              </p>
             </div>
-        </footer>
-    );
+            <Link to={isBusiness ? "/business/contact" : "/shop/products"}>
+              <Button variant="hero" size="lg" className="group">
+                {isBusiness ? "Request a demo" : "Start shopping"}
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-16">
+            <div className="lg:col-span-4 space-y-6">
+              <Link to={isShop ? "/shop" : isBusiness ? "/business" : "/"} className="flex items-center gap-3 group w-fit">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-foreground text-background shadow-clay-sm border border-border/40 transition-all duration-300 group-hover:shadow-clay-hover group-hover:scale-105">
+                  <span className="font-display font-bold text-2xl">E</span>
+                </div>
+                <div className="font-display text-2xl font-semibold text-foreground">EZE AirCare</div>
+              </Link>
+              <p className="text-muted-foreground max-w-sm">
+                {isBusiness
+                  ? "We translate scent science into measurable brand outcomes for hospitality, retail, and corporate environments."
+                  : "Premium diffusers and aroma oils inspired by Indian perfumery, crafted for modern living."}
+              </p>
+              <div className="flex items-center gap-3">
+                {[Instagram, Linkedin, Twitter, Facebook].map((Icon, idx) => (
+                  <a
+                    key={idx}
+                    href="#"
+                    aria-label="Social"
+                    className="w-10 h-10 rounded-xl card-loom flex items-center justify-center text-muted-foreground hover:text-foreground transition-all"
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 space-y-4">
+              <h4 className="font-display text-lg font-semibold text-foreground">{isBusiness ? "Solutions" : "Shop"}</h4>
+              <ul className="space-y-3">
+                {primaryLinks.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:col-span-2 space-y-4">
+              <h4 className="font-display text-lg font-semibold text-foreground">Company</h4>
+              <ul className="space-y-3">
+                {companyLinks.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:col-span-4 space-y-5">
+              <h4 className="font-display text-lg font-semibold text-foreground">Stay Connected</h4>
+              <p className="text-sm text-muted-foreground">
+                {isBusiness
+                  ? "Receive industry insights, trend reports, and scent strategy updates."
+                  : "Get early access to launches and curated home fragrance tips."}
+              </p>
+              <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                <Input placeholder="you@company.com" className="h-11" />
+                <Button type="submit" variant="hero" size="icon">
+                  <Send className="w-4 h-4" />
+                </Button>
+              </form>
+              <div className="space-y-3">
+                {[
+                  { icon: MapPin, text: "101, Tech Park Avenue, Gurgaon, India" },
+                  { icon: Mail, text: `${isShop ? "support" : "hello"}@ezeaircare.com`, href: `mailto:${isShop ? "support" : "hello"}@ezeaircare.com` },
+                  { icon: Phone, text: "+91 98765 43210", href: "tel:+919876543210" },
+                ].map(({ icon: Icon, text, href }) => (
+                  <div key={text} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <div className="w-7 h-7 rounded-lg card-loom flex items-center justify-center">
+                      <Icon className="w-3.5 h-3.5 text-accent" />
+                    </div>
+                    {href ? (
+                      <a href={href} className="hover:text-foreground transition-colors">{text}</a>
+                    ) : (
+                      <span>{text}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-border/60 pt-6">
+            <p className="text-xs text-muted-foreground">© {currentYear} EZE AirCare Technologies. All rights reserved.</p>
+            <div className="flex items-center gap-6 text-xs text-muted-foreground">
+              <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
+              <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+              <a href="#" className="hover:text-foreground transition-colors">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

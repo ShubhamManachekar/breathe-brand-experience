@@ -8,6 +8,7 @@ interface DynamicCounterProps {
   suffix?: string;
   prefix?: string;
   duration?: number;
+  containerClassName?: string;
   className?: string;
 }
 
@@ -17,14 +18,15 @@ const DynamicCounter: React.FC<DynamicCounterProps> = ({
   suffix = '',
   prefix = '',
   duration = 2000,
+  containerClassName = '',
   className = ''
 }) => {
   const { elementRef, isVisible } = useScrollAnimation(0.5);
   const count = useCountAnimation(endValue, duration, isVisible);
 
   return (
-    <div ref={elementRef} className={`text-center ${className}`}>
-      <div className="text-4xl font-bold text-primary mb-2">
+    <div ref={elementRef} className={`text-center ${containerClassName}`}>
+      <div className={`text-4xl font-bold text-primary mb-2 ${className}`}>
         {prefix}{count}{suffix}
       </div>
     </div>

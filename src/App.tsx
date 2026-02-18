@@ -1,103 +1,135 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { CartProvider } from "@/contexts/CartContext";
 import AppLayout from "@/components/AppLayout";
+import { Skeleton } from "@/components/ui/skeleton";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
-// Shared pages
-import NotFound from "./pages/NotFound";
-import AboutUs from "./pages/AboutUs";
+/* ── Lazy-loaded pages (code-split into separate chunks) ── */
 
-// Homepage
-import Index from "./pages/Index";
+// B2C (Shop)
+const ShopHome = lazy(() => import("./pages/shop/ShopHome"));
+const ShopLogin = lazy(() => import("./pages/shop/ShopLogin"));
+const ShopProducts = lazy(() => import("./pages/shop/ShopProducts"));
+const ShopAromas = lazy(() => import("./pages/shop/ShopAromas"));
+const ShopCart = lazy(() => import("./pages/shop/ShopCart"));
+const ShopCheckout = lazy(() => import("./pages/shop/ShopCheckout"));
+const ShopContact = lazy(() => import("./pages/shop/ShopContact"));
 
-// B2C (Shop) pages
-import ShopHome from "./pages/shop/ShopHome";
-import ShopLogin from "./pages/shop/ShopLogin";
+// B2B (Business)
+const BusinessHome = lazy(() => import("./pages/business/BusinessHome"));
+const BusinessLogin = lazy(() => import("./pages/business/BusinessLogin"));
+const WhyScentMarketing = lazy(() => import("./pages/WhyScentMarketing"));
+const Solutions = lazy(() => import("./pages/Solutions"));
+const SolutionsHospitality = lazy(() => import("./pages/SolutionsHospitality"));
+const SolutionsRetail = lazy(() => import("./pages/SolutionsRetail"));
+const SolutionsCorporate = lazy(() => import("./pages/SolutionsCorporate"));
+const SolutionsWellness = lazy(() => import("./pages/SolutionsWellness"));
+const Products = lazy(() => import("./pages/Products"));
+const AromaLibrary = lazy(() => import("./pages/AromaLibrary"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const ContactQuote = lazy(() => import("./pages/ContactQuote"));
 
-// B2B (Business) pages
-import BusinessHome from "./pages/business/BusinessHome";
-import BusinessLogin from "./pages/business/BusinessLogin";
-import WhyScentMarketing from "./pages/WhyScentMarketing";
-import Solutions from "./pages/Solutions";
-import SolutionsHospitality from "./pages/SolutionsHospitality";
-import SolutionsRetail from "./pages/SolutionsRetail";
-import SolutionsCorporate from "./pages/SolutionsCorporate";
-import SolutionsWellness from "./pages/SolutionsWellness";
-
-// Shared content (available under both segments)
-import Products from "./pages/Products";
-import AromaLibrary from "./pages/AromaLibrary";
-import ProductDetail from "./pages/ProductDetail";
-import ContactQuote from "./pages/ContactQuote";
-
-// Auth & Dashboard
-import Login from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
+// Shared
+const AboutUs = lazy(() => import("./pages/AboutUs"));
+const UserDashboard = lazy(() => import("./pages/UserDashboard"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
+
+/* ── Loading fallback ── */
+const PageLoader = () => (
+  <div className="min-h-screen bg-diffuser-atmosphere">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-8">
+      <div className="space-y-4">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-14 w-full max-w-3xl" />
+        <Skeleton className="h-6 w-full max-w-2xl" />
+      </div>
+      <div className="grid md:grid-cols-3 gap-6">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className="surface-glass rounded-3xl p-6 space-y-4">
+            <Skeleton className="h-40 w-full rounded-2xl" />
+            <Skeleton className="h-6 w-2/3" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="eze-aircare-theme">
         <AuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <AppLayout>
-                <Routes>
-                  {/* Main Homepage with segment selector */}
-                  <Route path="/" element={<Index />} />
+          <CartProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <AnalyticsTracker />
+                <AppLayout>
+                  <Suspense fallback={<PageLoader />}>
+                    <Routes>
+                      {/* Default → Shop */}
+                      <Route path="/" element={<Navigate to="/shop" replace />} />
 
-                  {/* ===== B2C (Shop) Routes ===== */}
-                  <Route path="/shop" element={<ShopHome />} />
-                  <Route path="/shop/products" element={<Products />} />
-                  <Route path="/shop/products/:model" element={<ProductDetail />} />
-                  <Route path="/shop/aromas" element={<AromaLibrary />} />
-                  <Route path="/shop/login" element={<ShopLogin />} />
-                  <Route path="/shop/dashboard" element={<UserDashboard />} />
+                      {/* ===== B2C (Shop) Routes ===== */}
+                      <Route path="/shop" element={<ShopHome />} />
+                      <Route path="/shop/products" element={<ShopProducts />} />
+                      <Route path="/shop/products/:model" element={<ProductDetail />} />
+                      <Route path="/shop/aromas" element={<ShopAromas />} />
+                      <Route path="/shop/cart" element={<ShopCart />} />
+                      <Route path="/shop/checkout" element={<ShopCheckout />} />
+                      <Route path="/shop/contact" element={<ShopContact />} />
+                      <Route path="/shop/login" element={<ShopLogin />} />
+                      <Route path="/shop/dashboard" element={<UserDashboard />} />
 
-                  {/* ===== B2B (Business) Routes ===== */}
-                  <Route path="/business" element={<BusinessHome />} />
-                  <Route path="/business/why-scent-marketing" element={<WhyScentMarketing />} />
-                  <Route path="/business/solutions" element={<Solutions />} />
-                  <Route path="/business/solutions/hospitality" element={<SolutionsHospitality />} />
-                  <Route path="/business/solutions/retail" element={<SolutionsRetail />} />
-                  <Route path="/business/solutions/corporate" element={<SolutionsCorporate />} />
-                  <Route path="/business/solutions/wellness" element={<SolutionsWellness />} />
-                  <Route path="/business/products" element={<Products />} />
-                  <Route path="/business/products/:model" element={<ProductDetail />} />
-                  <Route path="/business/aromas" element={<AromaLibrary />} />
-                  <Route path="/business/contact" element={<ContactQuote />} />
-                  <Route path="/business/login" element={<BusinessLogin />} />
-                  <Route path="/business/dashboard" element={<UserDashboard />} />
+                      {/* ===== B2B (Business) Routes ===== */}
+                      <Route path="/business" element={<BusinessHome />} />
+                      <Route path="/business/why-scent-marketing" element={<WhyScentMarketing />} />
+                      <Route path="/business/solutions" element={<Solutions />} />
+                      <Route path="/business/solutions/hospitality" element={<SolutionsHospitality />} />
+                      <Route path="/business/solutions/retail" element={<SolutionsRetail />} />
+                      <Route path="/business/solutions/corporate" element={<SolutionsCorporate />} />
+                      <Route path="/business/solutions/wellness" element={<SolutionsWellness />} />
+                      <Route path="/business/products" element={<Products />} />
+                      <Route path="/business/products/:model" element={<ProductDetail />} />
+                      <Route path="/business/aromas" element={<AromaLibrary />} />
+                      <Route path="/business/contact" element={<ContactQuote />} />
+                      <Route path="/business/login" element={<BusinessLogin />} />
+                      <Route path="/business/dashboard" element={<UserDashboard />} />
 
-                  {/* ===== Shared / Legacy Routes ===== */}
-                  <Route path="/about-us" element={<AboutUs />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/products/:model" element={<ProductDetail />} />
-                  <Route path="/aroma-library" element={<AromaLibrary />} />
-                  <Route path="/why-scent-marketing" element={<WhyScentMarketing />} />
-                  <Route path="/solutions" element={<Solutions />} />
-                  <Route path="/solutions/hospitality" element={<SolutionsHospitality />} />
-                  <Route path="/solutions/retail" element={<SolutionsRetail />} />
-                  <Route path="/solutions/corporate" element={<SolutionsCorporate />} />
-                  <Route path="/solutions/wellness" element={<SolutionsWellness />} />
-                  <Route path="/contact-quote" element={<ContactQuote />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/user/dashboard" element={<UserDashboard />} />
+                      {/* ===== Shared ===== */}
+                      <Route path="/about-us" element={<AboutUs />} />
 
-                  {/* Catch-all */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </AppLayout>
-            </BrowserRouter>
-          </TooltipProvider>
+                      {/* Legacy redirects → proper segment */}
+                      <Route path="/products" element={<Navigate to="/shop/products" replace />} />
+                      <Route path="/products/:model" element={<Navigate to="/shop/products" replace />} />
+                      <Route path="/aroma-library" element={<Navigate to="/shop/aromas" replace />} />
+                      <Route path="/solutions" element={<Navigate to="/business/solutions" replace />} />
+                      <Route path="/solutions/*" element={<Navigate to="/business/solutions" replace />} />
+                      <Route path="/why-scent-marketing" element={<Navigate to="/business/why-scent-marketing" replace />} />
+                      <Route path="/contact-quote" element={<Navigate to="/business/contact" replace />} />
+                      <Route path="/login" element={<Navigate to="/shop/login" replace />} />
+
+                      {/* Catch-all */}
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </Suspense>
+                </AppLayout>
+              </BrowserRouter>
+            </TooltipProvider>
+          </CartProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

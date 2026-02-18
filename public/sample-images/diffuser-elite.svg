@@ -1,0 +1,33 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#030425"/>
+      <stop offset="60%" stop-color="#050058"/>
+      <stop offset="100%" stop-color="#111743"/>
+    </linearGradient>
+    <linearGradient id="tower" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CAD0DC"/>
+      <stop offset="55%" stop-color="#8E95A8"/>
+      <stop offset="100%" stop-color="#5F6677"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1F2A62"/>
+      <stop offset="100%" stop-color="#0B0F36"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <ellipse cx="600" cy="790" rx="320" ry="60" fill="#040738" fill-opacity="0.75"/>
+
+  <rect x="470" y="120" width="260" height="620" rx="48" fill="url(#tower)"/>
+  <rect x="495" y="170" width="210" height="350" rx="28" fill="url(#panel)"/>
+  <rect x="505" y="560" width="190" height="130" rx="22" fill="#D5DBE8"/>
+  <circle cx="600" cy="612" r="24" fill="#CE9B01"/>
+  <circle cx="600" cy="612" r="10" fill="#FFF3CB"/>
+
+  <path d="M600 120C640 80 640 26 600 -14C560 26 560 80 600 120Z" fill="#EEF2FB" fill-opacity="0.38"/>
+  <path d="M565 146C595 114 595 70 565 38C535 70 535 114 565 146Z" fill="#EEF2FB" fill-opacity="0.2"/>
+  <path d="M635 146C665 114 665 70 635 38C605 70 605 114 635 146Z" fill="#EEF2FB" fill-opacity="0.2"/>
+
+  <rect x="0" y="0" width="1200" height="900" fill="#CE9B01" fill-opacity="0.06"/>
+</svg>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,11 +23,8 @@ interface DashboardAromaPrefsProps {
 }
 
 const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
-    const [favorites, setFavorites] = useState([
-        { id: 1, name: "Lavender Dream", category: "Relaxing", isFavorite: true },
-        { id: 2, name: "Ocean Breeze", category: "Fresh", isFavorite: true },
-        { id: 3, name: "Citrus Burst", category: "Energizing", isFavorite: true },
-    ]);
+    const [favoriteIds, setFavoriteIds] = useState<number[]>([1, 2, 3]);
+    const [activeAromaIndex, setActiveAromaIndex] = useState(0);
 
     // Mock aroma data
     const aromas = [
@@ -36,52 +33,77 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
             name: "Lavender Dream",
             category: "Relaxing",
             description: "Calming French lavender with hints of vanilla",
+            image: "/sample-images/aroma-lavender.svg",
             icon: Flower2,
             color: "from-purple-500/20 to-violet-500/20",
             borderColor: "border-purple-500/30",
-            isFavorite: true,
         },
         {
             id: 2,
             name: "Ocean Breeze",
             category: "Fresh",
             description: "Crisp sea air with marine notes",
+            image: "/sample-images/aroma-ocean.svg",
             icon: Waves,
             color: "from-blue-500/20 to-cyan-500/20",
             borderColor: "border-blue-500/30",
-            isFavorite: true,
         },
         {
             id: 3,
             name: "Citrus Burst",
             category: "Energizing",
             description: "Zesty blend of orange, lemon, and grapefruit",
+            image: "/sample-images/aroma-citrus.svg",
             icon: Sparkles,
             color: "from-amber-500/20 to-yellow-500/20",
             borderColor: "border-amber-500/30",
-            isFavorite: true,
         },
         {
             id: 4,
             name: "Forest Pine",
             category: "Grounding",
             description: "Fresh pine needles with earthy undertones",
+            image: "/sample-images/aroma-wood.svg",
             icon: Leaf,
             color: "from-emerald-500/20 to-green-500/20",
             borderColor: "border-emerald-500/30",
-            isFavorite: false,
         },
         {
             id: 5,
             name: "Warm Coffee",
             category: "Comforting",
             description: "Rich roasted coffee beans aroma",
+            image: "/sample-images/aroma-gold.svg",
             icon: Coffee,
             color: "from-amber-700/20 to-amber-600/20",
             borderColor: "border-amber-700/30",
-            isFavorite: false,
         },
     ];
+
+    const favoriteAromas = useMemo(
+        () => aromas.filter((aroma) => favoriteIds.includes(aroma.id)),
+        [aromas, favoriteIds],
+    );
+
+    const recommendedAromas = useMemo(
+        () => aromas.filter((aroma) => !favoriteIds.includes(aroma.id)),
+        [aromas, favoriteIds],
+    );
+
+    useEffect(() => {
+        if (favoriteAromas.length === 0) return;
+        const rotation = window.setInterval(() => {
+            setActiveAromaIndex((prev) => (prev + 1) % favoriteAromas.length);
+        }, 4200);
+
+        return () => window.clearInterval(rotation);
+    }, [favoriteAromas.length]);
+
+    useEffect(() => {
+        if (activeAromaIndex >= favoriteAromas.length) {
+            setActiveAromaIndex(0);
+        }
+    }, [activeAromaIndex, favoriteAromas.length]);
 
     const scentProfiles = [
         { name: "Relaxing", selected: true },
@@ -93,7 +115,11 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
     ];
 
     const toggleFavorite = (id: number) => {
-        // Toggle logic here
+        setFavoriteIds((prev) =>
+            prev.includes(id)
+                ? prev.filter((itemId) => itemId !== id)
+                : [...prev, id],
+        );
     };
 
     return (
@@ -113,8 +139,43 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
             </AnimatedSection>
 
             <Tabs defaultValue="favorites" className="space-y-6">
+                {favoriteAromas.length > 0 && (
+                    <AnimatedSection animation="fadeInUp" delay={80}>
+                        <Card className="border border-border/50 bg-card">
+                            <CardContent className="p-6">
+                                <div className="grid md:grid-cols-[220px_1fr] gap-5 items-center">
+                                    <div className="rounded-2xl overflow-hidden border border-border/40 bg-muted/20">
+                                        <img
+                                            src={favoriteAromas[activeAromaIndex].image}
+                                            alt={favoriteAromas[activeAromaIndex].name}
+                                            className="w-full h-44 object-cover"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground mb-2">Auto oil carousel</p>
+                                        <h3 className="text-xl font-semibold text-foreground">{favoriteAromas[activeAromaIndex].name}</h3>
+                                        <p className="text-sm text-muted-foreground mt-1">{favoriteAromas[activeAromaIndex].category}</p>
+                                        <p className="text-sm text-muted-foreground mt-3">{favoriteAromas[activeAromaIndex].description}</p>
+                                        <div className="flex gap-2 mt-4">
+                                            {favoriteAromas.map((aroma, index) => (
+                                                <button
+                                                    key={aroma.id}
+                                                    onClick={() => setActiveAromaIndex(index)}
+                                                    className={`h-1.5 rounded-full transition-all ${activeAromaIndex === index ? "w-8 bg-accent" : "w-4 bg-border"}`}
+                                                    aria-label={`Show ${aroma.name}`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </AnimatedSection>
+                )}
+
                 <AnimatedSection animation="fadeInUp" delay={100}>
-                    <TabsList className="gradient-card p-1 w-full flex-wrap sm:flex-nowrap justify-start overflow-x-auto">
+                    <TabsList className="surface-glass p-1 w-full flex-wrap sm:flex-nowrap justify-start overflow-x-auto border border-border/50">
                         <TabsTrigger value="favorites" className="gap-2">
                             <Heart className="w-4 h-4" />
                             Favorites
@@ -134,12 +195,15 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                 <TabsContent value="favorites" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {aromas.filter(a => a.isFavorite).map((aroma, index) => (
+                            {favoriteAromas.map((aroma) => (
                                 <Card
                                     key={aroma.id}
-                                    className={`gradient-card shadow-card hover:shadow-elegant transition-all duration-300 group overflow-hidden border ${aroma.borderColor}`}
+                                    className={`surface-glass border border-border/50 hover:shadow-elegant transition-all duration-300 group overflow-hidden ${aroma.borderColor}`}
                                 >
                                     <div className={`h-2 bg-gradient-to-r ${aroma.color}`} />
+                                    <div className="h-32 border-b border-border/30 bg-muted/20">
+                                        <img src={aroma.image} alt={aroma.name} className="w-full h-full object-cover" loading="lazy" />
+                                    </div>
                                     <CardContent className="p-6">
                                         <div className="flex items-start justify-between mb-4">
                                             <div className={`p-3 rounded-xl bg-gradient-to-br ${aroma.color} group-hover:scale-110 transition-transform`}>
@@ -169,8 +233,8 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                         </div>
                     </AnimatedSection>
 
-                    {aromas.filter(a => a.isFavorite).length === 0 && (
-                        <Card className="gradient-card shadow-card">
+                    {favoriteAromas.length === 0 && (
+                        <Card className="surface-glass border border-border/50">
                             <CardContent className="py-12 text-center">
                                 <HeartOff className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                                 <h3 className="font-semibold text-foreground mb-2">No favorites yet</h3>
@@ -186,7 +250,7 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                 {/* Scent Profile Tab */}
                 <TabsContent value="profile" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle>Your Scent Profile</CardTitle>
                                 <CardDescription>Select your preferred scent categories for personalized recommendations</CardDescription>
@@ -211,7 +275,7 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                     </AnimatedSection>
 
                     <AnimatedSection animation="fadeInUp" delay={300}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle>Industry Preference</CardTitle>
                                 <CardDescription>Help us recommend the best scents for your space</CardDescription>
@@ -236,7 +300,7 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                 {/* Recommendations Tab */}
                 <TabsContent value="recommendations" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
-                        <Card className="bg-gradient-to-r from-accent/10 via-primary/10 to-accent/10 border-accent/20">
+                        <Card className="surface-glass border border-accent/25">
                             <CardContent className="p-6">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-xl bg-accent/20">
@@ -253,12 +317,15 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
 
                     <AnimatedSection animation="fadeInUp" delay={300}>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {aromas.filter(a => !a.isFavorite).map((aroma) => (
+                            {recommendedAromas.map((aroma) => (
                                 <Card
                                     key={aroma.id}
-                                    className={`gradient-card shadow-card hover:shadow-elegant transition-all duration-300 group overflow-hidden border ${aroma.borderColor}`}
+                                    className={`surface-glass border border-border/50 hover:shadow-elegant transition-all duration-300 group overflow-hidden ${aroma.borderColor}`}
                                 >
                                     <div className={`h-2 bg-gradient-to-r ${aroma.color}`} />
+                                    <div className="h-32 border-b border-border/30 bg-muted/20">
+                                        <img src={aroma.image} alt={aroma.name} className="w-full h-full object-cover" loading="lazy" />
+                                    </div>
                                     <CardContent className="p-6">
                                         <div className="flex items-start justify-between mb-4">
                                             <div className={`p-3 rounded-xl bg-gradient-to-br ${aroma.color} group-hover:scale-110 transition-transform`}>
@@ -274,7 +341,7 @@ const DashboardAromaPrefs = ({ onNavigate }: DashboardAromaPrefsProps) => {
                                         </Badge>
                                         <p className="text-sm text-muted-foreground">{aroma.description}</p>
                                         <div className="flex gap-2 mt-4">
-                                            <Button variant="ghost" size="icon">
+                                            <Button variant="ghost" size="icon" onClick={() => toggleFavorite(aroma.id)}>
                                                 <Heart className="w-5 h-5" />
                                             </Button>
                                             <Button variant="outline" size="sm" className="flex-1 gap-2">

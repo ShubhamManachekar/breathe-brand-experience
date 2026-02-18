@@ -46,7 +46,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
 
             <Tabs defaultValue="profile" className="space-y-6">
                 <AnimatedSection animation="fadeInUp" delay={100}>
-                    <TabsList className="gradient-card p-1 h-auto flex flex-wrap sm:flex-nowrap justify-start gap-1 sm:gap-0 w-full overflow-x-auto">
+                    <TabsList className="surface-glass p-1 h-auto flex flex-wrap sm:flex-nowrap justify-start gap-1 sm:gap-0 w-full overflow-x-auto border border-border/50">
                         <TabsTrigger value="profile" className="gap-2 flex-1 sm:flex-initial min-w-[80px]">
                             <User className="w-4 h-4" />
                             <span className="hidden xs:inline">Profile</span>
@@ -70,7 +70,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
                 {/* Profile Tab */}
                 <TabsContent value="profile" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle>Profile Information</CardTitle>
                                 <CardDescription>Update your personal details</CardDescription>
@@ -164,7 +164,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
 
                     {/* Theme Preference */}
                     <AnimatedSection animation="fadeInUp" delay={300}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle>Appearance</CardTitle>
                                 <CardDescription>Customize your dashboard look</CardDescription>
@@ -185,7 +185,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
                 {/* Billing Tab */}
                 <TabsContent value="billing" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <CreditCard className="w-5 h-5 text-accent" />
@@ -211,7 +211,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
                     </AnimatedSection>
 
                     <AnimatedSection animation="fadeInUp" delay={300}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle>Payment Method</CardTitle>
                                 <CardDescription>Manage your payment details</CardDescription>
@@ -238,7 +238,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
                 {/* Notifications Tab */}
                 <TabsContent value="notifications" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <Bell className="w-5 h-5 text-accent" />
@@ -298,7 +298,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
                 {/* Security Tab */}
                 <TabsContent value="security" className="space-y-6">
                     <AnimatedSection animation="fadeInUp" delay={200}>
-                        <Card className="gradient-card shadow-card">
+                        <Card className="surface-glass border border-border/50">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <Shield className="w-5 h-5 text-accent" />
@@ -325,7 +325,7 @@ const DashboardSettings = ({ onNavigate }: DashboardSettingsProps) => {
                     </AnimatedSection>
 
                     <AnimatedSection animation="fadeInUp" delay={300}>
-                        <Card className="gradient-card shadow-card border-destructive/20">
+                        <Card className="surface-glass border border-destructive/25">
                             <CardHeader>
                                 <CardTitle className="text-destructive">Danger Zone</CardTitle>
                                 <CardDescription>Irreversible actions</CardDescription>

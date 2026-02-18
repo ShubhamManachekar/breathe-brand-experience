@@ -1,92 +1,184 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Building2, Store, Briefcase, Heart, Brain, TrendingUp, Users, Sparkles, Award, Target, Zap, Lightbulb, Activity, Calendar } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  ArrowRight,
+  Building2,
+  TrendingUp,
+  Users,
+  Clock,
+  ShieldCheck,
+  Hotel,
+  ShoppingBag,
+  Briefcase,
+  Heart,
+  CheckCircle2,
+  Calendar,
+  Target,
+  Zap,
+} from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import DynamicCounter from "@/components/DynamicCounter";
-import HeroSection from "@/components/HeroSection";
-import ScentFinderQuiz from "@/components/ScentFinderQuiz";
+import { useToast } from "@/hooks/use-toast";
+import PageMeta from "@/components/PageMeta";
+
+const INDUSTRIES = ["Hospitality", "Retail", "Corporate", "Wellness & Healthcare", "Real Estate", "Education", "Other"];
+
+const solutions = [
+  { icon: Hotel, title: "Hospitality", desc: "Signature scent identity from lobby to spa.", to: "/business/solutions/hospitality", tag: "Hotels & Spas" },
+  { icon: ShoppingBag, title: "Retail", desc: "Lift dwell time and perceived value in-store.", to: "/business/solutions/retail", tag: "Stores & Malls" },
+  { icon: Briefcase, title: "Corporate", desc: "Focus, calm, and a premium arrival experience.", to: "/business/solutions/corporate", tag: "Offices" },
+  { icon: Heart, title: "Wellness", desc: "Therapeutic aromatics for care-forward spaces.", to: "/business/solutions/wellness", tag: "Healthcare" },
+];
+
+const caseStudies = [
+  { company: "Luxe Hotels Group", industry: "Hospitality", metric: "+40%", metricLabel: "Guest satisfaction", quote: "Our signature fragrance became the most talked-about amenity across properties." },
+  { company: "Metro Mall", industry: "Retail", metric: "+28%", metricLabel: "Avg. dwell time", quote: "Scent zoning increased engagement and lifted anchor tenant sales." },
+  { company: "ZenWork Spaces", industry: "Corporate", metric: "+15%", metricLabel: "Employee satisfaction", quote: "A calibrated ambient program improved focus and mood across floors." },
+];
 
 const BusinessHome = () => {
-  const caseStudies = [
-    { brand: "Nike Tokyo Flagship", industry: "Retail", result: "+23% Dwell Time", description: "Custom citrus blend increased customer engagement and product exploration", icon: Store, metric: 23, bgGradient: "from-blue-500/10 to-cyan-500/20" },
-    { brand: "Shangri-La Hotels", industry: "Hospitality", result: "+35% Guest Satisfaction", description: "Signature scent improved brand recall and repeat bookings", icon: Building2, metric: 35, bgGradient: "from-emerald-500/10 to-green-500/20" },
-    { brand: "Singapore Airlines", industry: "Corporate", result: "+70% Brand Recall", description: "Stefan Floridian Waters became synonymous with premium service", icon: Briefcase, metric: 70, bgGradient: "from-purple-500/10 to-violet-500/20" }
-  ];
+  const { toast } = useToast();
+  const [leadForm, setLeadForm] = useState({ name: "", email: "", company: "", industry: "" });
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
 
-  const benefits = [
-    { icon: Brain, title: "Neuroscience-Backed", description: "Scent is the only sense directly connected to memory and emotion centers", stat: "75%", statLabel: "of emotions triggered by smell" },
-    { icon: TrendingUp, title: "Proven ROI", description: "Measurable increases in dwell time, purchase intent, and perceived value", stat: "240%", statLabel: "average ROI increase" },
-    { icon: Users, title: "Customer Experience", description: "Creates memorable, positive associations that drive loyalty", stat: "98%", statLabel: "project success rate" },
-    { icon: Heart, title: "Heritage & Innovation", description: "Indian perfumery tradition meets modern atomization technology", stat: "20+", statLabel: "years of expertise" }
-  ];
-
-  const industryMetrics = [
-    { value: 500, label: "Successful Deployments", icon: Award },
-    { value: 95, label: "Client Retention Rate", icon: Target, suffix: "%" },
-    { value: 24, label: "Hour Installation", icon: Zap, suffix: "hr" },
-    { value: 15, label: "Countries Served", icon: Lightbulb }
-  ];
+  const handleLeadSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLeadSubmitted(true);
+    toast({ title: "We will be in touch.", description: "A scent strategist will reach out within 24 hours." });
+  };
 
   return (
-    <div className="overflow-hidden">
-      <HeroSection />
+    <div className="overflow-hidden bg-loom">
+      <PageMeta
+        title="Business Scent Marketing Solutions"
+        description="Design and deploy measurable scent programs for hospitality, retail, corporate, and wellness environments."
+        keywords="business scent marketing, b2b fragrance, scent strategy, ambient scent solutions"
+        canonicalUrl="https://ezeaircare.com/business"
+        ogType="website"
+      />
+      {/* Hero */}
+      <section className="section-shell pt-32 relative bg-oil-texture">
+        <div className="absolute inset-0 bg-grid-fade" />
+        <div className="absolute inset-0 bg-smoke-texture opacity-75" />
+        <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
+        <div className="absolute -top-16 left-10 w-72 h-72 rounded-full bg-accent/20 blur-3xl animate-float-slower" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-primary/10 blur-3xl animate-float-slow" />
 
-      {/* Industry Metrics */}
-      <AnimatedSection animation="fadeInUp" className="py-16 bg-muted/20 border-y border-border/30 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/40 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {industryMetrics.map((metric) => (
-              <div key={metric.label} className="text-center group">
-                <div className="flex flex-col items-center space-y-3">
-                  <div className="p-3 rounded-full bg-accent/5 group-hover:bg-accent/10 transition-colors duration-300">
-                    <metric.icon className="w-6 h-6 text-accent" />
-                  </div>
-                  <DynamicCounter endValue={metric.value} label={metric.label} suffix={metric.suffix || ''} duration={3000} className="text-3xl font-display font-bold text-foreground" />
-                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wide opacity-80">{metric.label}</span>
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+            <div>
+              <div className="pill-label mb-6">
+                <Building2 className="w-3.5 h-3.5" />
+                Business Solutions
+              </div>
+              <AnimatedSection animation="fadeInUp">
+                <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold text-foreground leading-[1.05]">
+                  Scent strategy
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
+                    that compounds ROI.
+                  </span>
+                </h1>
+              </AnimatedSection>
+              <AnimatedSection animation="fadeInUp" delay={150}>
+                <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-xl">
+                  We design, deploy, and optimize ambient scent programs for hospitality, retail, and corporate environments worldwide.
+                </p>
+              </AnimatedSection>
+              <AnimatedSection animation="fadeInUp" delay={300}>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <Link to="/business/contact">
+                    <Button variant="hero" size="lg" className="group">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Schedule a demo
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
+                  <Link to="/business/solutions">
+                    <Button variant="outline" size="lg" className="group">
+                      View solutions
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
                 </div>
+              </AnimatedSection>
+            </div>
+
+            <AnimatedSection animation="fadeInUp" delay={200}>
+              <Card className="card-loom">
+                <CardContent className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <div className="text-sm uppercase tracking-widest text-muted-foreground">Impact snapshot</div>
+                      <div className="font-display text-2xl font-semibold text-foreground mt-2">Proof in the numbers</div>
+                    </div>
+                    <ShieldCheck className="w-6 h-6 text-accent" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-6">
+                    {[
+                      { icon: TrendingUp, value: 40, suffix: "%", label: "Dwell time lift" },
+                      { icon: Target, value: 20, suffix: "%", label: "Revenue impact" },
+                      { icon: Users, value: 15, suffix: "%", label: "Retention gain" },
+                      { icon: Clock, value: 24, suffix: "hr", label: "Install window" },
+                    ].map((stat) => (
+                      <div key={stat.label} className="card-loom rounded-2xl p-4">
+                        <stat.icon className="w-4 h-4 text-accent" />
+                        <div className="mt-3 text-2xl font-semibold text-foreground">
+                          <DynamicCounter endValue={stat.value} duration={2000} />{stat.suffix}
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Bar */}
+      <section className="py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm uppercase tracking-[0.2em] text-muted-foreground/80">
+            {["Luxe Hotels", "Metro Mall", "ZenWork", "Serenity Clinics"].map((name) => (
+              <div key={name} className="text-center card-loom rounded-2xl py-4">
+                {name}
               </div>
             ))}
           </div>
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* Why Scent Works */}
-      <section className="py-24 relative">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-20">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary font-medium text-sm mb-6 shadow-sm">
-              <Sparkles className="w-4 h-4 mr-2" />
-              The Science of Presence
-            </div>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 tracking-tight">
-              Why Scent Marketing
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"> Transforms Business</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
-              Up to <span className="text-accent font-semibold">75% of daily emotions</span> are triggered by smell. We harness this to create <span className="text-primary font-semibold">unforgettable brand experiences</span>.
-            </p>
+      {/* Solutions */}
+      <section className="section-shell">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
+            <div className="pill-label justify-center">Solutions by industry</div>
+            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">Tailored programs for every space.</h2>
+            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">From flagship retail to wellness clinics, we craft scent systems that align with brand identity.</p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <AnimatedSection key={benefit.title} animation="fadeInScale" delay={index * 150} className="h-full">
-                <Card className="gradient-card shadow-sm hover:shadow-elegant transition-all duration-500 group h-full border-border/40 hover:border-accent/30 overflow-hidden bg-background/50 backdrop-blur-sm">
-                  <CardContent className="p-8 text-center h-full flex flex-col relative z-10">
-                    <div className="flex-1">
-                      <benefit.icon className="w-12 h-12 text-foreground group-hover:text-accent transition-colors duration-300 mx-auto mb-6" />
-                      <h3 className="font-display text-xl font-semibold text-foreground mb-4">{benefit.title}</h3>
-                      <p className="text-muted-foreground mb-8 leading-relaxed text-sm">{benefit.description}</p>
-                    </div>
-                    <div className="border-t border-border/30 pt-6 mt-auto">
-                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2">{benefit.stat}</div>
-                      <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">{benefit.statLabel}</div>
-                    </div>
-                  </CardContent>
-                </Card>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {solutions.map((sol, i) => (
+              <AnimatedSection key={sol.title} animation="fadeInUp" delay={i * 120}>
+                <Link to={sol.to}>
+                  <Card className="card-loom h-full">
+                    <CardContent className="p-6 text-center">
+                      <div className="w-12 h-12 rounded-2xl bg-accent/15 flex items-center justify-center mx-auto mb-4">
+                        <sol.icon className="w-6 h-6 text-accent" />
+                      </div>
+                      <h3 className="font-display text-xl font-semibold text-foreground">{sol.title}</h3>
+                      <Badge variant="secondary" className="text-[10px] uppercase tracking-wide mt-2">{sol.tag}</Badge>
+                      <p className="text-sm text-muted-foreground mt-3">{sol.desc}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
               </AnimatedSection>
             ))}
           </div>
@@ -94,32 +186,25 @@ const BusinessHome = () => {
       </section>
 
       {/* Case Studies */}
-      <section className="py-24 relative overflow-hidden bg-muted/10">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent font-medium text-sm mb-6">
-              <Activity className="w-4 h-4 mr-2" />
-              Measurable Impact
-            </div>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Real Results, <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary">Real Growth</span>
-            </h2>
+      <section className="section-shell">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
+            <div className="pill-label justify-center">Client results</div>
+            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">Documented, measurable impact.</h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => (
-              <AnimatedSection key={study.brand} animation="fadeInUp" delay={index * 200}>
-                <Card className="shadow-lg hover:shadow-2xl transition-all duration-500 group overflow-hidden h-full border-border/50 bg-card">
-                  <div className={`h-1.5 w-full bg-gradient-to-r ${study.bgGradient}`} />
-                  <CardContent className="p-8 relative">
-                    <div className="absolute top-4 right-6 text-7xl font-display font-bold text-foreground/5 select-none">{study.metric}</div>
-                    <div className="relative z-10 pt-4">
-                      <study.icon className="w-8 h-8 text-foreground group-hover:text-accent transition-colors duration-300 mb-6" />
-                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">{study.brand}</h3>
-                      <Badge variant="outline" className="mb-6 border-accent/30 text-accent bg-accent/5">{study.industry}</Badge>
-                      <div className="text-2xl font-bold text-primary mb-4">{study.result}</div>
-                      <p className="text-muted-foreground text-sm">"{study.description}"</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {caseStudies.map((cs, i) => (
+              <AnimatedSection key={cs.company} animation="fadeInUp" delay={i * 120}>
+                <Card className="card-loom h-full">
+                  <CardContent className="p-6">
+                    <Badge variant="outline" className="text-[10px] uppercase tracking-wide">{cs.industry}</Badge>
+                    <div className="mt-4 flex items-baseline gap-2">
+                      <span className="text-3xl font-semibold text-foreground">{cs.metric}</span>
+                      <span className="text-sm text-muted-foreground">{cs.metricLabel}</span>
                     </div>
+                    <p className="text-sm text-muted-foreground mt-4">"{cs.quote}"</p>
+                    <div className="mt-6 text-sm font-semibold text-foreground">{cs.company}</div>
                   </CardContent>
                 </Card>
               </AnimatedSection>
@@ -128,35 +213,119 @@ const BusinessHome = () => {
         </div>
       </section>
 
-      <ScentFinderQuiz />
+      {/* Engagement Model */}
+      <section className="section-shell">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
+            <div className="pill-label justify-center">Engagement model</div>
+            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">A measured, end-to-end partnership.</h2>
+          </AnimatedSection>
 
-      {/* CTA */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#0A0A0F]" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 opacity-30" />
-        <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInScale">
-            <h2 className="font-display text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
-              Ready to Define Your<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">Brand Signature?</span>
-            </h2>
-            <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-              Join the world's most distinguished brands using EZE AirCare to captivate audiences and inspire loyalty.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/business/contact">
-                <Button size="xl" className="h-14 px-8 text-lg bg-white text-primary hover:bg-white/90 shadow-[0_0_30px_rgba(255,255,255,0.3)] rounded-full group">
-                  Schedule Consultation
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/business/products">
-                <Button variant="outline" size="xl" className="h-14 px-8 text-lg border-white/30 text-white hover:bg-white/10 hover:text-white rounded-full">
-                  Explore Products
-                </Button>
-              </Link>
-            </div>
-            <p className="mt-8 text-white/40 text-sm">No commitment required • Free demo units available</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: "Discovery", desc: "Audit footfall, brand goals, and space acoustics to map the scent journey.", icon: Target },
+              { title: "Design", desc: "Blend custom fragrances and device placement based on zones and HVAC flow.", icon: Zap },
+              { title: "Optimize", desc: "Measure impact and tune intensity for seasonal shifts and events.", icon: TrendingUp },
+            ].map((step, i) => (
+              <AnimatedSection key={step.title} animation="fadeInUp" delay={i * 120}>
+                <Card className="card-loom h-full">
+                  <CardContent className="p-6">
+                    <step.icon className="w-6 h-6 text-accent" />
+                    <h3 className="font-display text-xl font-semibold text-foreground mt-4">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-3">{step.desc}</p>
+                  </CardContent>
+                </Card>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Lead Capture */}
+      <section className="section-shell">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp">
+            <Card className="card-loom">
+              <CardContent className="p-8 sm:p-10">
+                {leadSubmitted ? (
+                  <div className="text-center py-8">
+                    <CheckCircle2 className="w-14 h-14 text-accent mx-auto mb-4" />
+                    <h3 className="font-display text-2xl font-semibold text-foreground mb-2">Thank you.</h3>
+                    <p className="text-muted-foreground mb-6">We will reach out with a tailored proposal.</p>
+                    <Link to="/business/solutions">
+                      <Button variant="hero">Explore solutions</Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <>
+                    <div className="text-center mb-8">
+                      <Calendar className="w-10 h-10 text-accent mx-auto mb-3" />
+                      <h3 className="font-display text-2xl font-semibold text-foreground mb-2">Book a consultation</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Tell us about your space and we will design a custom scent strategy.
+                      </p>
+                    </div>
+
+                    <form onSubmit={handleLeadSubmit} className="space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="lead-name">Your name</Label>
+                          <Input
+                            id="lead-name"
+                            value={leadForm.name}
+                            onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                            placeholder="Jane Sharma"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="lead-email">Work email</Label>
+                          <Input
+                            id="lead-email"
+                            type="email"
+                            value={leadForm.email}
+                            onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                            placeholder="jane@company.com"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="lead-company">Company</Label>
+                          <Input
+                            id="lead-company"
+                            value={leadForm.company}
+                            onChange={(e) => setLeadForm({ ...leadForm, company: e.target.value })}
+                            placeholder="EZE Hospitality"
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Industry</Label>
+                          <Select onValueChange={(value) => setLeadForm({ ...leadForm, industry: value })}>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select industry" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {INDUSTRIES.map((industry) => (
+                                <SelectItem key={industry} value={industry}>
+                                  {industry}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <Button type="submit" variant="hero" className="w-full group">
+                        Request proposal
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </form>
+                  </>
+                )}
+              </CardContent>
+            </Card>
           </AnimatedSection>
         </div>
       </section>

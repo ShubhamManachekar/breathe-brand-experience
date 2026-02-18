@@ -106,7 +106,7 @@ const DashboardOrders = ({ onNavigate }: DashboardOrdersProps) => {
 
             {/* Filters */}
             <AnimatedSection animation="fadeInUp" delay={100}>
-                <Card className="gradient-card shadow-card">
+                <Card className="surface-glass border border-border/50">
                     <CardContent className="p-4">
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="relative flex-1">
@@ -136,7 +136,7 @@ const DashboardOrders = ({ onNavigate }: DashboardOrdersProps) => {
             </AnimatedSection>
 
             <AnimatedSection animation="fadeInUp" delay={200}>
-                <Card className="gradient-card shadow-card overflow-hidden">
+                <Card className="surface-glass border border-border/50 overflow-hidden">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <Package className="w-5 h-5 text-accent" />
@@ -250,7 +250,7 @@ const DashboardOrders = ({ onNavigate }: DashboardOrdersProps) => {
 
             {/* Empty State */}
             {filteredOrders.length === 0 && (
-                <Card className="gradient-card shadow-card">
+                <Card className="surface-glass border border-border/50">
                     <CardContent className="py-12 text-center">
                         <Package className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                         <h3 className="font-semibold text-foreground mb-2">No orders found</h3>

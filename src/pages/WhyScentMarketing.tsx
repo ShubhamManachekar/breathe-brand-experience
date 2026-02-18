@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Brain, Eye, TrendingUp, Heart, ArrowRight, Users, Building2, Store } from "lucide-react";
 import PageMeta, { createFAQSchema } from "@/components/PageMeta";
+import AnimatedSection from "@/components/AnimatedSection";
 
 const WhyScentMarketing = () => {
   const researchData = [
@@ -88,7 +89,7 @@ const WhyScentMarketing = () => {
   ]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-loom">
       <PageMeta
         title="Why Scent Marketing Works - The Science of Fragrance"
         description="Discover the neuroscience behind scent marketing. Learn how fragrances trigger 75% of daily emotions, boost brand recall by 70%, and increase dwell time by 20-30%. Backed by Harvard research."
@@ -97,35 +98,37 @@ const WhyScentMarketing = () => {
         structuredData={faqSchema}
       />
 
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-display text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
-            The Science of Scent Marketing
-          </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Discover how leading brands harness the power of scent to create deeper emotional
-            connections, drive measurable business results, and transform customer experiences.
-          </p>
+      <section className="relative overflow-hidden pt-20 pb-16 sm:pb-20">
+        <div className="absolute inset-0 bg-grid-fade opacity-60" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <AnimatedSection animation="fadeInUp">
+            <p className="text-sm uppercase tracking-[0.2em] text-accent font-medium mb-4">Neuroscience + Brand Strategy</p>
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 text-balance">
+              Why Scent Marketing<br />
+              <span className="text-primary">Creates Lasting Memory</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Discover how leading brands use scent to increase recall, improve dwell time,
+              and shape emotional perception at every customer touchpoint.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Research Data Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/25">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-              The Neuroscience Behind Scent
-            </h2>
+          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
+            <h2 className="font-display text-4xl font-bold text-foreground mb-4">The Neuroscience Behind Scent</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Research proves that scent is the most powerful sense for triggering emotions and memories.
-              Unlike other senses, smell bypasses the thalamus and directly impacts the limbic system.
+              Smell bypasses typical sensory routing and connects directly to emotional memory systems,
+              making fragrance a uniquely powerful brand signal.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {researchData.map((data, index) => (
-              <Card key={data.description} className="gradient-card shadow-card text-center animate-fade-in-scale" style={{ animationDelay: `${index * 0.2}s` }}>
+              <AnimatedSection key={data.description} animation="fadeInScale" delay={index * 90}>
+                <Card className="surface-glass text-center h-full border-border/50">
                 <CardContent className="p-8">
                   <data.icon className="w-12 h-12 text-accent mx-auto mb-4" />
                   <div className="text-4xl font-bold text-primary mb-2">
@@ -138,17 +141,17 @@ const WhyScentMarketing = () => {
                     {data.source}
                   </p>
                 </CardContent>
-              </Card>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <AnimatedSection animation="fadeInUp">
               <h2 className="font-display text-4xl font-bold text-foreground mb-6">
                 How Scent Influences Behavior
               </h2>
@@ -190,8 +193,9 @@ const WhyScentMarketing = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="gradient-card p-8 rounded-2xl shadow-elegant">
+            </AnimatedSection>
+            <AnimatedSection animation="fadeInScale" delay={120}>
+            <div className="surface-glass p-8 rounded-2xl border border-border/50">
               <h3 className="font-display text-2xl font-bold text-foreground mb-6">Business Impact Metrics</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
@@ -216,25 +220,26 @@ const WhyScentMarketing = () => {
                 </div>
               </div>
             </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
-      {/* Case Studies Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-muted/25">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
             <h2 className="font-display text-4xl font-bold text-foreground mb-4">
               Success Stories from Global Brands
             </h2>
             <p className="text-xl text-muted-foreground">
               Real-world examples of how scent marketing drives measurable business results
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="space-y-12">
             {caseStudies.map((study, index) => (
-              <Card key={study.company} className="gradient-card shadow-elegant animate-fade-in-scale" style={{ animationDelay: `${index * 0.3}s` }}>
+              <AnimatedSection key={study.company} animation="fadeInUp" delay={index * 120}>
+              <Card className="surface-glass border-border/50">
                 <CardContent className="p-8">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
                     <div className="text-center lg:text-left">
@@ -265,35 +270,32 @@ const WhyScentMarketing = () => {
                   </div>
                 </CardContent>
               </Card>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-            Ready to Harness the Power of Scent?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Discover how EZE AirCare can transform your business with scientifically-proven
-            scent marketing solutions tailored to your industry.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/solutions">
-              <Button variant="hero" size="lg">
-                Explore Solutions
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <Link to="/contact-quote">
-              <Button variant="glass" size="lg">
-                Schedule Consultation
-              </Button>
-            </Link>
+        <AnimatedSection animation="fadeInUp" className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <div className="surface-glass rounded-3xl border border-border/50 p-10">
+            <h2 className="font-display text-4xl font-bold text-foreground mb-6">Ready to Activate Scent as a Growth Channel?</h2>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Build a strategy rooted in behavioral science and tailored to your audience.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/business/solutions">
+                <Button size="lg">
+                  Explore Solutions
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/business/contact">
+                <Button variant="outline" size="lg">Schedule Consultation</Button>
+              </Link>
+            </div>
           </div>
-        </div>
+        </AnimatedSection>
       </section>
     </div>
   );

@@ -5,7 +5,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 import DynamicCounter from "@/components/DynamicCounter";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import { useParallax } from "@/hooks/useScrollAnimation";
-import heroImage from "@/assets/hero-scent-diffuser.jpg";
+const heroImage = "/optimized/hero-scent-diffuser-1280.webp";
+const heroImageSrcSet = "/optimized/hero-scent-diffuser-640.webp 640w, /optimized/hero-scent-diffuser-960.webp 960w, /optimized/hero-scent-diffuser-1280.webp 1280w";
 
 const HeroSection = () => {
   const { elementRef: parallaxRef, offset } = useParallax(0.3);
@@ -31,6 +32,8 @@ const HeroSection = () => {
         >
           <img
             src={heroImage}
+            srcSet={heroImageSrcSet}
+            sizes="100vw"
             alt="EZE AirCare Premium Scent Technology"
             className="w-full h-full object-cover scale-110"
             loading="lazy"

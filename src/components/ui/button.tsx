@@ -5,27 +5,39 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 active:scale-[0.97] active:brightness-95",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        hero: "gradient-hero text-primary-foreground shadow-elegant hover:shadow-glow font-medium tracking-wide transition-all duration-300 hover:scale-105",
-        premium: "bg-accent text-accent-foreground shadow-card hover:shadow-glow font-medium transition-all duration-300",
-        glass: "bg-background/80 backdrop-blur-sm border border-border/50 text-foreground hover:bg-background/90 shadow-card",
-        floating: "gradient-card shadow-elegant hover:shadow-glow animate-float font-medium",
+        default:
+          "bg-primary text-primary-foreground rounded-xl shadow-clay-sm border border-white/10 hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+        destructive:
+          "bg-destructive text-destructive-foreground rounded-xl shadow-clay-sm hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+        outline:
+          "bg-transparent border-2 border-border rounded-xl hover:bg-muted/50 transition-all duration-300 text-foreground",
+        secondary:
+          "gradient-raised text-foreground rounded-xl shadow-clay-sm border border-white/50 dark:border-white/10 hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+        ghost:
+          "hover:bg-muted/50 rounded-xl transition-all duration-300 text-muted-foreground hover:text-foreground",
+        link:
+          "text-primary underline-offset-4 hover:underline",
+        hero:
+          "gradient-hero text-primary-foreground rounded-2xl font-bold tracking-wide shadow-clay border border-white/10 hover:shadow-clay-lg transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
+        premium:
+          "gradient-gold text-accent-foreground rounded-2xl font-bold shadow-clay border border-yellow-300/30 hover:shadow-glow transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
+        glass:
+          "bg-card/70 backdrop-blur-xl rounded-xl border border-white/40 dark:border-white/10 text-foreground shadow-clay-sm hover:shadow-clay transition-all duration-300 hover:-translate-y-0.5",
+        luxury:
+          "bg-transparent border-2 border-accent/40 text-foreground rounded-xl hover:bg-accent/5 hover:border-accent/70 font-semibold tracking-wide transition-all duration-300",
+        floating:
+          "gradient-raised shadow-clay-lg hover:shadow-clay-hover animate-float rounded-2xl font-bold border border-white/50 dark:border-white/10",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        xl: "h-14 rounded-lg px-10 text-lg",
-        icon: "h-10 w-10",
+        default: "h-11 px-5 py-2.5",
+        sm: "h-9 rounded-xl px-4 text-xs",
+        lg: "h-12 rounded-2xl px-8 text-sm",
+        xl: "h-14 rounded-2xl px-10 text-base",
+        icon: "h-11 w-11 rounded-xl",
       },
     },
     defaultVariants: {
@@ -37,7 +49,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 

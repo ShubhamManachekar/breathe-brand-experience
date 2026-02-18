@@ -130,7 +130,7 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
             <div className="grid lg:grid-cols-2 gap-6">
                 {/* Submit Ticket */}
                 <AnimatedSection animation="fadeInUp" delay={100}>
-                    <Card className="gradient-card shadow-card h-full">
+                    <Card className="surface-glass border border-border/50 h-full">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <MessageSquare className="w-5 h-5 text-accent" />
@@ -187,7 +187,7 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
 
                 {/* Ticket History */}
                 <AnimatedSection animation="fadeInUp" delay={200}>
-                    <Card className="gradient-card shadow-card h-full">
+                    <Card className="surface-glass border border-border/50 h-full">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <HeadphonesIcon className="w-5 h-5 text-accent" />
@@ -337,7 +337,7 @@ const DashboardSupport = ({ onNavigate }: DashboardSupportProps) => {
 
             {/* FAQ Section */}
             <AnimatedSection animation="fadeInUp" delay={300}>
-                <Card className="gradient-card shadow-card">
+                <Card className="surface-glass border border-border/50">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <HelpCircle className="w-5 h-5 text-accent" />

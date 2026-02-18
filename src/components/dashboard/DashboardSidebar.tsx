@@ -12,7 +12,6 @@ import {
   LogOut,
   User,
   Menu,
-  X,
   Wifi,
   Crown,
 } from "lucide-react";
@@ -37,14 +36,14 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const SidebarContent = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <div className="h-full flex flex-col bg-sidebar text-sidebar-foreground">
+    <div className="h-full flex flex-col bg-sidebar/95 backdrop-blur-md text-sidebar-foreground border-r border-sidebar-border/70">
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border">
         <div className={cn(
           "flex items-center gap-3",
           isCollapsed && !isMobile && "justify-center"
         )}>
-          <div className="w-9 h-9 rounded-lg gradient-accent flex items-center justify-center flex-shrink-0">
+          <div className="w-9 h-9 rounded-lg bg-accent/90 text-accent-foreground flex items-center justify-center flex-shrink-0 shadow-sm">
             <span className="text-white font-bold text-base">E</span>
           </div>
           {(!isCollapsed || isMobile) && (
@@ -57,16 +56,16 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-3 space-y-1.5">
         {menuItems.map((item) => (
           <button
             key={item.id}
             onClick={() => setActiveSection(item.id)}
             className={cn(
-              "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150",
+              "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150",
               activeSection === item.id
-                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
-                : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground",
+                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm ring-1 ring-white/10"
+                : "text-sidebar-foreground/80 hover:bg-sidebar-accent/80 hover:text-sidebar-foreground",
               isCollapsed && !isMobile && "justify-center px-2"
             )}
             title={isCollapsed ? item.label : undefined}
@@ -83,7 +82,7 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
       {/* User Profile */}
       <div className="p-3 border-t border-sidebar-border">
         <div className={cn(
-          "flex items-center gap-3 p-2.5 rounded-lg hover:bg-sidebar-accent transition-colors cursor-pointer",
+          "flex items-center gap-3 p-2.5 rounded-xl hover:bg-sidebar-accent/80 transition-colors cursor-pointer",
           isCollapsed && !isMobile && "justify-center"
         )}>
           <div className="w-8 h-8 rounded-full bg-sidebar-accent flex items-center justify-center flex-shrink-0">
@@ -101,7 +100,7 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
           variant="ghost"
           size="sm"
           className={cn(
-            "w-full mt-2 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent justify-start",
+            "w-full mt-2 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/80 justify-start rounded-xl",
             isCollapsed && !isMobile && "justify-center"
           )}
         >
@@ -117,7 +116,7 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
             variant="ghost"
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-full text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent"
+            className="w-full text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-xl"
           >
             {isCollapsed ? (
               <ChevronRight className="w-4 h-4" />
@@ -137,7 +136,7 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
     <>
       {/* Desktop Sidebar */}
       <aside className={cn(
-        "hidden md:flex flex-col h-screen border-r border-sidebar-border transition-all duration-200 bg-sidebar",
+        "hidden md:flex flex-col h-screen transition-all duration-200 bg-sidebar/95 backdrop-blur-md",
         isCollapsed ? "w-[4.5rem]" : "w-60"
       )}>
         <SidebarContent />
@@ -150,7 +149,7 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
             <Button
               size="icon"
               variant="outline"
-              className="bg-background/95 backdrop-blur-sm shadow-elegant border-border"
+              className="bg-background/90 backdrop-blur-sm shadow-elegant border-border rounded-xl"
             >
               <Menu className="w-5 h-5" />
             </Button>

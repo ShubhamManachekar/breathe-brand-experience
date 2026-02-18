@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, ArrowLeft, Eye, EyeOff, CheckCircle2 } from "lucide-react";
+import { Building2, ArrowLeft, Eye, EyeOff, CheckCircle2, Sparkles, Briefcase } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import PageMeta from "@/components/PageMeta";
 
 const INDUSTRIES = ["Hospitality", "Retail", "Corporate", "Wellness & Healthcare", "Real Estate", "Education", "Other"];
 const COMPANY_SIZES = ["1–10 employees", "11–50 employees", "51–200 employees", "201–1000 employees", "1000+ employees"];
@@ -23,6 +25,7 @@ const BusinessLogin = () => {
   });
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { demoLogin } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -79,10 +82,26 @@ const BusinessLogin = () => {
     }
   };
 
+  const handleDemoLogin = () => {
+    demoLogin("b2b");
+    toast({
+      title: "Welcome, Rahul! 🏢",
+      description: "You're now logged in as Luxe Hotels Group (demo).",
+    });
+    navigate("/business");
+  };
+
   // Success screen
   if (step === 3) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center px-4">
+        <PageMeta
+          title="Business Registration Success"
+          description="Your business registration is received. Verify your email and our team will contact you for onboarding."
+          keywords="business signup success, onboarding, scent strategy demo"
+          canonicalUrl="https://ezeaircare.com/business/login"
+          ogType="website"
+        />
         <Card className="gradient-card shadow-elegant border-border/50 w-full max-w-md text-center">
           <CardContent className="pt-12 pb-10">
             <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />
@@ -101,12 +120,48 @@ const BusinessLogin = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
-        <Link to="/business" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
+      <PageMeta
+        title="Business Login"
+        description="Sign in or create your EZE AirCare business account to access dashboard tools and proposals."
+        keywords="business login, enterprise account, b2b dashboard"
+        canonicalUrl="https://ezeaircare.com/business/login"
+        ogType="website"
+      />
+      <div className="w-full max-w-md space-y-6">
+        <Link to="/business" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="w-4 h-4" />
           Back to Business
         </Link>
 
+        {/* Demo Quick Login Card */}
+        <Card className="border-primary/30 bg-primary/5 shadow-md">
+          <CardContent className="pt-6 pb-5">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0 shadow-glow">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-display font-semibold text-foreground mb-1">Try Demo Account</h3>
+                <p className="text-xs text-muted-foreground mb-3">
+                  Explore as <strong>Rahul Mehta</strong>, VP Operations at <strong>Luxe Hotels Group</strong> — see B2B solutions, request quotes, and manage campaigns.
+                </p>
+                <Button variant="hero" size="sm" onClick={handleDemoLogin} className="group w-full sm:w-auto">
+                  <Briefcase className="w-4 h-4 mr-2" />
+                  Quick Demo Login
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Divider */}
+        <div className="flex items-center gap-4">
+          <div className="flex-1 h-px bg-border/50" />
+          <span className="text-xs text-muted-foreground font-medium">or use your account</span>
+          <div className="flex-1 h-px bg-border/50" />
+        </div>
+
+        {/* Main Card */}
         <Card className="gradient-card shadow-elegant border-border/50">
           <CardHeader className="text-center pb-2">
             <div className="w-14 h-14 gradient-hero rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-glow">
@@ -119,8 +174,8 @@ const BusinessLogin = () => {
               {mode === "login"
                 ? "Access your scent marketing dashboard"
                 : step === 1
-                ? "Step 1 of 2 — Account credentials"
-                : "Step 2 of 2 — Tell us about your business"}
+                  ? "Step 1 of 2 — Account credentials"
+                  : "Step 2 of 2 — Tell us about your business"}
             </CardDescription>
           </CardHeader>
 

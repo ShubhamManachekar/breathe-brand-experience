@@ -1,420 +1,190 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Flower2, Leaf, Sparkles, Wind, Filter, Search, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Search, Filter, ArrowRight } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
+import AnimatedSection from "@/components/AnimatedSection";
+import { fragranceFamilies, fragrances, getFamilyForFragrance } from "@/data/aromaData";
 
 const AromaLibrary = () => {
   const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const fragranceFamilies = [
-    {
-      id: "citrus-fresh",
-      name: "Citrus Fresh",
-      description: "Energizing and uplifting blends",
-      icon: Wind,
-      color: "text-orange-500",
-      bgColor: "from-orange-500/10 to-yellow-500/20",
-      mood: "Energetic & Inspiring",
-      applications: ["Retail spaces", "Gyms & fitness", "Morning environments", "Creative workspaces"]
-    },
-    {
-      id: "aromatic-cool",
-      name: "Aromatic Cool",
-      description: "Calm and composed fragrances",
-      icon: Leaf,
-      color: "text-green-500",
-      bgColor: "from-green-500/10 to-emerald-500/20",
-      mood: "Calm & Relaxing",
-      applications: ["Spas & wellness", "Waiting areas", "Sleep environments", "Meditation spaces"]
-    },
-    {
-      id: "amber-musk",
-      name: "Amber Musk",
-      description: "Luxurious and sophisticated scents",
-      icon: Sparkles,
-      color: "text-amber-500",
-      bgColor: "from-amber-500/10 to-orange-600/20",
-      mood: "Indulgent & Luxurious",
-      applications: ["Luxury retail", "Hotel lobbies", "Premium services", "Executive offices"]
-    },
-    {
-      id: "green-florals",
-      name: "Green Florals",
-      description: "Natural and fresh botanical blends",
-      icon: Flower2,
-      color: "text-emerald-500",
-      bgColor: "from-emerald-500/10 to-green-600/20",
-      mood: "Natural & Fresh",
-      applications: ["Healthcare", "Organic stores", "Nature centers", "Wellness clinics"]
-    }
-  ];
-
-  const fragrances = [
-    // Citrus Fresh Collection
-    {
-      id: "energizing-burst",
-      name: "Energizing Burst",
-      family: "citrus-fresh",
-      notes: ["Grapefruit", "Lemon", "Mint", "Ginger"],
-      description: "An invigorating blend that awakens the senses and boosts motivation. Perfect for retail environments and morning spaces.",
-      intensity: "Medium-High",
-      longevity: "4-6 hours",
-      bestFor: ["Retail stores", "Fitness centers", "Coworking spaces"],
-      mood: "Uplifting & Energetic"
-    },
-    {
-      id: "citrus-sparkle",
-      name: "Citrus Sparkle",
-      family: "citrus-fresh",
-      notes: ["Orange", "Bergamot", "Rosemary", "White Tea"],
-      description: "A sophisticated citrus blend with herbal undertones. Encourages focus while maintaining a welcoming atmosphere.",
-      intensity: "Medium",
-      longevity: "5-7 hours",
-      bestFor: ["Boutiques", "Cafes", "Creative studios"],
-      mood: "Fresh & Sophisticated"
-    },
-
-    // Aromatic Cool Collection
-    {
-      id: "tranquil-mist",
-      name: "Tranquil Mist",
-      family: "aromatic-cool",
-      notes: ["Lavender", "Eucalyptus", "Chamomile", "Cedar"],
-      description: "A calming blend that reduces stress and promotes relaxation. Ideal for wellness environments and waiting areas.",
-      intensity: "Medium-Low",
-      longevity: "6-8 hours",
-      bestFor: ["Spas", "Medical offices", "Therapy centers"],
-      mood: "Peaceful & Restorative"
-    },
-    {
-      id: "cool-breeze",
-      name: "Cool Breeze",
-      family: "aromatic-cool",
-      notes: ["Sage", "Sea Salt", "Mint", "Bamboo"],
-      description: "Fresh and clean with marine influences. Creates a sense of space and clarity in any environment.",
-      intensity: "Light-Medium",
-      longevity: "4-6 hours",
-      bestFor: ["Offices", "Clinics", "Reception areas"],
-      mood: "Clean & Refreshing"
-    },
-
-    // Amber Musk Collection  
-    {
-      id: "luxury-embrace",
-      name: "Luxury Embrace",
-      family: "amber-musk",
-      notes: ["Amber", "Sandalwood", "Vanilla", "Patchouli"],
-      description: "Rich and opulent blend that creates an atmosphere of luxury and sophistication. Perfect for premium experiences.",
-      intensity: "High",
-      longevity: "8-10 hours",
-      bestFor: ["Luxury retail", "Five-star hotels", "Executive suites"],
-      mood: "Opulent & Sophisticated"
-    },
-    {
-      id: "golden-warmth",
-      name: "Golden Warmth",
-      family: "amber-musk",
-      notes: ["Oud", "Rose", "Saffron", "Leather"],
-      description: "An exotic blend with Middle Eastern influences. Creates memorable experiences and strong brand associations.",
-      intensity: "Medium-High",
-      longevity: "7-9 hours",
-      bestFor: ["Boutique hotels", "Premium showrooms", "VIP lounges"],
-      mood: "Exotic & Memorable"
-    },
-
-    // Green Florals Collection
-    {
-      id: "botanical-garden",
-      name: "Botanical Garden",
-      family: "green-florals",
-      notes: ["Jasmine", "Green Tea", "Aloe", "Fresh Grass"],
-      description: "Pure and natural blend that promotes wellness and creates a connection to nature. Perfect for health-focused environments.",
-      intensity: "Light-Medium",
-      longevity: "5-7 hours",
-      bestFor: ["Wellness centers", "Organic stores", "Yoga studios"],
-      mood: "Pure & Natural"
-    },
-    {
-      id: "fresh-meadow",
-      name: "Fresh Meadow",
-      family: "green-florals",
-      notes: ["Lily of the Valley", "Green Leaves", "Cucumber", "White Musk"],
-      description: "Light and airy floral blend that creates a sense of freshness and purity. Ideal for clean, modern spaces.",
-      intensity: "Light",
-      longevity: "4-6 hours",
-      bestFor: ["Modern offices", "Beauty salons", "Clean environments"],
-      mood: "Fresh & Pure"
-    }
-  ];
-
-  const filteredFragrances = fragrances.filter(fragrance => {
+  const filteredFragrances = fragrances.filter((fragrance) => {
     const matchesFamily = !selectedFamily || fragrance.family === selectedFamily;
-    const matchesSearch = !searchTerm ||
+    const matchesSearch =
+      !searchTerm ||
       fragrance.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      fragrance.notes.some(note => note.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      fragrance.notes.some((note) => note.toLowerCase().includes(searchTerm.toLowerCase())) ||
       fragrance.description.toLowerCase().includes(searchTerm.toLowerCase());
 
     return matchesFamily && matchesSearch;
   });
 
-  const getIntensityColor = (intensity: string) => {
-    if (intensity.includes('Light')) return 'text-green-500';
-    if (intensity.includes('Medium')) return 'text-yellow-500';
-    if (intensity.includes('High')) return 'text-red-500';
-    return 'text-gray-500';
-  };
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-loom overflow-hidden">
       <PageMeta
         title="Fragrance Library - Premium Aroma Collection"
-        description="Explore EZE AirCare's curated collection of 50+ premium fragrances. Citrus, floral, amber, and aromatic blends designed for retail, hospitality, corporate, and wellness environments."
-        keywords="fragrance library, aroma collection, commercial scents, ambient fragrances, citrus scents, floral scents, amber musk, aromatherapy blends"
+        description="Explore EZE AirCare's curated fragrance library crafted for hospitality, retail, corporate, and wellness environments."
+        keywords="fragrance library, aroma collection, commercial scents, ambient fragrances"
         ogType="website"
       />
 
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-display text-5xl md:text-6xl font-bold text-primary-foreground mb-6">
-            Curated Aroma Library
-          </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Discover our expertly crafted fragrance collection. Each scent is designed to evoke
-            specific emotions and create memorable experiences for your customers.
-          </p>
-        </div>
-      </section>
-
-      {/* Search and Filter Section */}
-      <section className="py-12 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
-            {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search fragrances, notes, or descriptions..."
-                className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant={selectedFamily === null ? "hero" : "ghost"}
-                size="sm"
-                onClick={() => setSelectedFamily(null)}
-              >
-                <Filter className="w-4 h-4 mr-2" />
-                All Families
-              </Button>
-              {fragranceFamilies.map((family) => (
-                <Button
-                  key={family.id}
-                  variant={selectedFamily === family.id ? "premium" : "ghost"}
-                  size="sm"
-                  onClick={() => setSelectedFamily(family.id)}
-                >
-                  <family.icon className="w-4 h-4 mr-2" />
-                  {family.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Fragrance Families Overview */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-              Fragrance Families
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Four distinct collections designed for different moods and environments
+      {/* Hero */}
+      <section className="section-shell pt-28 relative">
+        <div className="absolute inset-0 bg-grid-fade" />
+        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="pill-label justify-center mb-6">Fragrance library</div>
+          <AnimatedSection animation="fadeInUp">
+            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
+              Signature scents for
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
+                every brand moment.
+              </span>
+            </h1>
+          </AnimatedSection>
+          <AnimatedSection animation="fadeInUp" delay={150}>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-6">
+              Explore fragrance families designed for hospitality, retail, corporate, and wellness environments.
             </p>
-          </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {fragranceFamilies.map((family, index) => (
-              <Card
+      {/* Search & Filter */}
+      <section className="py-6 border-y border-border/40 bg-background/70 sticky top-16 z-30 backdrop-blur-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <input
+              type="text"
+              placeholder="Search fragrance notes or moods"
+              className="w-full pl-10 pr-4 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-sm"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button variant={selectedFamily === null ? "hero" : "ghost"} size="sm" onClick={() => setSelectedFamily(null)}>
+              <Filter className="w-4 h-4 mr-1" /> All Families
+            </Button>
+            {fragranceFamilies.map((family) => (
+              <Button
                 key={family.id}
-                className={`gradient-card shadow-card hover:shadow-elegant transition-all duration-300 cursor-pointer animate-fade-in-scale ${selectedFamily === family.id ? 'ring-2 ring-accent' : ''
-                  }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
+                variant={selectedFamily === family.id ? "hero" : "ghost"}
+                size="sm"
                 onClick={() => setSelectedFamily(family.id)}
               >
-                <div className={`h-2 bg-gradient-to-r ${family.bgColor}`} />
-
-                <CardHeader className="text-center">
-                  <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${family.bgColor} flex items-center justify-center mx-auto mb-4`}>
-                    <family.icon className={`w-8 h-8 ${family.color}`} />
-                  </div>
-                  <CardTitle className="font-display text-xl">{family.name}</CardTitle>
-                  <p className="text-muted-foreground">{family.description}</p>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  <div className="text-center">
-                    <Badge variant="secondary" className={family.color}>
-                      {family.mood}
-                    </Badge>
-                  </div>
-
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2 text-sm">Best Applications</h4>
-                    <ul className="space-y-1">
-                      {family.applications.slice(0, 3).map((app, i) => (
-                        <li key={i} className="flex items-center space-x-2">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full" />
-                          <span className="text-xs text-muted-foreground">{app}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
+                <family.icon className="w-4 h-4 mr-1" /> {family.name}
+              </Button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Fragrance Collection */}
-      <section className="py-20 bg-muted/30">
+      {/* Families */}
+      <section className="section-shell">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-              {selectedFamily
-                ? `${fragranceFamilies.find(f => f.id === selectedFamily)?.name} Collection`
-                : "Complete Fragrance Collection"
-              }
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              {filteredFragrances.length} fragrance{filteredFragrances.length !== 1 ? 's' : ''} available
-            </p>
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
+            <div className="pill-label justify-center">Fragrance families</div>
+            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">Four curated moods.</h2>
+            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">Each family anchors a different emotional response and brand outcome.</p>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {fragranceFamilies.map((family, index) => (
+              <AnimatedSection key={family.id} animation="fadeInUp" delay={index * 120}>
+                <Card className={`card-loom h-full ${selectedFamily === family.id ? "ring-2 ring-accent" : ""}`}>
+                  <CardContent className="p-6">
+                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${family.bgColor} flex items-center justify-center mb-4`}>
+                      <family.icon className={`w-6 h-6 ${family.color}`} />
+                    </div>
+                    <h3 className="font-display text-xl font-semibold text-foreground">{family.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-2">{family.description}</p>
+                    <p className="text-xs uppercase tracking-widest text-muted-foreground mt-4">{family.mood}</p>
+                  </CardContent>
+                </Card>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Fragrances */}
+      <section className="section-shell">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground">{selectedFamily ? getFamilyForFragrance(selectedFamily)?.name : "All Fragrances"}</h2>
+            <p className="text-muted-foreground mt-2">{filteredFragrances.length} fragrance{filteredFragrances.length !== 1 ? "s" : ""}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredFragrances.map((fragrance, index) => {
-              const family = fragranceFamilies.find(f => f.id === fragrance.family);
-
+              const family = getFamilyForFragrance(fragrance.family);
               return (
-                <Card
-                  key={fragrance.id}
-                  className="gradient-card shadow-card hover:shadow-elegant transition-all duration-300 animate-fade-in-scale"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className={`h-2 bg-gradient-to-r ${family?.bgColor}`} />
-
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="font-display text-xl">{fragrance.name}</CardTitle>
-                      {family && <family.icon className={`w-5 h-5 ${family.color}`} />}
-                    </div>
-                    <p className="text-muted-foreground">{fragrance.mood}</p>
-                  </CardHeader>
-
-                  <CardContent className="space-y-4">
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {fragrance.description}
-                    </p>
-
-                    {/* Fragrance Notes */}
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 text-sm">Fragrance Notes</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {fragrance.notes.map((note, i) => (
-                          <Badge key={i} variant="secondary" className="text-xs">
+                <AnimatedSection key={fragrance.id} animation="fadeInUp" delay={index * 100}>
+                  <Card className="card-loom h-full">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs uppercase tracking-widest text-muted-foreground">{fragrance.mood}</p>
+                          <h3 className="font-display text-xl font-semibold text-foreground mt-2">{fragrance.name}</h3>
+                        </div>
+                        {family && <family.icon className={`w-5 h-5 ${family.color}`} />}
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-3">{fragrance.description}</p>
+                      <div className="mt-4 flex flex-wrap gap-1">
+                        {fragrance.notes.map((note) => (
+                          <Badge key={note} variant="secondary" className="text-[10px]">
                             {note}
                           </Badge>
                         ))}
                       </div>
-                    </div>
-
-                    {/* Properties */}
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <span className="text-muted-foreground">Intensity:</span>
-                        <div className={`font-medium ${getIntensityColor(fragrance.intensity)}`}>
-                          {fragrance.intensity}
+                      <div className="mt-4">
+                        <p className="text-xs uppercase tracking-widest text-muted-foreground">Best for</p>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {fragrance.bestForBusiness.map((use) => (
+                            <Badge key={use} variant="outline" className="text-[10px]">
+                              {use}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
-                      <div>
-                        <span className="text-muted-foreground">Longevity:</span>
-                        <div className="font-medium text-foreground">{fragrance.longevity}</div>
+                      <div className="mt-5">
+                        <Link to="/business/contact" state={{ interest: `Signature scent: ${fragrance.name}` }}>
+                          <Button variant="outline" className="w-full">
+                            Request sample
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </Link>
                       </div>
-                    </div>
-
-                    {/* Best For */}
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 text-sm">Best For</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {fragrance.bestFor.map((use, i) => (
-                          <Badge key={i} variant="outline" className="text-xs">
-                            {use}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      <Link to="/contact-quote" state={{ interest: `Sample: ${fragrance.name}` }}>
-                        <Button className="w-full" variant="hero" size="sm">
-                          Request Sample
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </AnimatedSection>
               );
             })}
           </div>
-
-          {filteredFragrances.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-xl text-muted-foreground mb-4">
-                No fragrances found matching your criteria
-              </p>
-              <Button variant="hero" onClick={() => { setSelectedFamily(null); setSearchTerm(''); }}>
-                Clear Filters
-              </Button>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* Custom Fragrance Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="gradient-card p-12 rounded-2xl shadow-elegant text-center">
-            <Sparkles className="w-12 h-12 text-accent mx-auto mb-6" />
-            <h2 className="font-display text-3xl font-bold text-foreground mb-4">
-              Need Something Unique?
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Our master perfumers can create a custom signature scent that perfectly
-              captures your brand essence and creates a truly unique sensory experience.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact-quote" state={{ interest: "Custom Fragrance Design" }}>
-                <Button variant="hero" size="lg">
-                  Discuss Custom Fragrance
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-              <Button variant="glass" size="lg">
-                Download Fragrance Guide
-              </Button>
+      {/* CTA */}
+      <section className="section-shell">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="surface-glass rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div>
+              <div className="pill-label mb-4">Custom blending</div>
+              <h3 className="font-display text-3xl md:text-4xl font-semibold text-foreground">Need a signature scent?</h3>
+              <p className="text-muted-foreground mt-3 max-w-xl">We craft bespoke blends that align with your brand story and environment.</p>
             </div>
+            <Link to="/business/contact">
+              <Button variant="hero" size="lg" className="group">
+                Talk to a perfumer
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

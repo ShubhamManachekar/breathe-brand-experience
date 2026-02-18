@@ -1,0 +1,23 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 450) rotate(90) scale(420)">
+      <stop offset="0%" stop-color="#EAF6FF"/>
+      <stop offset="100%" stop-color="#D6E8F8"/>
+    </radialGradient>
+    <linearGradient id="bottle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000182"/>
+      <stop offset="100%" stop-color="#050058"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="900" fill="url(#bg)"/>
+  <circle cx="450" cy="450" r="300" fill="#000182" fill-opacity="0.1"/>
+
+  <rect x="355" y="190" width="190" height="430" rx="26" fill="url(#bottle)"/>
+  <rect x="375" y="145" width="150" height="60" rx="18" fill="#9AA6BE"/>
+  <rect x="392" y="94" width="116" height="56" rx="16" fill="#74809A"/>
+
+  <ellipse cx="450" cy="670" rx="150" ry="38" fill="#050058" fill-opacity="0.35"/>
+  <circle cx="450" cy="410" r="42" fill="#76AEE8"/>
+  <circle cx="450" cy="410" r="21" fill="#D7ECFF"/>
+</svg>

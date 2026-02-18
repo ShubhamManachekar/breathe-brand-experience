@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,12 +20,15 @@ interface DashboardDevicesProps {
 }
 
 const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
+    const [activeDeviceIndex, setActiveDeviceIndex] = useState(0);
+
     // Mock data - would come from API in production
     const devices = [
         {
             id: "DIF-001",
             name: "Lobby Diffuser",
             model: "EZE Pro 5000",
+            image: "/sample-images/diffuser-pro.svg",
             location: "Main Lobby",
             status: "online",
             aromaLevel: 75,
@@ -35,6 +39,7 @@ const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
             id: "DIF-002",
             name: "Conference Room A",
             model: "EZE Pro 3000",
+            image: "/sample-images/diffuser-compact.svg",
             location: "2nd Floor",
             status: "online",
             aromaLevel: 45,
@@ -45,6 +50,7 @@ const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
             id: "DIF-003",
             name: "Reception Area",
             model: "EZE Pro 5000",
+            image: "/sample-images/diffuser-compact.svg",
             location: "Ground Floor",
             status: "offline",
             aromaLevel: 20,
@@ -55,6 +61,7 @@ const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
             id: "DIF-004",
             name: "Executive Suite",
             model: "EZE Elite 7000",
+            image: "/sample-images/diffuser-elite.svg",
             location: "5th Floor",
             status: "low_oil",
             aromaLevel: 15,
@@ -62,6 +69,14 @@ const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
             lastSync: "1 min ago",
         },
     ];
+
+    useEffect(() => {
+        const rotation = window.setInterval(() => {
+            setActiveDeviceIndex((prev) => (prev + 1) % devices.length);
+        }, 4500);
+
+        return () => window.clearInterval(rotation);
+    }, [devices.length]);
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -117,27 +132,64 @@ const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
             </AnimatedSection>
 
             {/* Status Summary */}
+            <AnimatedSection animation="fadeInUp" delay={80}>
+                <Card className="border border-border/50 bg-card">
+                    <CardContent className="p-6">
+                        <div className="flex flex-col lg:flex-row gap-6 lg:items-center">
+                            <div className="w-full lg:w-[320px] rounded-2xl overflow-hidden border border-border/40 bg-muted/30">
+                                <img
+                                    src={devices[activeDeviceIndex].image}
+                                    alt={devices[activeDeviceIndex].name}
+                                    className="w-full h-48 object-cover"
+                                    loading="lazy"
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground mb-2">Auto diffuser spotlight</p>
+                                <div className="flex items-center justify-between gap-3 flex-wrap">
+                                    <h3 className="text-xl font-semibold text-foreground">{devices[activeDeviceIndex].name}</h3>
+                                    {getStatusBadge(devices[activeDeviceIndex].status)}
+                                </div>
+                                <p className="text-sm text-muted-foreground mt-1">{devices[activeDeviceIndex].model} • {devices[activeDeviceIndex].location}</p>
+                                <p className="text-sm text-muted-foreground mt-2">Current oil: {devices[activeDeviceIndex].currentAroma}</p>
+                                <div className="flex gap-2 mt-4">
+                                    {devices.map((device, index) => (
+                                        <button
+                                            key={device.id}
+                                            onClick={() => setActiveDeviceIndex(index)}
+                                            className={`h-1.5 rounded-full transition-all ${activeDeviceIndex === index ? "w-8 bg-accent" : "w-4 bg-border"}`}
+                                            aria-label={`Show ${device.name}`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </AnimatedSection>
+
+            {/* Status Summary */}
             <AnimatedSection animation="fadeInUp" delay={100}>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Card className="gradient-card shadow-card">
+                    <Card className="surface-glass border border-border/50">
                         <CardContent className="p-4 text-center">
                             <div className="text-3xl font-bold text-foreground">{devices.length}</div>
                             <p className="text-sm text-muted-foreground">Total Diffusers</p>
                         </CardContent>
                     </Card>
-                    <Card className="gradient-card shadow-card">
+                    <Card className="surface-glass border border-border/50">
                         <CardContent className="p-4 text-center">
                             <div className="text-3xl font-bold text-emerald-500">{onlineCount}</div>
                             <p className="text-sm text-muted-foreground">Online</p>
                         </CardContent>
                     </Card>
-                    <Card className="gradient-card shadow-card">
+                    <Card className="surface-glass border border-border/50">
                         <CardContent className="p-4 text-center">
                             <div className="text-3xl font-bold text-amber-500">{alertCount}</div>
                             <p className="text-sm text-muted-foreground">Needs Attention</p>
                         </CardContent>
                     </Card>
-                    <Card className="gradient-card shadow-card">
+                    <Card className="surface-glass border border-border/50">
                         <CardContent className="p-4 text-center">
                             <div className="text-3xl font-bold text-primary">
                                 {Math.round(devices.reduce((acc, d) => acc + d.aromaLevel, 0) / devices.length)}%
@@ -154,18 +206,14 @@ const DashboardDevices = ({ onNavigate }: DashboardDevicesProps) => {
                     {devices.map((device, index) => (
                         <Card
                             key={device.id}
-                            className={`gradient-card shadow-card hover:shadow-elegant transition-all duration-300 ${device.status === "offline" ? "opacity-75" : ""
+                            className={`surface-glass border border-border/50 hover:shadow-elegant transition-all duration-300 ${device.status === "offline" ? "opacity-75" : ""
                                 } ${device.status === "low_oil" ? "border-amber-500/50" : ""}`}
                         >
                             <CardContent className="p-6">
                                 <div className="flex items-start justify-between mb-4">
                                     <div className="flex items-center gap-3">
-                                        <div className={`p-3 rounded-xl ${device.status === "online" ? "bg-emerald-500/10" :
-                                            device.status === "low_oil" ? "bg-amber-500/10" : "bg-gray-500/10"
-                                            }`}>
-                                            <Droplets className={`w-6 h-6 ${device.status === "online" ? "text-emerald-500" :
-                                                device.status === "low_oil" ? "text-amber-500" : "text-gray-500"
-                                                }`} />
+                                        <div className="w-14 h-14 rounded-xl overflow-hidden border border-border/50 bg-muted/20">
+                                            <img src={device.image} alt={device.name} className="w-full h-full object-cover" loading="lazy" />
                                         </div>
                                         <div>
                                             <h3 className="font-semibold text-foreground">{device.name}</h3>

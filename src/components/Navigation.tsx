@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import ScrollProgress from "@/components/ScrollProgress";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import SegmentSwitcher from "@/components/SegmentSwitcher";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,20 +63,18 @@ const Navigation = () => {
                       onMouseLeave={() => setSolutionsOpen(false)}
                     >
                       <button
-                        className={`flex items-center space-x-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:bg-accent/20 ${
-                          location.pathname.startsWith('/solutions')
+                        className={`flex items-center space-x-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:bg-accent/20 ${location.pathname.startsWith('/solutions')
                             ? 'text-primary bg-accent/10'
                             : 'text-muted-foreground hover:text-primary'
-                        }`}
+                          }`}
                       >
                         <span>{item.label}</span>
                         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} />
                       </button>
-                      
+
                       {/* Enhanced Dropdown */}
-                      <div className={`absolute top-full left-0 mt-2 w-72 z-50 bg-background/95 backdrop-blur-lg rounded-xl shadow-elegant border border-border/50 transition-all duration-300 ${
-                        solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'
-                      }`}>
+                      <div className={`absolute top-full left-0 mt-2 w-72 z-50 bg-background/95 backdrop-blur-lg rounded-xl shadow-elegant border border-border/50 transition-all duration-300 ${solutionsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'
+                        }`}>
                         <div className="p-3">
                           <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-3">
                             Industry Solutions
@@ -103,11 +102,10 @@ const Navigation = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:bg-accent/20 ${
-                        isActive(item.href)
+                      className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 hover:bg-accent/20 ${isActive(item.href)
                           ? 'text-primary bg-accent/10'
                           : 'text-muted-foreground hover:text-primary'
-                      }`}
+                        }`}
                     >
                       {item.label}
                     </Link>
@@ -118,6 +116,7 @@ const Navigation = () => {
 
             {/* Enhanced CTA Buttons */}
             <div className="hidden md:flex items-center space-x-3">
+              <SegmentSwitcher />
               <ThemeToggle />
               <Link to="/login">
                 <Button variant="glass" size="sm" className="group">
@@ -148,18 +147,16 @@ const Navigation = () => {
           </div>
 
           {/* Enhanced Mobile Navigation */}
-          <div className={`md:hidden transition-all duration-300 z-50 ${
-            isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-          }`}>
+          <div className={`md:hidden transition-all duration-300 z-50 ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+            }`}>
             <div className="bg-background/95 backdrop-blur-lg rounded-xl m-4 shadow-elegant border border-border/50 animate-fade-in-scale">
               <div className="p-4 space-y-2">
                 {navItems.map((item) => (
                   <div key={item.href}>
                     <Link
                       to={item.href}
-                      className={`flex items-center justify-between p-3 text-base font-medium rounded-lg transition-all duration-200 hover:bg-accent/20 ${
-                        isActive(item.href) ? 'text-primary bg-accent/10' : 'text-foreground hover:text-primary'
-                      }`}
+                      className={`flex items-center justify-between p-3 text-base font-medium rounded-lg transition-all duration-200 hover:bg-accent/20 ${isActive(item.href) ? 'text-primary bg-accent/10' : 'text-foreground hover:text-primary'
+                        }`}
                       onClick={() => setIsOpen(false)}
                     >
                       <span>{item.label}</span>
@@ -184,9 +181,12 @@ const Navigation = () => {
                     )}
                   </div>
                 ))}
-                
+
                 {/* Mobile CTA Buttons */}
                 <div className="border-t border-border/50 pt-4 mt-4 space-y-3">
+                  <div className="flex justify-center pb-2">
+                    <SegmentSwitcher />
+                  </div>
                   <div className="flex justify-center">
                     <ThemeToggle />
                   </div>

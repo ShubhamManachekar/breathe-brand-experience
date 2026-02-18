@@ -17,4 +17,15 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-core": ["react", "react-dom", "react-router-dom"],
+          "ui-vendor": ["@radix-ui/react-tooltip", "@radix-ui/react-toast", "@radix-ui/react-dialog", "@radix-ui/react-slot"],
+          vendor: ["@tanstack/react-query", "@supabase/supabase-js"],
+        },
+      },
+    },
+  },
 }));
