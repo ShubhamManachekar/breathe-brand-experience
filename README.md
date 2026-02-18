@@ -16,6 +16,7 @@ Detailed implementation and operations docs are available in:
 
 - `docs/README.md`
 - `docs/stakeholder-navigation.md`
+- `docs/versioning.md`
 - `docs/seo.md`
 - `docs/cdn-edge.md`
 - `docs/performance.md`
@@ -23,6 +24,7 @@ Detailed implementation and operations docs are available in:
 - `docs/security.md`
 - `docs/deployment.md`
 - `docs/operations-checklist.md`
+- `CHANGELOG.md`
 
 ## Performance & Analytics
 

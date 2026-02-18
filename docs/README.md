@@ -7,6 +7,7 @@ This folder contains implementation-focused documentation for engineering, produ
 ## Document Map
 
 - [Stakeholder Navigation](./stakeholder-navigation.md)
+- [Versioning Policy](./versioning.md)
 - [SEO Guide](./seo.md)
 - [CDN & Edge Delivery Guide](./cdn-edge.md)
 - [Performance Guide](./performance.md)
@@ -14,6 +15,7 @@ This folder contains implementation-focused documentation for engineering, produ
 - [Security Hardening Guide](./security.md)
 - [Deployment Runbook](./deployment.md)
 - [Operations Checklist](./operations-checklist.md)
+- [Changelog](../CHANGELOG.md)
 
 ## Scope
 
