@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { MessageSquare, X, Send, LifeBuoy } from "lucide-react";
+import { MessageSquare, X, Send, LifeBuoy, Paperclip } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import rules from "@/lib/chatbot-rules.json";
 import { Link } from "react-router-dom";
@@ -196,7 +197,7 @@ export default function Chatbot() {
               </CardHeader>
 
               <CardContent
-                ref={scrollRef as any}
+                ref={scrollRef}
                 className="flex-1 p-4 overflow-y-auto bg-gradient-to-b from-background/50 to-muted/30"
               >
                 <div className="flex flex-col gap-4">
@@ -326,15 +327,22 @@ export default function Chatbot() {
                       )}
 
                       <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => fileInputRef.current?.click()}
-                          className="hover:bg-accent/20"
-                          disabled={flowState !== 'idle'}
-                        >
-                          📎
-                        </Button>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => fileInputRef.current?.click()}
+                              className="hover:bg-accent/20"
+                              disabled={flowState !== 'idle'}
+                              aria-label="Attach image"
+                            >
+                              <Paperclip className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Attach image</TooltipContent>
+                        </Tooltip>
+
                         <Input
                           value={inputValue}
                           onChange={(e) => setInputValue(e.target.value)}
@@ -347,13 +355,21 @@ export default function Chatbot() {
                           placeholder={flowState === 'idle' ? "Ask about scents..." : flowState === 'ticket_subject' ? "Type ticket subject..." : "Type your message..."}
                           className="bg-background/80 border-border/50 focus:border-primary/50"
                           autoFocus={flowState !== 'idle'}
+                          aria-label="Type your message"
                         />
-                        <Button
-                          onClick={() => sendMessage(inputValue, imagePreview ?? undefined)}
-                          className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-glow"
-                        >
-                          <Send className="w-4 h-4" />
-                        </Button>
+
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              onClick={() => sendMessage(inputValue, imagePreview ?? undefined)}
+                              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-glow"
+                              aria-label="Send message"
+                            >
+                              <Send className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Send message</TooltipContent>
+                        </Tooltip>
                       </div>
                     </div>
                   </div>
