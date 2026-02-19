@@ -1,304 +1,190 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Brain, Eye, TrendingUp, Heart, ArrowRight, Users, Building2, Store } from "lucide-react";
-import PageMeta, { createFAQSchema } from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
+import { Brain, Smile, Zap, ArrowRight, Activity, Layers, Fingerprint } from "lucide-react";
+import PageMeta from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 const WhyScentMarketing = () => {
-  const researchData = [
-    {
-      stat: "75%",
-      description: "of daily emotions triggered by smell",
-      source: "Harvard Medical School",
-      icon: Brain
-    },
-    {
-      stat: "70%",
-      description: "improvement in brand recall",
-      source: "Oxford Brookes University",
-      icon: Eye
-    },
-    {
-      stat: "20-30%",
-      description: "increase in dwell time",
-      source: "Singapore Retail Study",
-      icon: TrendingUp
-    },
-    {
-      stat: "Direct",
-      description: "connection to limbic system",
-      source: "Neuroscience Research",
-      icon: Heart
-    }
+  const stats = [
+    { value: "75%", label: "Of emotions are triggered by smell", icon: Smile },
+    { value: "100x", label: "More memorable than tactile sense", icon: Zap },
+    { value: "65%", label: "Accuracy of scent recall after 1 year", icon: Brain },
+    { value: "40%", label: "Improvement in mood", icon: Activity },
   ];
-
-  const caseStudies = [
-    {
-      company: "Nike Tokyo Flagship",
-      industry: "Retail",
-      challenge: "Increase customer engagement in flagship store",
-      solution: "Custom citrus blend throughout the store",
-      results: [
-        "23% increase in dwell time",
-        "18% boost in product trials",
-        "15% higher conversion rate"
-      ],
-      icon: Store
-    },
-    {
-      company: "Shangri-La Hotels",
-      industry: "Hospitality",
-      challenge: "Create memorable brand experience",
-      solution: "Signature scent across all properties",
-      results: [
-        "35% improvement in guest satisfaction",
-        "40% increase in brand recall",
-        "25% higher rebooking rates"
-      ],
-      icon: Building2
-    },
-    {
-      company: "Singapore Airlines",
-      industry: "Aviation",
-      challenge: "Differentiate premium service",
-      solution: "Stefan Floridian Waters signature scent",
-      results: [
-        "70% brand recall improvement",
-        "Premium service perception boost",
-        "Industry-leading customer loyalty"
-      ],
-      icon: Users
-    }
-  ];
-
-  // Create FAQ structured data for SEO
-  const faqSchema = createFAQSchema([
-    {
-      question: "What is scent marketing?",
-      answer: "Scent marketing uses strategically chosen fragrances to influence customer behavior, emotions, and brand perception. Research shows that scent is directly connected to the brain's limbic system, making it the most powerful sense for triggering emotions and memories."
-    },
-    {
-      question: "Does scent marketing really work?",
-      answer: "Yes, extensive research proves scent marketing effectiveness. Studies show 20-30% increase in dwell time, 70% improvement in brand recall, and 17% boost in purchase intent when the right fragrances are used strategically."
-    },
-    {
-      question: "How can scent marketing help my business?",
-      answer: "Scent marketing can increase customer dwell time, boost purchase intent, improve brand recall, enhance perceived value, and create memorable customer experiences that drive loyalty and repeat visits."
-    }
-  ]);
 
   return (
-    <div className="min-h-screen bg-loom">
+    <div className="min-h-screen bg-background overflow-hidden">
       <PageMeta
-        title="Why Scent Marketing Works - The Science of Fragrance"
-        description="Discover the neuroscience behind scent marketing. Learn how fragrances trigger 75% of daily emotions, boost brand recall by 70%, and increase dwell time by 20-30%. Backed by Harvard research."
-        keywords="scent marketing science, why scent marketing works, fragrance psychology, olfactory marketing, scent branding research, limbic system marketing"
+        title="The Science of Scent Marketing | Why Scent Works"
+        description="Understand the psychology and neuroscience behind scent marketing. Learn how fragrance influences behavior and emotion."
+        keywords="scent marketing science, olfactory branding, scent psychology, limbic system marketing"
         ogType="article"
-        structuredData={faqSchema}
       />
 
-      <section className="relative overflow-hidden pt-20 pb-16 sm:pb-20">
-        <div className="absolute inset-0 bg-grid-fade opacity-60" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <AnimatedSection animation="fadeInUp">
-            <p className="text-sm uppercase tracking-[0.2em] text-accent font-medium mb-4">Neuroscience + Brand Strategy</p>
-            <h1 className="font-display text-4xl md:text-6xl font-bold mb-6 text-balance">
-              Why Scent Marketing<br />
-              <span className="text-primary">Creates Lasting Memory</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Discover how leading brands use scent to increase recall, improve dwell time,
-              and shape emotional perception at every customer touchpoint.
-            </p>
-          </AnimatedSection>
+      <NeoHero
+        label="The Science"
+        headline={
+          <>
+            The shortest path to
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-navy to-accent animate-gradient-x">
+              human emotion.
+            </span>
+          </>
+        }
+        subheadline="Scent is the only sense that bypasses the rational brain and connects directly to the limbic system—the seat of memory and emotion."
+        actions={
+          <Link to="/business/solutions">
+            <Button size="lg" className="rounded-sm neo-btn-primary uppercase tracking-wider text-xs font-bold px-8 h-12">
+              See Applications
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        }
+        variant="business"
+        texture="smoke"
+      >
+        {/* Abstract Brain/Scent Visualization */}
+        <div className="relative flex items-center justify-center h-[500px]">
+           <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 via-transparent to-primary/20 blur-[100px] animate-pulse-slow" />
+           <div className="relative z-10 w-64 h-64 border border-border/40 rounded-full animate-spin-slow opacity-30">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full blur-sm" />
+           </div>
+           <div className="absolute z-10 w-96 h-96 border border-border/20 rounded-full animate-spin-reverse-slower opacity-20">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 bg-accent rounded-full blur-md" />
+           </div>
+
+           <div className="absolute z-20 bg-background/80 backdrop-blur-xl border border-primary/20 p-8 rounded-sm shadow-neo max-w-xs">
+              <Brain className="w-12 h-12 text-primary mb-4" />
+              <h3 className="font-display text-xl font-bold mb-2">The Limbic Connection</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">Processing scent 10,000x faster than visual or auditory cues.</p>
+           </div>
         </div>
-      </section>
+      </NeoHero>
 
-      <section className="py-20 bg-muted/25">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-4">The Neuroscience Behind Scent</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Smell bypasses typical sensory routing and connects directly to emotional memory systems,
-              making fragrance a uniquely powerful brand signal.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {researchData.map((data, index) => (
-              <AnimatedSection key={data.description} animation="fadeInScale" delay={index * 90}>
-                <Card className="surface-glass text-center h-full border-border/50">
-                <CardContent className="p-8">
-                  <data.icon className="w-12 h-12 text-accent mx-auto mb-4" />
-                  <div className="text-4xl font-bold text-primary mb-2">
-                    {data.stat}
+      <section className="section-shell bg-muted/10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
+              <AnimatedSection key={stat.label} animation="fadeInUp" delay={index * 120}>
+                <div className="bg-background border border-border/50 p-6 hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-neo group h-full">
+                  <div className="w-12 h-12 bg-primary/5 rounded-sm flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <stat.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
                   </div>
-                  <p className="text-foreground font-medium mb-4">
-                    {data.description}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {data.source}
-                  </p>
-                </CardContent>
-                </Card>
+                  <div className="text-4xl font-display font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{stat.value}</div>
+                  <p className="text-sm text-muted-foreground uppercase tracking-wide font-medium">{stat.label}</p>
+                </div>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-shell">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection animation="fadeInUp">
-              <h2 className="font-display text-4xl font-bold text-foreground mb-6">
-                How Scent Influences Behavior
-              </h2>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 gradient-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-accent-foreground font-bold text-sm">1</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-2">Immediate Recognition</h3>
-                    <p className="text-muted-foreground">Scent molecules are detected in milliseconds, faster than visual or auditory processing.</p>
-                  </div>
+               <span className="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">Neuromarketing</span>
+              <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mb-6">Why traditional marketing falls short.</h2>
+              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+                <p>
+                  Visuals and sound are processed by the rational cortex. They are analyzed, filtered, and often ignored.
+                </p>
+                <p>
+                  Scent is different. It travels directly to the olfactory bulb, intimately connected to the amygdala (emotion) and hippocampus (memory).
+                </p>
+                <p>
+                  This biological shortcut means customers feel before they think. A branded environment becomes an emotional experience, not just a transaction.
+                </p>
+              </div>
+
+              <div className="mt-8 pt-8 border-t border-border/40 grid grid-cols-2 gap-8">
+                <div>
+                   <div className="font-display text-3xl font-bold text-foreground mb-1">Visual</div>
+                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Short-term recall</div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 gradient-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-accent-foreground font-bold text-sm">2</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-2">Emotional Response</h3>
-                    <p className="text-muted-foreground">Direct connection to the limbic system triggers emotions and influences decision-making.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 gradient-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-accent-foreground font-bold text-sm">3</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-2">Memory Formation</h3>
-                    <p className="text-muted-foreground">Creates lasting brand associations that customers remember long after they leave.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 gradient-accent rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-accent-foreground font-bold text-sm">4</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-2">Behavioral Change</h3>
-                    <p className="text-muted-foreground">Influences purchasing decisions, dwell time, and overall customer satisfaction.</p>
-                  </div>
+                <div>
+                   <div className="font-display text-3xl font-bold text-primary mb-1">Olfactory</div>
+                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Long-term emotional bond</div>
                 </div>
               </div>
             </AnimatedSection>
-            <AnimatedSection animation="fadeInScale" delay={120}>
-            <div className="surface-glass p-8 rounded-2xl border border-border/50">
-              <h3 className="font-display text-2xl font-bold text-foreground mb-6">Business Impact Metrics</h3>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Dwell Time</span>
-                  <span className="font-bold text-primary">+20-30%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Purchase Intent</span>
-                  <span className="font-bold text-primary">+17%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Perceived Value</span>
-                  <span className="font-bold text-primary">+15-20%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Store Revisit Rate</span>
-                  <span className="font-bold text-primary">+25%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Brand Recall</span>
-                  <span className="font-bold text-primary">+70%</span>
+
+            <AnimatedSection animation="fadeInUp" delay={200}>
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl rounded-full opacity-40" />
+                <div className="relative z-10 grid gap-6">
+                   {[
+                     { title: "Attention", desc: "Break through the noise of digital saturation.", icon: Fingerprint },
+                     { title: "Immersion", desc: "Create a 360-degree brand world.", icon: Layers },
+                     { title: "Retention", desc: "Increase dwell time by up to 40%.", icon: Clock },
+                   ].map((item, i) => (
+                     <div key={item.title} className="bg-background/80 backdrop-blur-xl border border-border/50 p-6 flex items-start gap-4 rounded-sm hover:border-primary/40 transition-colors">
+                        <div className="w-10 h-10 bg-primary/10 rounded-sm flex items-center justify-center shrink-0">
+                           <item.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                           <h4 className="font-display text-lg font-semibold text-foreground">{item.title}</h4>
+                           <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
+                        </div>
+                     </div>
+                   ))}
                 </div>
               </div>
-            </div>
             </AnimatedSection>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-muted/25">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-4">
-              Success Stories from Global Brands
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Real-world examples of how scent marketing drives measurable business results
+      <section className="section-shell bg-primary text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-loom opacity-20 mix-blend-overlay" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <AnimatedSection animation="fadeInUp">
+            <h2 className="font-display text-4xl md:text-5xl font-semibold mb-6">Turn science into strategy.</h2>
+            <p className="text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
+              Leverage the power of scent to drive measurable business outcomes.
             </p>
-          </AnimatedSection>
-
-          <div className="space-y-12">
-            {caseStudies.map((study, index) => (
-              <AnimatedSection key={study.company} animation="fadeInUp" delay={index * 120}>
-              <Card className="surface-glass border-border/50">
-                <CardContent className="p-8">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                    <div className="text-center lg:text-left">
-                      <study.icon className="w-12 h-12 text-accent mx-auto lg:mx-0 mb-4" />
-                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">
-                        {study.company}
-                      </h3>
-                      <p className="text-accent font-medium">{study.industry}</p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3">Challenge & Solution</h4>
-                      <p className="text-muted-foreground mb-4">{study.challenge}</p>
-                      <p className="text-foreground font-medium">{study.solution}</p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3">Results</h4>
-                      <ul className="space-y-2">
-                        {study.results.map((result, i) => (
-                          <li key={i} className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-accent rounded-full" />
-                            <span className="text-muted-foreground">{result}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <AnimatedSection animation="fadeInUp" className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <div className="surface-glass rounded-3xl border border-border/50 p-10">
-            <h2 className="font-display text-4xl font-bold text-foreground mb-6">Ready to Activate Scent as a Growth Channel?</h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Build a strategy rooted in behavioral science and tailored to your audience.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-wrap justify-center gap-4">
               <Link to="/business/solutions">
-                <Button size="lg">
+                <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 rounded-sm uppercase tracking-wider text-xs font-bold h-12 px-8">
                   Explore Solutions
-                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
               <Link to="/business/contact">
-                <Button variant="outline" size="lg">Schedule Consultation</Button>
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-sm uppercase tracking-wider text-xs font-bold h-12 px-8">
+                  Get Started
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
               </Link>
             </div>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
+        </div>
       </section>
     </div>
   );
 };
+
+// Simple Icon component for the map
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Clock(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  )
+}
 
 export default WhyScentMarketing;

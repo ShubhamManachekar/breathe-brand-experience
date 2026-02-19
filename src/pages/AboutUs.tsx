@@ -2,141 +2,111 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AnimatedSection from "@/components/AnimatedSection";
-import { Heart, Users, Lightbulb, Award, ArrowRight, CheckCircle } from "lucide-react";
+import { Heart, Users, Lightbulb, Award, ArrowRight, CheckCircle, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 import PageMeta, { organizationSchema } from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 export default function AboutUs() {
   const timelineEvents = [
-    {
-      year: "1965",
-      title: "Eze Perfumes Founded",
-      description:
-        "Eze Perfumes established with a commitment to fragrance innovation and excellence in perfumery artistry, setting the foundation for the legacy of EZE.",
-    },
-    {
-      year: "1980s",
-      title: "Sawai's Legacy Grows",
-      description:
-        "Sawai Fragrances developed their decades-spanning expertise in harvest-to-fragrance integration, building strong foundations of sustained relationships and becoming suppliers to market leaders.",
-    },
-    {
-      year: "2015",
-      title: "The Legacy United",
-      description:
-        "Two industry pioneers with complementary legacies joined forces to create the ultimate scent marketing solution.",
-    },
-    {
-      year: "2018",
-      title: "Innovation Breakthrough",
-      description:
-        "The legacy of EZE achieved what neither company could alone by combining premium aroma expertise with advanced diffusion technology.",
-    },
-    {
-      year: "2020",
-      title: "Global Expansion",
-      description:
-        "EZE Aircare's combined legacy launched internationally, bringing traditional fragrance artistry and modern diffusion systems worldwide.",
-    },
-    {
-      year: "Today",
-      title: "Living Legacy",
-      description:
-        "The legacy of EZE continues to exceed expectations for enterprise and premium spaces through a fusion of two industry legends.",
-    },
-  ];
-
-  const values = [
-    {
-      icon: Heart,
-      title: "Passion",
-      description: "We treat every fragrance as a crafted experience that should be felt, remembered, and trusted.",
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovation",
-      description: "We combine sensory science and modern diffusion design to deliver better outcomes at scale.",
-    },
-    {
-      icon: Users,
-      title: "Partnership",
-      description: "We build long-term relationships with businesses and teams that want distinct brand atmospheres.",
-    },
-    {
-      icon: Award,
-      title: "Excellence",
-      description: "From formulation to service support, we hold every touchpoint to premium standards.",
-    },
+    { year: "1965", title: "The Foundation", desc: "Eze Perfumes established with a commitment to fragrance innovation." },
+    { year: "1980s", title: "Harvest Mastery", desc: "Sawai Fragrances pioneers harvest-to-fragrance integration." },
+    { year: "2015", title: "The Union", desc: "Two industry pioneers join forces to create the ultimate scent solution." },
+    { year: "2018", title: "Tech Fusion", desc: "Combining premium aroma expertise with advanced cold-air diffusion." },
+    { year: "2024", title: "Neo-Heritage", desc: "Launching the next generation of scent marketing for the digital age." },
   ];
 
   return (
-    <div className="min-h-screen bg-loom">
+    <div className="min-h-screen bg-background overflow-hidden">
       <PageMeta
-        title="About EZE AirCare - Our Story & Heritage"
-        description="Discover the story behind EZE AirCare. A fusion of Sawai Fragrances' artisanal mastery and Eze Perfumes' innovation excellence, creating premium scent marketing solutions since 1965."
-        keywords="EZE AirCare about, scent marketing company, fragrance innovation, Sawai Fragrances, Eze Perfumes, perfumery heritage"
+        title="About EZE AirCare - Heritage & Innovation"
+        description="A fusion of Sawai Fragrances' artisanal mastery and Eze Perfumes' innovation excellence."
+        keywords="EZE AirCare, about us, scent marketing history, perfumery heritage"
         ogType="website"
         structuredData={organizationSchema}
       />
 
-      <section className="relative overflow-hidden py-20 sm:py-24">
-        <div className="pointer-events-none absolute inset-0 bg-grid-fade opacity-60" />
-        <div className="container mx-auto px-6 relative">
-          <AnimatedSection animation="fadeInUp" className="text-center max-w-4xl mx-auto">
-            <Badge className="mb-5 rounded-full px-4 py-1.5 bg-accent/10 text-accent border-accent/20">
-              Legacy & Craft
-            </Badge>
-            <h1 className="font-display text-4xl md:text-6xl leading-tight text-balance">
-              A Heritage Built for
-              <span className="block text-primary">Modern Scent Experiences</span>
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              EZE AirCare is the union of deep perfumery heritage and forward-looking scent technology,
-              shaping environments that are emotionally resonant and commercially effective.
-            </p>
-          </AnimatedSection>
+      <NeoHero
+        label="Our Story"
+        headline={
+          <>
+            A legacy built for
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-navy to-accent animate-gradient-x">
+              modern senses.
+            </span>
+          </>
+        }
+        subheadline="EZE AirCare is the union of deep perfumery heritage and forward-looking scent technology."
+        variant="business"
+        texture="oil"
+      />
 
-          <AnimatedSection animation="fadeInScale" delay={120} className="mt-12 max-w-5xl mx-auto">
-            <div className="surface-glass rounded-3xl p-8 md:p-12 border border-border/50 shadow-elegant">
-              <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
+      {/* ── The Origin Story ── */}
+      <section className="section-shell -mt-20 relative z-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection animation="fadeInUp">
+            <div className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-[2rem] p-8 md:p-12 shadow-neo relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+
+              <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h2 className="font-display text-2xl md:text-3xl mb-4">The EZE Story</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Sawai Fragrances brought decades of harvest-to-fragrance mastery and enduring client
-                    trust. Eze Perfumes brought a heritage of innovation dating back to 1965. Together,
-                    they formed a single vision: make scent strategy measurable, scalable, and memorable.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Today, our teams design olfactory identities for hospitality, wellness, retail, and
-                    corporate spaces, balancing classic perfumery artistry with contemporary deployment.
-                  </p>
+                  <h2 className="font-display text-3xl font-semibold mb-6">Two Legacies, One Vision.</h2>
+                  <div className="space-y-4 text-muted-foreground leading-relaxed">
+                    <p>
+                      <strong>Sawai Fragrances</strong> brought decades of harvest-to-fragrance mastery and enduring client trust.
+                    </p>
+                    <p>
+                      <strong>Eze Perfumes</strong> brought a heritage of innovation dating back to 1965.
+                    </p>
+                    <p>
+                      Together, we formed a single vision: make scent strategy measurable, scalable, and memorable. Today, we design olfactory identities for the world's most discerning brands.
+                    </p>
+                  </div>
                 </div>
-                <Card className="bg-card/70 border-border/50">
-                  <CardContent className="p-7 text-center">
-                    <p className="text-5xl font-display text-primary mb-2">10K+</p>
-                    <p className="font-medium">Spaces Transformed</p>
-                    <p className="text-sm text-muted-foreground mt-2">Across enterprise and consumer-facing environments globally.</p>
-                  </CardContent>
-                </Card>
+
+                <div className="relative h-64 md:h-full min-h-[300px] bg-muted/20 rounded-2xl overflow-hidden flex items-center justify-center border border-border/30">
+                   <div className="absolute inset-0 bg-grid-fade opacity-20" />
+                   <Leaf className="w-24 h-24 text-accent opacity-20 animate-float-slow" />
+                   <div className="absolute bottom-6 left-6 right-6">
+                      <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+                         <span>1965</span>
+                         <span>2024</span>
+                      </div>
+                      <div className="h-1 w-full bg-border/40 mt-2 relative">
+                         <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-transparent via-accent to-primary" />
+                      </div>
+                   </div>
+                </div>
               </div>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      <section className="py-18 sm:py-22">
-        <div className="container mx-auto px-6">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl">Our Journey</h2>
-          </AnimatedSection>
-          <div className="max-w-5xl mx-auto space-y-4">
+      {/* ── Timeline ── */}
+      <section className="section-shell">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-accent text-[10px] font-bold uppercase tracking-[0.2em]">Milestones</span>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold mt-2">The Journey</h2>
+          </div>
+
+          <div className="relative border-l border-border/40 ml-4 md:ml-0 md:pl-0 space-y-12">
             {timelineEvents.map((event, index) => (
-              <AnimatedSection key={event.year} animation="fadeInUp" delay={index * 80}>
-                <div className="surface-glass rounded-2xl p-5 md:p-6 border border-border/50 grid md:grid-cols-[120px_1fr] gap-3 md:gap-6">
-                  <p className="font-display text-2xl text-primary">{event.year}</p>
-                  <div>
-                    <h3 className="font-semibold text-lg">{event.title}</h3>
-                    <p className="text-muted-foreground mt-1 leading-relaxed">{event.description}</p>
+              <AnimatedSection key={event.year} animation="fadeInUp" delay={index * 100}>
+                <div className="relative pl-8 md:pl-0 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 items-center group">
+                  {/* Dot */}
+                  <div className="absolute left-[-5px] md:left-1/2 md:-translate-x-1/2 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-primary transition-colors ring-4 ring-background" />
+
+                  <div className={`md:text-right ${index % 2 === 0 ? 'md:order-1' : 'md:order-3'}`}>
+                    <span className="text-4xl font-display font-bold text-muted-foreground/20 group-hover:text-primary/20 transition-colors">{event.year}</span>
+                  </div>
+
+                  <div className="hidden md:block md:order-2" /> {/* Spacer for center line */}
+
+                  <div className={`${index % 2 === 0 ? 'md:order-3' : 'md:order-1'}`}>
+                    <h3 className="font-display text-xl font-semibold mb-1 group-hover:text-primary transition-colors">{event.title}</h3>
+                    <p className="text-sm text-muted-foreground">{event.desc}</p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -145,56 +115,46 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="py-18 sm:py-22">
-        <div className="container mx-auto px-6">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl">What Drives Us</h2>
-          </AnimatedSection>
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-            {values.map((value, index) => (
-              <AnimatedSection key={value.title} animation="fadeInScale" delay={index * 80}>
-                <Card className="h-full border-border/50 bg-card/70 hover:-translate-y-0.5 transition-transform">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
-                      <value.icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="font-semibold text-lg mb-2">{value.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
-                  </CardContent>
-                </Card>
+      {/* ── Values Grid ── */}
+      <section className="section-shell bg-muted/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Heart, title: "Passion", desc: "We treat every fragrance as a crafted experience." },
+              { icon: Lightbulb, title: "Innovation", desc: "Combining sensory science with modern diffusion." },
+              { icon: Users, title: "Partnership", desc: "Building long-term relationships with brands." },
+              { icon: Award, title: "Excellence", desc: "Holding every touchpoint to premium standards." },
+            ].map((value, i) => (
+              <AnimatedSection key={value.title} animation="fadeInUp" delay={i * 100}>
+                <div className="bg-background rounded-2xl p-6 border border-border/40 hover:border-accent/30 hover:shadow-neo transition-all duration-300 h-full">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 text-accent">
+                    <value.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">{value.title}</h3>
+                  <p className="text-sm text-muted-foreground">{value.desc}</p>
+                </div>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-r from-primary to-accent text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/15" />
-        <div className="container mx-auto px-6 relative z-10">
-          <AnimatedSection animation="fadeInUp" className="max-w-3xl mx-auto text-center">
-            <h2 className="font-display text-3xl md:text-5xl">Let’s Create Your Signature Scent Journey</h2>
-            <p className="mt-4 text-white/85 text-lg">
-              Bring heritage-grade fragrance craft into your next brand experience.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
-              <Link to="/business/contact">
-                <Button variant="secondary" size="lg" className="group">
-                  Request a Strategy Call
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/business/solutions">
-                <Button size="lg" className="bg-white/10 hover:bg-white/20 border border-white/25 text-white">
-                  Explore Solutions
-                </Button>
-              </Link>
-            </div>
-            <div className="mt-7 flex flex-wrap gap-4 justify-center text-sm text-white/85">
-              <span className="inline-flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> Enterprise ready</span>
-              <span className="inline-flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> Segment-specific curation</span>
-              <span className="inline-flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> Global deployment support</span>
-            </div>
-          </AnimatedSection>
+      {/* ── CTA ── */}
+      <section className="section-shell">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <h2 className="font-display text-3xl md:text-5xl font-semibold mb-6">Create your signature journey.</h2>
+          <div className="flex justify-center gap-4">
+            <Link to="/business/solutions">
+              <Button size="lg" className="rounded-sm uppercase tracking-wider text-xs font-bold px-8 h-12 shadow-neo">
+                Business Solutions
+              </Button>
+            </Link>
+            <Link to="/shop">
+              <Button variant="outline" size="lg" className="rounded-sm uppercase tracking-wider text-xs font-bold px-8 h-12">
+                Shop Home
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

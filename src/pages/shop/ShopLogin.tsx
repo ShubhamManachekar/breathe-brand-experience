@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ShoppingBag, ArrowLeft, Eye, EyeOff, Sparkles, User } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Sparkles, User, ShoppingBag } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
@@ -47,8 +46,8 @@ const ShopLogin = () => {
           description: "Please check your email to verify your account.",
         });
       }
-    } catch (err: any) {
-      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: (err as Error).message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -64,7 +63,7 @@ const ShopLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-accent/5 via-background to-primary/5 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-background flex">
       <PageMeta
         title="Shop Login"
         description="Sign in to your EZE AirCare shop account to manage orders and preferences."
@@ -72,141 +71,152 @@ const ShopLogin = () => {
         canonicalUrl="https://ezeaircare.com/shop/login"
         ogType="website"
       />
-      <div className="w-full max-w-md space-y-6">
-        {/* Back link */}
-        <Link to="/shop" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Shop
-        </Link>
 
-        {/* Demo Quick Login Card */}
-        <Card className="border-accent/30 bg-accent/5 shadow-md">
-          <CardContent className="pt-6 pb-5">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center shrink-0 shadow-glow">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-display font-semibold text-foreground mb-1">Try Demo Account</h3>
-                <p className="text-xs text-muted-foreground mb-3">
-                  Explore as <strong>Priya Sharma</strong> — browse products, add to cart, and experience the shop without signing up.
-                </p>
-                <Button variant="hero" size="sm" onClick={handleDemoLogin} className="group w-full sm:w-auto">
-                  <User className="w-4 h-4 mr-2" />
-                  Quick Demo Login
-                </Button>
-              </div>
+      {/* ── Visual Side ── */}
+      <div className="hidden lg:flex w-1/2 bg-muted relative overflow-hidden flex-col justify-between p-12 text-primary-foreground">
+         <div className="absolute inset-0 bg-loom opacity-40 mix-blend-overlay" />
+         <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20" />
+
+         {/* Floating Elements */}
+         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-background/30 backdrop-blur-xl rounded-full border border-white/20 animate-float-slow" />
+         <div className="absolute bottom-1/3 right-1/4 w-40 h-40 bg-accent/30 backdrop-blur-xl rounded-full border border-white/10 animate-float-slower" />
+
+         <div className="relative z-10">
+            <Link to="/shop" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity">
+               <ArrowLeft className="w-4 h-4" /> Back to Shop
+            </Link>
+         </div>
+
+         <div className="relative z-10 max-w-lg">
+            <h1 className="font-display text-5xl font-semibold mb-6 text-foreground">Welcome to your sanctuary.</h1>
+            <p className="text-lg text-foreground/70">Join our community of scent enthusiasts. Curate your home's atmosphere with premium diffusers and oils.</p>
+         </div>
+
+         <div className="relative z-10 text-xs text-foreground/50 uppercase tracking-widest font-bold">
+            © EZE AirCare 2024
+         </div>
+      </div>
+
+      {/* ── Form Side ── */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 relative">
+         <div className="absolute top-8 left-8 lg:hidden">
+            <Link to="/shop" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+               <ArrowLeft className="w-4 h-4" /> Back
+            </Link>
+         </div>
+
+         <div className="max-w-md w-full space-y-8">
+            <div className="text-center">
+               <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6 text-accent">
+                  <ShoppingBag className="w-6 h-6" />
+               </div>
+               <h2 className="font-display text-3xl font-semibold text-foreground">
+                  {isLogin ? "Welcome back" : "Create account"}
+               </h2>
+               <p className="text-muted-foreground mt-2">
+                  {isLogin ? "Enter your details to access your account." : "Start your scent journey today."}
+               </p>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Divider */}
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-border/50" />
-          <span className="text-xs text-muted-foreground font-medium">or use your account</span>
-          <div className="flex-1 h-px bg-border/50" />
-        </div>
-
-        {/* Main login card */}
-        <Card className="gradient-card shadow-elegant border-border/50">
-          <CardHeader className="text-center pb-2">
-            <div className="w-14 h-14 gradient-hero rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-glow">
-              <ShoppingBag className="w-7 h-7 text-primary-foreground" />
+            {/* Demo Login */}
+            <div className="bg-muted/30 border border-border/50 rounded-xl p-4 flex items-center gap-4 hover:border-accent/30 transition-colors">
+               <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-5 h-5 text-accent" />
+               </div>
+               <div className="flex-1">
+                  <div className="font-medium text-sm text-foreground">Quick Demo</div>
+                  <div className="text-xs text-muted-foreground">Try as Priya Sharma</div>
+               </div>
+               <Button size="sm" variant="ghost" className="text-accent hover:text-accent/80 hover:bg-accent/10" onClick={handleDemoLogin}>
+                  Try Demo
+               </Button>
             </div>
-            <CardTitle className="font-display text-2xl">
-              {isLogin ? "Welcome back" : "Create your account"}
-            </CardTitle>
-            <CardDescription>
-              {isLogin
-                ? "Sign in to track orders & manage your preferences"
-                : "Join EZE AirCare Shop for exclusive deals"}
-            </CardDescription>
-          </CardHeader>
 
-          <CardContent className="pt-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {!isLogin && (
-                <div className="space-y-2">
-                  <Label htmlFor="full_name">Full Name</Label>
+            <div className="relative">
+               <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border/50" />
+               </div>
+               <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+               </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+               {!isLogin && (
+                  <div className="space-y-2">
+                     <Label htmlFor="full_name">Full Name</Label>
+                     <Input
+                        id="full_name"
+                        name="full_name"
+                        placeholder="Jane Smith"
+                        value={form.full_name}
+                        onChange={handleChange}
+                        className="h-11 rounded-lg bg-muted/20 border-border/50 focus:bg-background transition-colors"
+                        required
+                     />
+                  </div>
+               )}
+
+               <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
                   <Input
-                    id="full_name"
-                    name="full_name"
-                    placeholder="Jane Smith"
-                    value={form.full_name}
-                    onChange={handleChange}
-                    required
+                     id="email"
+                     name="email"
+                     type="email"
+                     placeholder="you@example.com"
+                     value={form.email}
+                     onChange={handleChange}
+                     className="h-11 rounded-lg bg-muted/20 border-border/50 focus:bg-background transition-colors"
+                     required
                   />
-                </div>
-              )}
+               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+               <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                     <Label htmlFor="password">Password</Label>
+                     {isLogin && <Link to="#" className="text-xs text-muted-foreground hover:text-foreground">Forgot password?</Link>}
+                  </div>
+                  <div className="relative">
+                     <Input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        value={form.password}
+                        onChange={handleChange}
+                        className="h-11 rounded-lg bg-muted/20 border-border/50 focus:bg-background transition-colors pr-10"
+                        required
+                        minLength={6}
+                     />
+                     <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                     >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                     </button>
+                  </div>
+               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
-                  {isLogin && (
-                    <button type="button" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                      Forgot password?
-                    </button>
-                  )}
-                </div>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    value={form.password}
-                    onChange={handleChange}
-                    required
-                    minLength={6}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              <Button variant="hero" type="submit" className="w-full" disabled={loading}>
-                {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
-              </Button>
+               <Button type="submit" size="lg" className="w-full rounded-full h-11 text-base shadow-lg shadow-primary/10 hover:translate-y-[-1px] transition-transform" disabled={loading}>
+                  {loading ? "Processing..." : isLogin ? "Sign In" : "Create Account"}
+               </Button>
             </form>
 
-            <div className="mt-6 text-center text-sm text-muted-foreground">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-              <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-accent font-medium hover:underline"
-              >
-                {isLogin ? "Sign up" : "Sign in"}
-              </button>
-            </div>
+            <p className="text-center text-sm text-muted-foreground">
+               {isLogin ? "New to EZE?" : "Already have an account?"}{" "}
+               <button onClick={() => setIsLogin(!isLogin)} className="font-semibold text-foreground hover:underline transition-all">
+                  {isLogin ? "Sign up" : "Log in"}
+               </button>
+            </p>
 
-            <div className="mt-4 pt-4 border-t border-border/50 text-center">
-              <p className="text-xs text-muted-foreground">
-                Are you a business?{" "}
-                <Link to="/business/login" className="text-primary hover:underline font-medium">
-                  Business login →
-                </Link>
-              </p>
+            <div className="pt-6 border-t border-border/30 text-center">
+               <Link to="/business/login" className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors flex items-center justify-center gap-1.5">
+                  <User className="w-3.5 h-3.5" />
+                  Go to Business Portal
+               </Link>
             </div>
-          </CardContent>
-        </Card>
+         </div>
       </div>
     </div>
   );

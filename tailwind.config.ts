@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,6 +54,21 @@ export default {
           DEFAULT: "hsl(var(--titanium))",
           foreground: "hsl(var(--titanium-foreground))",
         },
+        navy: {
+            DEFAULT: "#050058",
+            light: "#0A0080",
+            dark: "#020024",
+        },
+        gold: {
+            DEFAULT: "#C5A059",
+            light: "#E5C079",
+            dark: "#A58039",
+        },
+        sage: {
+            DEFAULT: "#8E9775",
+            light: "#AEB795",
+            dark: "#6E7755",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -106,6 +122,10 @@ export default {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-14px)" },
         },
+        floatSubtle: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
         revealUp: {
           "0%": { opacity: "0", transform: "translateY(16px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -126,6 +146,7 @@ export default {
         "scale-in": "scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "float-slow": "floatSlow 6s ease-in-out infinite",
         "float-slower": "floatSlower 9s ease-in-out infinite",
+        "float-subtle": "floatSubtle 4s ease-in-out infinite",
         "reveal-up": "revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
         "reveal-in": "revealIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both",
       },

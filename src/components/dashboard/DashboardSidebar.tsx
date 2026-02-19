@@ -36,62 +36,70 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const SidebarContent = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <div className="h-full flex flex-col bg-sidebar/95 backdrop-blur-md text-sidebar-foreground border-r border-sidebar-border/70">
+    <div className="h-full flex flex-col bg-background/80 backdrop-blur-xl border-r border-border/40 text-foreground transition-all duration-300">
       {/* Header */}
-      <div className="p-4 border-b border-sidebar-border">
+      <div className="p-6 border-b border-border/30">
         <div className={cn(
           "flex items-center gap-3",
           isCollapsed && !isMobile && "justify-center"
         )}>
-          <div className="w-9 h-9 rounded-lg bg-accent/90 text-accent-foreground flex items-center justify-center flex-shrink-0 shadow-sm">
-            <span className="text-white font-bold text-base">E</span>
+          <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0 shadow-neo">
+            <span className="font-display font-bold text-lg">E</span>
           </div>
           {(!isCollapsed || isMobile) && (
-            <div className="overflow-hidden">
-              <h1 className="font-display font-bold text-base text-sidebar-foreground">EZE AirCare</h1>
-              <p className="text-[11px] text-sidebar-foreground/60">Business Portal</p>
+            <div className="overflow-hidden animate-fade-in-scale">
+              <h1 className="font-display font-bold text-lg leading-none tracking-tight">EZE AirCare</h1>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">Command Center</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1.5">
-        {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setActiveSection(item.id)}
-            className={cn(
-              "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150",
-              activeSection === item.id
-                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm ring-1 ring-white/10"
-                : "text-sidebar-foreground/80 hover:bg-sidebar-accent/80 hover:text-sidebar-foreground",
-              isCollapsed && !isMobile && "justify-center px-2"
-            )}
-            title={isCollapsed ? item.label : undefined}
-          >
-            <item.icon className={cn(
-              "w-4 h-4 flex-shrink-0",
-              activeSection === item.id ? "text-sidebar-primary-foreground" : "text-sidebar-foreground/70"
-            )} />
-            {(!isCollapsed || isMobile) && <span>{item.label}</span>}
-          </button>
-        ))}
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto custom-scrollbar">
+        {menuItems.map((item) => {
+          const isActive = activeSection === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setActiveSection(item.id)}
+              className={cn(
+                "w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 group relative overflow-hidden",
+                isActive
+                  ? "text-primary bg-primary/5 shadow-sm"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/40",
+                isCollapsed && !isMobile && "justify-center px-2"
+              )}
+              title={isCollapsed ? item.label : undefined}
+            >
+              {isActive && (
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full" />
+              )}
+              <item.icon className={cn(
+                "w-5 h-5 flex-shrink-0 transition-colors",
+                isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
+              )} />
+              {(!isCollapsed || isMobile) && (
+                <span className={cn("truncate", isActive && "font-semibold")}>{item.label}</span>
+              )}
+            </button>
+          );
+        })}
       </nav>
 
       {/* User Profile */}
-      <div className="p-3 border-t border-sidebar-border">
+      <div className="p-4 border-t border-border/30 bg-muted/5">
         <div className={cn(
-          "flex items-center gap-3 p-2.5 rounded-xl hover:bg-sidebar-accent/80 transition-colors cursor-pointer",
+          "flex items-center gap-3 p-2 rounded-xl transition-colors mb-2",
           isCollapsed && !isMobile && "justify-center"
         )}>
-          <div className="w-8 h-8 rounded-full bg-sidebar-accent flex items-center justify-center flex-shrink-0">
-            <User className="w-4 h-4 text-sidebar-foreground/70" />
+          <div className="w-9 h-9 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 border border-accent/30">
+            <User className="w-4 h-4 text-accent" />
           </div>
           {(!isCollapsed || isMobile) && (
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-sidebar-foreground truncate">John Doe</p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">Premium Member</p>
+              <p className="text-sm font-semibold text-foreground truncate">John Doe</p>
+              <p className="text-[10px] text-muted-foreground truncate uppercase tracking-wider">Premium Plan</p>
             </div>
           )}
         </div>
@@ -100,31 +108,31 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
           variant="ghost"
           size="sm"
           className={cn(
-            "w-full mt-2 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/80 justify-start rounded-xl",
+            "w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 justify-start rounded-lg h-9",
             isCollapsed && !isMobile && "justify-center"
           )}
         >
           <LogOut className="w-4 h-4" />
-          {(!isCollapsed || isMobile) && <span className="ml-2 text-sm">Sign Out</span>}
+          {(!isCollapsed || isMobile) && <span className="ml-2 text-xs font-medium uppercase tracking-wide">Sign Out</span>}
         </Button>
       </div>
 
       {/* Collapse Toggle (Desktop Only) */}
       {!isMobile && (
-        <div className="p-3 border-t border-sidebar-border">
+        <div className="p-2 border-t border-border/30">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="w-full text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/80 rounded-xl"
+            className="w-full text-muted-foreground hover:text-foreground hover:bg-muted/40 h-8"
           >
             {isCollapsed ? (
               <ChevronRight className="w-4 h-4" />
             ) : (
-              <>
+              <div className="flex items-center">
                 <ChevronLeft className="w-4 h-4 mr-2" />
-                <span className="text-sm">Collapse</span>
-              </>
+                <span className="text-[10px] uppercase tracking-wider font-bold">Collapse</span>
+              </div>
             )}
           </Button>
         </div>
@@ -136,8 +144,8 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
     <>
       {/* Desktop Sidebar */}
       <aside className={cn(
-        "hidden md:flex flex-col h-screen transition-all duration-200 bg-sidebar/95 backdrop-blur-md",
-        isCollapsed ? "w-[4.5rem]" : "w-60"
+        "hidden md:flex flex-col h-screen sticky top-0 transition-all duration-300 ease-in-out border-r border-border/40 bg-background/95 backdrop-blur-xl z-30",
+        isCollapsed ? "w-[5rem]" : "w-72"
       )}>
         <SidebarContent />
       </aside>
@@ -149,12 +157,12 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
             <Button
               size="icon"
               variant="outline"
-              className="bg-background/90 backdrop-blur-sm shadow-elegant border-border rounded-xl"
+              className="bg-background/80 backdrop-blur-md shadow-neo border-border/40 rounded-xl h-10 w-10"
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-5 h-5 text-foreground" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-0 w-72 border-0">
+          <SheetContent side="left" className="p-0 w-80 border-r border-border/40 bg-background/95 backdrop-blur-xl">
             <SidebarContent isMobile />
           </SheetContent>
         </Sheet>

@@ -46,7 +46,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-loom flex relative overflow-hidden">
+    <div className="min-h-screen bg-background flex relative overflow-hidden">
       <PageMeta
         title="Customer Dashboard"
         description="Manage devices, orders, subscriptions, aroma preferences, and support tickets in one dashboard."
@@ -54,16 +54,23 @@ const UserDashboard = () => {
         canonicalUrl={canonicalUrl}
         ogType="website"
       />
-      <div className="pointer-events-none absolute inset-0 bg-grid-fade opacity-50" />
-      {/* Sidebar */}
+
+      {/* ── Dashboard Background ── */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+         <div className="absolute inset-0 bg-grid-fade opacity-[0.03]" />
+         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]" />
+         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
+      </div>
+
+      {/* ── Sidebar ── */}
       <DashboardSidebar
         activeSection={activeSection}
         setActiveSection={handleNavigate}
       />
 
-      {/* Main Content */}
-      <main className="flex-1 min-h-screen p-4 md:p-6 lg:p-8 pt-16 md:pt-8 overflow-x-hidden relative">
-        <div className="max-w-6xl mx-auto">
+      {/* ── Main Content ── */}
+      <main className="flex-1 min-h-screen relative z-10 overflow-y-auto overflow-x-hidden">
+        <div className="max-w-7xl mx-auto p-4 md:p-8 lg:p-10 pt-20 md:pt-10">
           {renderContent()}
         </div>
       </main>
