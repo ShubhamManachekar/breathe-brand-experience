@@ -3,12 +3,13 @@ import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Star, ArrowRight, Check, Filter } from "lucide-react";
+import { ShoppingCart, Star, ArrowRight, Check, Filter, Sparkles } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { products, productCategories, type ProductCategory } from "@/data/productData";
 import PageMeta from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 const ShopProducts = () => {
   const { addItem } = useCart();
@@ -35,16 +36,25 @@ const ShopProducts = () => {
       price: product.price,
       image: product.image,
     });
-    toast({ title: "Added to Cart!", description: `${product.name} has been added to your cart.` });
+    toast({
+      title: "Added to Cart",
+      description: (
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded bg-muted flex items-center justify-center">
+            <img src={product.image} alt={product.name} className="w-6 h-6 object-contain" />
+          </div>
+          <span>{product.name} added.</span>
+        </div>
+      )
+    });
   };
 
   const currentCatInfo = selectedCategory
     ? productCategories.find((c) => c.id === selectedCategory)
     : null;
 
-
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-background overflow-hidden">
       <PageMeta
         title="Shop Diffuser Collection"
         description="Browse cold-air, ultrasonic, reed, car, and essential oil diffuser collections for every room and mood."
@@ -52,112 +62,129 @@ const ShopProducts = () => {
         canonicalUrl="https://ezeaircare.com/shop/products"
         ogType="product"
       />
-      {/* Hero */}
-      <section className="section-shell pt-32 relative">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Shop diffusers</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              {currentCatInfo ? currentCatInfo.name : "All Diffusers"}
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-6">
-              {currentCatInfo?.description || "Curated home scenting—from reed diffusers to smart cold-air systems."}
-            </p>
-          </AnimatedSection>
+      {/* ── Neo Hero ── */}
+      <NeoHero
+        label="The Collection"
+        headline={
+          <>
+            {currentCatInfo ? currentCatInfo.name : "Curated Scentscapes"}
+          </>
+        }
+        subheadline={currentCatInfo?.description || "From smart cold-air systems for large living spaces to intimate reed diffusers for your sanctuary."}
+        variant="shop"
+        texture="smoke"
+      />
+
+      {/* ── Floating Filter Bar ── */}
+      <section className="sticky top-20 z-40 py-6 pointer-events-none">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
+          <div className="bg-background/80 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-neo rounded-full p-1.5 flex flex-wrap gap-1 pointer-events-auto">
+            <Button
+              variant={!selectedCategory ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setCategory(null)}
+              className={`rounded-full px-4 h-9 ${!selectedCategory ? 'bg-foreground text-background hover:bg-foreground/90' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}`}
+            >
+              All
+            </Button>
+            {productCategories.map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <Button
+                  key={cat.id}
+                  variant={isActive ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setCategory(cat.id)}
+                  className={`rounded-full px-4 h-9 ${isActive ? 'bg-foreground text-background hover:bg-foreground/90' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}`}
+                >
+                  <span className="mr-2">{cat.icon}</span> {cat.name}
+                </Button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-
-      {/* Category Filter */}
-      <section className="py-5 border-y border-border/40 bg-background/70 sticky top-16 z-30 backdrop-blur-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-2">
-          <Button variant={!selectedCategory ? "hero" : "ghost"} size="sm" onClick={() => setCategory(null)}>
-            <Filter className="w-4 h-4 mr-1" /> All ({products.length})
-          </Button>
-          {productCategories.map((cat) => {
-            const count = products.filter((p) => p.category === cat.id).length;
-            return (
-              <Button
-                key={cat.id}
-                variant={selectedCategory === cat.id ? "hero" : "ghost"}
-                size="sm"
-                onClick={() => setCategory(cat.id)}
-              >
-                <span className="mr-1">{cat.icon}</span> {cat.name} ({count})
-              </Button>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Product Grid */}
-      <section className="section-shell">
+      {/* ── Product Grid ── */}
+      <section className="section-shell -mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground">{currentCatInfo ? currentCatInfo.name : "All Products"}</h2>
-            <p className="text-muted-foreground mt-2">{filtered.length} product{filtered.length !== 1 ? "s" : ""}</p>
+          <div className="flex items-center justify-between mb-8">
+             <p className="text-sm text-muted-foreground">{filtered.length} products found</p>
+             <div className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer hover:text-accent transition-colors">
+                <span>Sort by: Featured</span>
+                <Filter className="w-4 h-4" />
+             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filtered.map((product, index) => {
               const cat = productCategories.find((c) => c.id === product.category);
               return (
                 <AnimatedSection key={product.id} animation="fadeInUp" delay={index * 80}>
-                  <Card className="card-loom h-full overflow-hidden flex flex-col">
-                    <div className="relative shrink-0">
-                      {product.tag && (
-                        <div className="absolute top-4 right-4 text-[10px] uppercase tracking-widest bg-foreground text-background px-2 py-1 rounded-full">
-                          {product.tag}
-                        </div>
-                      )}
-                      <div className="aspect-square bg-muted/30 rounded-2xl m-4 overflow-hidden">
-                        <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
-                      </div>
-                    </div>
-                    <CardContent className="p-6 pt-2 flex flex-col flex-1">
-                      <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                        <span>{cat?.icon}</span>
+                  <div className="group relative bg-background rounded-[2rem] border border-border/40 hover:border-accent/30 shadow-sm hover:shadow-neo-hover transition-all duration-500 hover:-translate-y-2 flex flex-col h-full overflow-hidden">
+
+                    {/* Image Area */}
+                    <Link to={`/shop/products/${product.model}`} className="block relative aspect-square bg-muted/10 m-2 rounded-[1.5rem] overflow-hidden">
+                       <div className="absolute inset-0 flex items-center justify-center p-8 group-hover:scale-110 transition-transform duration-700 ease-out">
+                          <img src={product.image} alt={product.name} className="w-full h-full object-contain drop-shadow-xl" loading="lazy" />
+                       </div>
+
+                       {/* Tags */}
+                       <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                          {product.tag && (
+                            <span className="bg-background/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-foreground border border-border/20 shadow-sm">
+                              {product.tag}
+                            </span>
+                          )}
+                          <div className="w-8 h-8 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center shadow-sm text-xs font-bold text-foreground">
+                             {product.rating}
+                          </div>
+                       </div>
+
+                       {/* Quick Add Overlay */}
+                       <div className="absolute inset-x-4 bottom-4 translate-y-[120%] group-hover:translate-y-0 transition-transform duration-300 z-10">
+                          <Button className="w-full rounded-full shadow-lg bg-foreground text-background hover:bg-foreground/90 h-10 text-xs font-bold uppercase tracking-wide" onClick={(e) => {
+                             e.preventDefault();
+                             handleAddToCart(product);
+                          }}>
+                             Quick Add
+                          </Button>
+                       </div>
+                    </Link>
+
+                    {/* Details */}
+                    <div className="p-5 pt-2 flex flex-col flex-1">
+                      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
                         <span>{cat?.name}</span>
-                      </div>
-                      <h3 className="font-display text-lg font-semibold text-foreground text-center mt-2">{product.name}</h3>
-                      <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground text-center">{product.model}</p>
-
-                      <div className="flex items-center justify-center gap-1.5 mt-3">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`w-3 h-3 ${i < Math.floor(product.rating) ? "text-accent fill-accent" : "text-muted-foreground/30"}`} />
-                        ))}
-                        <span className="text-[10px] text-muted-foreground">{product.rating} ({product.reviews})</span>
+                        <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+                        <span>{product.model}</span>
                       </div>
 
-                      <p className="text-xs text-muted-foreground text-center mt-3 line-clamp-2">{product.description}</p>
-                      <div className="mt-4 space-y-1">
+                      <Link to={`/shop/products/${product.model}`}>
+                        <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-accent transition-colors">{product.name}</h3>
+                      </Link>
+
+                      <div className="mt-3 space-y-1">
                         {product.features.slice(0, 2).map((f) => (
                           <div key={f} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                            <Check className="w-3 h-3 text-accent" />
+                            <Check className="w-3 h-3 text-accent/70" />
                             {f}
                           </div>
                         ))}
                       </div>
 
-                      <div className="mt-auto pt-4 space-y-2">
-                        <div className="text-center text-xl font-semibold text-foreground">INR {product.price.toLocaleString("en-IN")}</div>
-                        <Button className="w-full" variant="hero" size="sm" onClick={() => handleAddToCart(product)}>
-                          <ShoppingCart className="w-4 h-4 mr-2" /> Add to Cart
+                      <div className="mt-auto pt-4 flex items-end justify-between border-t border-border/20">
+                        <div>
+                           <span className="text-[10px] text-muted-foreground uppercase tracking-wide block">Price</span>
+                           <span className="text-lg font-semibold text-foreground">₹{product.price.toLocaleString("en-IN")}</span>
+                        </div>
+                        <Button variant="ghost" size="icon" className="rounded-full hover:bg-accent/10 hover:text-accent transition-colors -mr-2" onClick={() => handleAddToCart(product)}>
+                           <ShoppingCart className="w-5 h-5" />
                         </Button>
-                        <Link to={`/shop/products/${product.model}`}>
-                          <Button className="w-full" variant="outline" size="sm">
-                            View Details
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </Button>
-                        </Link>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </AnimatedSection>
               );
             })}
@@ -165,21 +192,22 @@ const ShopProducts = () => {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── Complete the Set CTA ── */}
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="surface-glass rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div>
-              <div className="pill-label mb-4">Complete the ritual</div>
-              <h3 className="font-display text-3xl md:text-4xl font-semibold text-foreground">Pair your diffuser with aroma oils.</h3>
-              <p className="text-muted-foreground mt-3 max-w-xl">Choose fragrances crafted for calm mornings and cozy evenings.</p>
-            </div>
-            <Link to="/shop/aromas">
-              <Button variant="hero" size="lg" className="group">
-                Browse aroma oils
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+          <div className="relative rounded-[2.5rem] bg-accent/5 overflow-hidden border border-accent/10 p-10 md:p-16 text-center">
+             <div className="absolute inset-0 bg-grid-fade opacity-30" />
+             <Sparkles className="w-12 h-12 text-accent mx-auto mb-6 animate-pulse-gold" />
+             <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-4">Complete the ritual.</h2>
+             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
+               Pair your new diffuser with our handcrafted aroma oils, designed for calm, focus, and joy.
+             </p>
+             <Link to="/shop/aromas">
+                <Button size="lg" className="rounded-full px-8 h-12 shadow-neo hover:translate-y-[-2px] transition-transform">
+                   Shop Aroma Oils
+                   <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+             </Link>
           </div>
         </div>
       </section>

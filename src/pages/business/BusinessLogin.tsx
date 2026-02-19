@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, ArrowLeft, Eye, EyeOff, CheckCircle2, Sparkles, Briefcase } from "lucide-react";
+import { Building2, ArrowLeft, Eye, EyeOff, CheckCircle2, Sparkles, Briefcase, LayoutDashboard } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
@@ -43,8 +43,8 @@ const BusinessLogin = () => {
       });
       if (error) throw error;
       navigate("/business/dashboard");
-    } catch (err: any) {
-      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: (err as Error).message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -75,8 +75,8 @@ const BusinessLogin = () => {
       });
       if (error) throw error;
       setStep(3);
-    } catch (err: any) {
-      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: (err as Error).message, variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -91,219 +91,191 @@ const BusinessLogin = () => {
     navigate("/business");
   };
 
-  // Success screen
   if (step === 3) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <PageMeta
           title="Business Registration Success"
-          description="Your business registration is received. Verify your email and our team will contact you for onboarding."
-          keywords="business signup success, onboarding, scent strategy demo"
+          description="Your business registration is received."
+          keywords="business signup success"
           canonicalUrl="https://ezeaircare.com/business/login"
           ogType="website"
         />
-        <Card className="gradient-card shadow-elegant border-border/50 w-full max-w-md text-center">
-          <CardContent className="pt-12 pb-10">
-            <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />
-            <h2 className="font-display text-2xl font-bold text-foreground mb-3">You're on the list!</h2>
-            <p className="text-muted-foreground mb-8">
-              We've received your registration. Please verify your email, then our team will reach out to schedule your demo.
-            </p>
-            <Link to="/business">
-              <Button variant="hero" className="w-full">Back to Business Home</Button>
-            </Link>
-          </CardContent>
-        </Card>
+        <div className="text-center max-w-md w-full bg-background border border-border/50 p-10 rounded-2xl shadow-neo">
+          <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-primary" />
+          </div>
+          <h2 className="font-display text-2xl font-bold text-foreground mb-4">Registration Received</h2>
+          <p className="text-muted-foreground mb-8">
+            Please verify your email address. Our team will review your application and activate your enterprise dashboard shortly.
+          </p>
+          <Link to="/business">
+            <Button className="w-full rounded-sm h-12 uppercase tracking-wide text-xs font-bold">Back to Home</Button>
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/5 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-background flex">
       <PageMeta
         title="Business Login"
-        description="Sign in or create your EZE AirCare business account to access dashboard tools and proposals."
-        keywords="business login, enterprise account, b2b dashboard"
+        description="Sign in or create your EZE AirCare business account."
+        keywords="business login, enterprise account"
         canonicalUrl="https://ezeaircare.com/business/login"
         ogType="website"
       />
-      <div className="w-full max-w-md space-y-6">
-        <Link to="/business" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Business
-        </Link>
 
-        {/* Demo Quick Login Card */}
-        <Card className="border-primary/30 bg-primary/5 shadow-md">
-          <CardContent className="pt-6 pb-5">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0 shadow-glow">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className="font-display font-semibold text-foreground mb-1">Try Demo Account</h3>
-                <p className="text-xs text-muted-foreground mb-3">
-                  Explore as <strong>Rahul Mehta</strong>, VP Operations at <strong>Luxe Hotels Group</strong> — see B2B solutions, request quotes, and manage campaigns.
-                </p>
-                <Button variant="hero" size="sm" onClick={handleDemoLogin} className="group w-full sm:w-auto">
-                  <Briefcase className="w-4 h-4 mr-2" />
-                  Quick Demo Login
-                </Button>
-              </div>
+      {/* ── Visual Side (Corporate) ── */}
+      <div className="hidden lg:flex w-1/2 bg-primary relative overflow-hidden flex-col justify-between p-12 text-primary-foreground">
+         <div className="absolute inset-0 bg-oil-texture opacity-20 mix-blend-overlay" />
+
+         <div className="relative z-10">
+            <Link to="/business" className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity">
+               <ArrowLeft className="w-4 h-4" /> Back to Business
+            </Link>
+         </div>
+
+         <div className="relative z-10 max-w-lg space-y-8">
+            <div>
+               <h1 className="font-display text-5xl font-semibold mb-4">Enterprise Control.</h1>
+               <p className="text-lg text-primary-foreground/80">Manage scent diffusion, track consumable levels, and analyze guest dwell time from one dashboard.</p>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Divider */}
-        <div className="flex items-center gap-4">
-          <div className="flex-1 h-px bg-border/50" />
-          <span className="text-xs text-muted-foreground font-medium">or use your account</span>
-          <div className="flex-1 h-px bg-border/50" />
-        </div>
-
-        {/* Main Card */}
-        <Card className="gradient-card shadow-elegant border-border/50">
-          <CardHeader className="text-center pb-2">
-            <div className="w-14 h-14 gradient-hero rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-glow">
-              <Building2 className="w-7 h-7 text-primary-foreground" />
+            <div className="space-y-4">
+               {[
+                  { icon: LayoutDashboard, text: "Centralized device management" },
+                  { icon: Briefcase, text: "Automated consumable reordering" },
+                  { icon: Building2, text: "Multi-location analytics" }
+               ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                     <div className="w-8 h-8 rounded-sm bg-accent/20 flex items-center justify-center border border-accent/30">
+                        <item.icon className="w-4 h-4 text-accent" />
+                     </div>
+                     <span className="text-sm font-medium">{item.text}</span>
+                  </div>
+               ))}
             </div>
-            <CardTitle className="font-display text-2xl">
-              {mode === "login" ? "Business Portal" : step === 1 ? "Register Your Business" : "Company Details"}
-            </CardTitle>
-            <CardDescription>
-              {mode === "login"
-                ? "Access your scent marketing dashboard"
-                : step === 1
-                  ? "Step 1 of 2 — Account credentials"
-                  : "Step 2 of 2 — Tell us about your business"}
-            </CardDescription>
-          </CardHeader>
+         </div>
 
-          <CardContent className="pt-6">
-            {/* LOGIN FORM */}
-            {mode === "login" && (
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Work Email</Label>
-                  <Input id="email" name="email" type="email" placeholder="you@company.com"
-                    value={form.email} onChange={handleChange} required />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Password</Label>
-                    <button type="button" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                      Forgot password?
-                    </button>
-                  </div>
-                  <div className="relative">
-                    <Input id="password" name="password" type={showPassword ? "text" : "password"}
-                      placeholder="••••••••" value={form.password} onChange={handleChange} required />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-                <Button variant="hero" type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Signing in..." : "Sign In"}
-                </Button>
-              </form>
-            )}
+         <div className="relative z-10 flex gap-4 opacity-50">
+            <div className="h-2 w-2 rounded-full bg-accent" />
+            <div className="h-2 w-2 rounded-full bg-white" />
+            <div className="h-2 w-2 rounded-full bg-white" />
+         </div>
+      </div>
 
-            {/* SIGNUP STEP 1 */}
-            {mode === "signup" && step === 1 && (
-              <form onSubmit={handleSignupStep1} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="full_name">Full Name</Label>
-                  <Input id="full_name" name="full_name" placeholder="John Smith"
-                    value={form.full_name} onChange={handleChange} required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Work Email</Label>
-                  <Input id="email" name="email" type="email" placeholder="you@company.com"
-                    value={form.email} onChange={handleChange} required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <div className="relative">
-                    <Input id="password" name="password" type={showPassword ? "text" : "password"}
-                      placeholder="Min. 6 characters" value={form.password} onChange={handleChange} required minLength={6} />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-                <Button variant="hero" type="submit" className="w-full">Continue →</Button>
-              </form>
-            )}
+      {/* ── Form Side ── */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-12 relative bg-background">
+         <div className="max-w-md w-full space-y-8">
+            <div className="text-center">
+               <div className="w-12 h-12 rounded-sm bg-primary text-primary-foreground flex items-center justify-center mx-auto mb-6 shadow-neo">
+                  <span className="font-display font-bold text-xl">E</span>
+               </div>
+               <h2 className="font-display text-3xl font-semibold text-foreground">
+                  {mode === "login" ? "Partner Portal" : "Partner Application"}
+               </h2>
+               <p className="text-muted-foreground mt-2 text-sm uppercase tracking-wide">
+                  {mode === "login" ? "Secure access for enterprise clients" : "Join our network of premium spaces"}
+               </p>
+            </div>
 
-            {/* SIGNUP STEP 2 */}
-            {mode === "signup" && step === 2 && (
-              <form onSubmit={handleSignupSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="company_name">Company Name</Label>
-                  <Input id="company_name" name="company_name" placeholder="Acme Corp"
-                    value={form.company_name} onChange={handleChange} required />
-                </div>
-                <div className="space-y-2">
-                  <Label>Industry</Label>
-                  <Select onValueChange={(v) => handleSelect("industry", v)}>
-                    <SelectTrigger><SelectValue placeholder="Select industry" /></SelectTrigger>
-                    <SelectContent>
-                      {INDUSTRIES.map((i) => <SelectItem key={i} value={i}>{i}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="job_title">Your Role</Label>
-                  <Input id="job_title" name="job_title" placeholder="Marketing Manager"
-                    value={form.job_title} onChange={handleChange} />
-                </div>
-                <div className="space-y-2">
-                  <Label>Company Size</Label>
-                  <Select onValueChange={(v) => handleSelect("company_size", v)}>
-                    <SelectTrigger><SelectValue placeholder="Select company size" /></SelectTrigger>
-                    <SelectContent>
-                      {COMPANY_SIZES.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="city">City</Label>
-                  <Input id="city" name="city" placeholder="Mumbai"
-                    value={form.city} onChange={handleChange} />
-                </div>
-                <div className="flex gap-3">
-                  <Button variant="glass" type="button" className="flex-1" onClick={() => setStep(1)}>
-                    ← Back
+            {/* Demo Login */}
+            <div className="bg-muted/10 border border-primary/20 rounded-sm p-4 flex items-center gap-4 hover:bg-muted/20 transition-colors">
+               <div className="w-10 h-10 rounded-sm bg-primary/10 flex items-center justify-center shrink-0">
+                  <Briefcase className="w-5 h-5 text-primary" />
+               </div>
+               <div className="flex-1">
+                  <div className="font-bold text-xs uppercase tracking-wide text-foreground">Demo Access</div>
+                  <div className="text-xs text-muted-foreground">Log in as Luxe Hotels Group</div>
+               </div>
+               <Button size="sm" variant="outline" className="h-8 text-xs font-bold uppercase tracking-wider rounded-sm border-primary/30 text-primary hover:bg-primary/5" onClick={handleDemoLogin}>
+                  Auto Fill
+               </Button>
+            </div>
+
+            {mode === "login" ? (
+               <form onSubmit={handleLogin} className="space-y-5">
+                  <div className="space-y-2">
+                     <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Work Email</Label>
+                     <Input name="email" type="email" value={form.email} onChange={handleChange} required className="rounded-sm h-11 border-border/60 focus-visible:ring-primary" placeholder="name@company.com" />
+                  </div>
+                  <div className="space-y-2">
+                     <div className="flex justify-between">
+                        <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Password</Label>
+                        <Link to="#" className="text-xs text-primary hover:underline">Forgot?</Link>
+                     </div>
+                     <div className="relative">
+                        <Input name="password" type={showPassword ? "text" : "password"} value={form.password} onChange={handleChange} required className="rounded-sm h-11 border-border/60 focus-visible:ring-primary" placeholder="••••••••" />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                           {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                     </div>
+                  </div>
+                  <Button type="submit" className="w-full h-11 rounded-sm uppercase tracking-wider text-xs font-bold shadow-neo bg-primary text-primary-foreground hover:bg-primary/90" disabled={loading}>
+                     {loading ? "Authenticating..." : "Access Dashboard"}
                   </Button>
-                  <Button variant="hero" type="submit" className="flex-1" disabled={loading}>
-                    {loading ? "Submitting..." : "Request Demo Access"}
-                  </Button>
-                </div>
-              </form>
+               </form>
+            ) : (
+               <form onSubmit={step === 1 ? handleSignupStep1 : handleSignupSubmit} className="space-y-5">
+                  {step === 1 ? (
+                     <>
+                        <div className="space-y-2">
+                           <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Full Name</Label>
+                           <Input name="full_name" value={form.full_name} onChange={handleChange} required className="rounded-sm h-11 border-border/60" placeholder="John Doe" />
+                        </div>
+                        <div className="space-y-2">
+                           <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Work Email</Label>
+                           <Input name="email" type="email" value={form.email} onChange={handleChange} required className="rounded-sm h-11 border-border/60" placeholder="name@company.com" />
+                        </div>
+                        <div className="space-y-2">
+                           <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Password</Label>
+                           <Input name="password" type="password" value={form.password} onChange={handleChange} required minLength={6} className="rounded-sm h-11 border-border/60" placeholder="••••••••" />
+                        </div>
+                        <Button type="submit" className="w-full h-11 rounded-sm uppercase tracking-wider text-xs font-bold bg-primary text-primary-foreground">Next Step</Button>
+                     </>
+                  ) : (
+                     <>
+                        <div className="space-y-2">
+                           <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Company Name</Label>
+                           <Input name="company_name" value={form.company_name} onChange={handleChange} required className="rounded-sm h-11 border-border/60" placeholder="Acme Corp" />
+                        </div>
+                        <div className="space-y-2">
+                           <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Industry</Label>
+                           <Select onValueChange={(v) => handleSelect("industry", v)}>
+                              <SelectTrigger className="rounded-sm h-11 border-border/60"><SelectValue placeholder="Select..." /></SelectTrigger>
+                              <SelectContent>
+                                 {INDUSTRIES.map(i => <SelectItem key={i} value={i}>{i}</SelectItem>)}
+                              </SelectContent>
+                           </Select>
+                        </div>
+                        <div className="flex gap-3">
+                           <Button type="button" variant="outline" onClick={() => setStep(1)} className="flex-1 h-11 rounded-sm uppercase tracking-wider text-xs font-bold">Back</Button>
+                           <Button type="submit" className="flex-1 h-11 rounded-sm uppercase tracking-wider text-xs font-bold bg-primary text-primary-foreground" disabled={loading}>
+                              {loading ? "Processing..." : "Submit Application"}
+                           </Button>
+                        </div>
+                     </>
+                  )}
+               </form>
             )}
 
-            {/* Toggle login/signup */}
-            <div className="mt-6 text-center text-sm text-muted-foreground">
-              {mode === "login" ? "New to EZE Business?" : "Already have an account?"}{" "}
-              <button onClick={() => { setMode(mode === "login" ? "signup" : "login"); setStep(1); }}
-                className="text-primary font-medium hover:underline">
-                {mode === "login" ? "Register →" : "Sign in"}
-              </button>
+            <div className="text-center pt-6 border-t border-border/40">
+               <p className="text-xs text-muted-foreground">
+                  {mode === "login" ? "Need an account?" : "Already a partner?"}{" "}
+                  <button onClick={() => { setMode(mode === "login" ? "signup" : "login"); setStep(1); }} className="font-bold text-foreground hover:underline uppercase tracking-wide">
+                     {mode === "login" ? "Apply Now" : "Sign In"}
+                  </button>
+               </p>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-border/50 text-center">
-              <p className="text-xs text-muted-foreground">
-                Shopping for home?{" "}
-                <Link to="/shop/login" className="text-accent hover:underline font-medium">
-                  Shop login →
-                </Link>
-              </p>
+            <div className="text-center">
+               <Link to="/shop/login" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors">
+                  Looking for Personal Shopping?
+               </Link>
             </div>
-          </CardContent>
-        </Card>
+         </div>
       </div>
     </div>
   );

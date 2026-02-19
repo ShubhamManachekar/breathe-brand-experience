@@ -30,13 +30,14 @@ const ShopNavigation = () => {
   return (
     <>
       <ScrollProgress />
-      <nav className="fixed top-0 w-full z-50 transition-all duration-500">
+      <nav className="fixed top-0 w-full z-50 transition-all duration-500 font-body">
+        {/* Soft, floating pill container for B2C */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-          <div className="surface-glass rounded-2xl px-6 sm:px-8">
+          <div className="bg-background/80 backdrop-blur-2xl rounded-full px-6 sm:px-8 border border-white/20 dark:border-white/5 shadow-neo">
             <div className="flex items-center justify-between h-20">
-              {/* Logo */}
+              {/* Logo - Organic / Soft */}
               <Link to="/shop" className="flex items-center gap-3.5 group">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-foreground text-background shadow-clay-sm border border-border/40 transition-all duration-500 group-hover:shadow-clay-hover group-hover:scale-105">
+                <div className="w-11 h-11 rounded-2xl flex items-center justify-center bg-foreground text-background shadow-neo-sm transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3">
                   <span className="font-display font-bold text-2xl">E</span>
                 </div>
                 <div className="flex flex-col">
@@ -45,21 +46,18 @@ const ShopNavigation = () => {
                 </div>
               </Link>
 
-              {/* Desktop Nav - Centered & Refined */}
+              {/* Desktop Nav - Centered Pills */}
               <div className="hidden md:flex items-center justify-center flex-1 mx-8">
-                <div className="flex items-center gap-1 bg-background/70 p-1.5 rounded-full border border-border/60 backdrop-blur-sm">
+                <div className="flex items-center gap-1 bg-muted/30 p-1.5 rounded-full border border-white/10 backdrop-blur-sm">
                   {navItems.map((item) => (
                     <Link
                       key={item.href}
                       to={item.href}
-                      className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-500 ${isActive(item.href)
-                          ? 'text-primary-foreground'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-white/10'
+                      className={`relative px-6 py-2 rounded-full text-sm font-medium transition-all duration-500 ${isActive(item.href)
+                          ? 'bg-background text-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-white/40'
                         }`}
                     >
-                      {isActive(item.href) && (
-                        <div className="absolute inset-0 bg-primary rounded-full shadow-clay-sm -z-10 animate-in zoom-in-90 duration-300" />
-                      )}
                       {item.label}
                     </Link>
                   ))}
@@ -68,32 +66,31 @@ const ShopNavigation = () => {
 
               {/* CTA & Actions */}
               <div className="hidden md:flex items-center gap-4">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 pr-4 border-r border-border/30">
                   <ThemeToggle />
-                  <div className="h-8 w-px bg-border/40 mx-1" />
                   <SegmentSwitcher />
                 </div>
 
                 {user ? (
                   <div className="flex items-center gap-2 pl-2">
                     <Link to="/shop/dashboard">
-                      <Button variant="glass" size="icon" className="rounded-full w-10 h-10 hover:scale-105 transition-transform" title="Account">
-                        <User className="w-4 h-4" />
+                      <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-muted transition-transform" title="Account">
+                        <User className="w-5 h-5" />
                       </Button>
                     </Link>
                   </div>
                 ) : (
                   <Link to="/shop/login" className="pl-2">
-                    <Button variant="ghost" className="font-medium hover:bg-transparent hover:text-primary px-2">Login</Button>
+                    <Button variant="ghost" className="font-medium hover:bg-transparent hover:text-primary px-2 rounded-full">Login</Button>
                   </Link>
                 )}
 
                 <Link to="/shop/cart">
-                  <Button variant="premium" size="sm" className="rounded-full px-5 h-10 shadow-clay-sm hover:translate-y-[-2px] transition-transform">
+                  <Button className="rounded-full px-6 h-11 bg-accent hover:bg-accent/90 text-accent-foreground shadow-neo hover:-translate-y-0.5 transition-all">
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     <span className="font-semibold">Cart</span>
                     {totalItems > 0 && (
-                      <span className="ml-2 bg-white/20 px-1.5 py-0.5 rounded-full text-[10px] font-bold">
+                      <span className="ml-2 bg-white/20 px-2 py-0.5 rounded-full text-[10px] font-bold">
                         {totalItems}
                       </span>
                     )}
@@ -104,13 +101,13 @@ const ShopNavigation = () => {
               {/* Mobile menu button */}
               <div className="md:hidden flex items-center gap-3">
                 <Link to="/shop/cart" className="relative p-2">
-                  <ShoppingCart className="w-5 h-5 text-foreground" />
+                  <ShoppingCart className="w-6 h-6 text-foreground" />
                   {totalItems > 0 && (
-                    <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-destructive rounded-full border-2 border-background animate-pulse" />
+                    <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-accent rounded-full border-2 border-background animate-pulse" />
                   )}
                 </Link>
                 <button
-                  className="w-10 h-10 rounded-full ink-outline bg-background/80 flex items-center justify-center text-foreground hover:text-primary transition-all active:scale-95"
+                  className="w-10 h-10 rounded-full border border-border/40 bg-background/50 flex items-center justify-center text-foreground hover:text-primary transition-all active:scale-95"
                   onClick={() => setIsOpen(!isOpen)}
                 >
                   {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -121,27 +118,27 @@ const ShopNavigation = () => {
 
           {/* Mobile Nav Dropdown */}
           <div className={`md:hidden transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'max-h-[500px] opacity-100 mt-4 translate-y-0' : 'max-h-0 opacity-0 mt-0 -translate-y-4 pointer-events-none'}`}>
-            <div className="surface-glass rounded-2xl p-5 space-y-2 overflow-hidden">
+            <div className="bg-background/90 backdrop-blur-xl rounded-3xl p-5 space-y-2 overflow-hidden border border-white/20 shadow-neo">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`block px-5 py-3.5 text-base font-semibold rounded-xl transition-all duration-300 ${isActive(item.href)
-                      ? 'bg-primary/5 text-primary'
+                  className={`block px-5 py-4 text-lg font-medium rounded-2xl transition-all duration-300 ${isActive(item.href)
+                      ? 'bg-accent/10 text-accent'
                       : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
                     }`}
                   onClick={() => setIsOpen(false)}
                 >
                   <div className="flex items-center justify-between">
                     {item.label}
-                    {isActive(item.href) && <div className="w-1.5 h-1.5 rounded-full bg-primary" />}
+                    {isActive(item.href) && <div className="w-2 h-2 rounded-full bg-accent" />}
                   </div>
                 </Link>
               ))}
 
               <div className="border-t border-border/20 pt-5 mt-4 space-y-4">
                 <div className="flex items-center justify-between px-2">
-                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Settings</span>
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Preferences</span>
                   <div className="flex gap-2">
                     <ThemeToggle />
                     <SegmentSwitcher />
@@ -150,13 +147,13 @@ const ShopNavigation = () => {
 
                 {user ? (
                   <Link to="/shop/dashboard" onClick={() => setIsOpen(false)}>
-                    <Button variant="glass" className="w-full justify-start pl-4 h-12 rounded-xl">
-                      <User className="w-4 h-4 mr-3" /> My Account
+                    <Button variant="outline" className="w-full justify-start pl-4 h-12 rounded-2xl">
+                      <User className="w-5 h-5 mr-3" /> My Account
                     </Button>
                   </Link>
                 ) : (
                   <Link to="/shop/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="premium" className="w-full h-12 rounded-xl shadow-clay-sm">Login / Register</Button>
+                    <Button className="w-full h-12 rounded-2xl bg-foreground text-background shadow-neo">Login / Register</Button>
                   </Link>
                 )}
               </div>

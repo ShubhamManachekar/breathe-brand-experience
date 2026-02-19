@@ -38,16 +38,25 @@ export const useParallax = (speed = 0.5) => {
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      if (elementRef.current) {
-        const rect = elementRef.current.getBoundingClientRect();
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * speed;
-        setOffset(rate);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (elementRef.current) {
+            // Use window.scrollY instead of deprecated pageYOffset
+            const scrolled = window.scrollY;
+            const rate = scrolled * speed;
+            setOffset(rate);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Use passive listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [speed]);
 

@@ -12,7 +12,7 @@ import { createTicket } from "@/lib/support";
 type ChatMessage = { id: string; from: "bot" | "user"; text: string; image?: string | null };
 type ChatFlowState = "idle" | "ticket_subject" | "ticket_message";
 
-// helper: does the user's text include any of the keywords?
+// helper: does the user's text include Message of the keywords?
 function containsAny(text: string, keys: string[]) {
   const t = text.toLowerCase();
   return keys.some(k => t.includes(k));
@@ -45,9 +45,11 @@ export default function Chatbot() {
 
   const parsedRules = useMemo(() => {
     if (overridesJson) {
-      try { return JSON.parse(overridesJson); } catch { return rules as any; }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+      try { return JSON.parse(overridesJson); } catch { return rules as Message; }
     }
-    return rules as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return rules as Message;
   }, [overridesJson]);
 
   const FAQ = parsedRules.faq;

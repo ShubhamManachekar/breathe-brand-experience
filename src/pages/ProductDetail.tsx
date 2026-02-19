@@ -45,13 +45,21 @@ const ProductDetail = () => {
   const { toast } = useToast();
   const isShop = location.pathname.startsWith("/shop");
 
+  // Move hooks before conditional return
+  const recommendedOils = useMemo(() => product ? getRecommendedOils(product, 4) : [], [product]);
+  const relatedDiffusers = useMemo(() => product ? getRelatedDiffusers(product, 4) : [], [product]);
+
+  // Safe access for derived values
+  const suggestedSize = product ? getSuggestedOilSize(product) : aromaSizes[0];
+  const suggestedSizeIdx = product ? getSuggestedOilSizeIndex(product) : 0;
+
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
           <h1 className="text-4xl font-display font-bold mb-4 text-foreground">Product Not Found</h1>
           <Link to={isShop ? "/shop/products" : "/business/products"}>
-            <Button variant="hero">Back to Products</Button>
+            <Button variant="default" className="rounded-full">Back to Products</Button>
           </Link>
         </div>
       </div>
@@ -68,16 +76,17 @@ const ProductDetail = () => {
       image: product.image,
     });
     toast({
-      title: "Added to Cart!",
-      description: `${product.name} has been added to your cart.`,
+      title: "Added to Cart",
+      description: (
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded bg-muted flex items-center justify-center">
+            <img src={product.image} alt={product.name} className="w-6 h-6 object-contain" />
+          </div>
+          <span>{product.name} is in your cart.</span>
+        </div>
+      ),
     });
   };
-
-  /* ── Recommendations ──────────────────────────────────────── */
-  const recommendedOils = useMemo(() => getRecommendedOils(product, 4), [product]);
-  const suggestedSize = getSuggestedOilSize(product);
-  const suggestedSizeIdx = getSuggestedOilSizeIndex(product);
-  const relatedDiffusers = useMemo(() => getRelatedDiffusers(product, 4), [product]);
 
   const handleAddOilToCart = (oil: typeof recommendedOils[0], sizeIdx?: number) => {
     const idx = sizeIdx ?? suggestedSizeIdx;
@@ -119,7 +128,7 @@ const ProductDetail = () => {
   });
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-background overflow-hidden">
       <PageMeta
         title={`${product.name} (${product.model}) - Premium Scent Diffuser`}
         description={product.description}
@@ -128,324 +137,226 @@ const ProductDetail = () => {
         structuredData={[breadcrumbSchema, productSchema]}
       />
 
-      <section className="section-shell pt-28">
+      <div className="pt-24 lg:pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+
+          {/* ── Breadcrumbs ── */}
+          <nav className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground mb-8">
             <Link to={isShop ? "/shop" : "/business"} className="hover:text-foreground transition-colors">Home</Link>
             <span className="opacity-40">/</span>
             <Link to={isShop ? "/shop/products" : "/business/products"} className="hover:text-foreground transition-colors">Products</Link>
             <span className="opacity-40">/</span>
-            <span className="text-foreground font-medium">{product.name}</span>
-          </div>
+            <span className="text-foreground">{product.name}</span>
+          </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <AnimatedSection animation="fadeInUp" className="space-y-6">
-              <div className="surface-glass rounded-3xl p-6">
-                <div className="w-full aspect-square bg-muted/30 rounded-2xl flex items-center justify-center overflow-hidden">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20">
+
+            {/* ── Left: Image Gallery ── */}
+            <div className="space-y-6">
+              <AnimatedSection animation="fadeInUp">
+                <div className="relative aspect-square bg-muted/10 rounded-[2.5rem] border border-border/40 overflow-hidden flex items-center justify-center group">
+                  <div className="absolute inset-0 bg-grid-fade opacity-30" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <img
                     src={product.images ? product.images[activeImage] : product.image}
                     alt={product.name}
-                    className="w-full h-full object-contain"
+                    className="w-3/4 h-3/4 object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105"
                   />
+                  {product.tag && (
+                    <div className="absolute top-6 left-6">
+                      <span className="bg-background/90 backdrop-blur-xl border border-white/20 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-foreground shadow-sm">
+                        {product.tag}
+                      </span>
+                    </div>
+                  )}
                 </div>
-                {product.tag && (
-                  <span className="inline-block mt-4 text-[10px] uppercase tracking-widest bg-foreground text-background px-3 py-1 rounded-full">
-                    {product.tag}
-                  </span>
-                )}
-              </div>
+              </AnimatedSection>
 
-              <div className="flex gap-3 overflow-x-auto">
+              <div className="grid grid-cols-4 gap-4">
                 {(product.images || [product.image]).map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImage(i)}
-                    className={`shrink-0 w-20 h-20 rounded-xl p-2 transition-all duration-300 ${activeImage === i ? "card-loom ring-2 ring-accent" : "bg-muted/40"
+                    className={`relative aspect-square rounded-2xl overflow-hidden transition-all duration-300 ${activeImage === i ? "ring-2 ring-foreground ring-offset-2 ring-offset-background" : "opacity-70 hover:opacity-100"
                       }`}
                   >
-                    <img src={img} alt={`View ${i + 1}`} className="w-full h-full object-contain" />
+                    <div className="absolute inset-0 bg-muted/20" />
+                    <img src={img} alt={`View ${i + 1}`} className="w-full h-full object-contain p-2" />
                   </button>
                 ))}
               </div>
-            </AnimatedSection>
+            </div>
 
-            <AnimatedSection animation="fadeInUp" delay={150} className="flex flex-col">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{product.model}</span>
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-accent fill-accent" />
-                  <span className="text-sm font-semibold">{product.rating}</span>
-                  <span className="text-sm text-muted-foreground">({product.reviews} reviews)</span>
+            {/* ── Right: Product Details ── */}
+            <div className="flex flex-col h-full">
+              <AnimatedSection animation="fadeInUp" delay={150}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest bg-muted/30 px-2 py-1 rounded-md">{product.model}</span>
+                  <div className="flex items-center gap-1 bg-accent/10 px-2 py-1 rounded-md">
+                    <Star className="w-3.5 h-3.5 text-accent fill-accent" />
+                    <span className="text-xs font-bold text-accent-foreground">{product.rating}</span>
+                    <span className="text-[10px] text-muted-foreground ml-1">({product.reviews} reviews)</span>
+                  </div>
                 </div>
-              </div>
-              <h1 className="font-display text-4xl sm:text-5xl font-semibold text-foreground">{product.name}</h1>
-              <p className="text-lg text-muted-foreground mt-4">{product.description}</p>
 
-              {isShop ? (
-                <Card className="card-loom mt-6">
-                  <CardContent className="p-6">
-                    <div className="flex items-end gap-3">
-                      <span className="text-3xl font-semibold text-foreground">INR {product.price.toLocaleString("en-IN")}</span>
-                      <span className="text-sm text-muted-foreground line-through">INR {(product.price * 1.2).toLocaleString("en-IN")}</span>
-                      <span className="text-xs text-green-600 font-semibold">Save 20%</span>
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-foreground mb-6 text-balance">{product.name}</h1>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8 border-l-2 border-accent/30 pl-4">{product.description}</p>
+
+                {isShop ? (
+                  <div className="bg-background rounded-3xl p-6 border border-border/60 shadow-neo mb-8">
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span className="text-4xl font-display font-bold text-foreground">₹{product.price.toLocaleString("en-IN")}</span>
+                      <span className="text-lg text-muted-foreground line-through decoration-muted-foreground/50">₹{(product.price * 1.2).toLocaleString("en-IN")}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-2">Inclusive of all taxes. Free shipping included.</p>
-                    <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                      <Button variant="hero" size="lg" className="flex-1" onClick={handleAddToCart}>
-                        <ShoppingCart className="w-4 h-4 mr-2" /> Add to Cart
+                    <div className="flex items-center gap-2 mb-6">
+                       <span className="text-xs font-bold text-green-600 bg-green-100 dark:bg-green-900/30 px-2 py-0.5 rounded-full">Save 20%</span>
+                       <span className="text-xs text-muted-foreground">Free shipping included</span>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button onClick={handleAddToCart} size="lg" className="flex-1 rounded-full h-14 text-base font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+                        <ShoppingCart className="w-5 h-5 mr-2" /> Add to Cart
                       </Button>
-                      <Button variant="outline" size="lg" className="flex-1">
-                        <Share2 className="w-4 h-4 mr-2" /> Share
+                      <Button variant="outline" size="icon" className="rounded-full h-14 w-14 border-border/60 hover:bg-muted/30">
+                        <Share2 className="w-5 h-5" />
                       </Button>
                     </div>
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card className="card-loom mt-6">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-xs uppercase tracking-widest text-muted-foreground">Business pricing</div>
-                        <div className="text-lg font-semibold text-foreground">Contact for volume rates</div>
-                      </div>
-                      <Badge variant="secondary">Enterprise</Badge>
+                  </div>
+                ) : (
+                  <div className="bg-background rounded-3xl p-6 border border-border/60 shadow-neo mb-8">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-semibold text-foreground">Enterprise Solution</h3>
+                      <Badge variant="secondary" className="rounded-full">B2B Pricing</Badge>
                     </div>
-                    <div className="mt-4 flex gap-3">
+                    <p className="text-sm text-muted-foreground mb-6">Contact us for volume pricing and installation services.</p>
+                    <div className="flex gap-3">
                       <Link to="/business/contact" state={{ interest: `${product.name} (${product.model})` }} className="flex-1">
-                        <Button variant="hero" size="lg" className="w-full">
-                          <Calendar className="w-4 h-4 mr-2" /> Request Quote
-                        </Button>
-                      </Link>
-                      <Link to="/business/products" className="flex-1">
-                        <Button variant="outline" size="lg" className="w-full">
-                          View Range
-                          <ArrowRight className="w-4 h-4 ml-2" />
+                        <Button className="w-full rounded-full h-12 uppercase tracking-wide text-xs font-bold">
+                          Request Quote
                         </Button>
                       </Link>
                     </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              <div className="grid grid-cols-2 gap-3 mt-6">
-                {product.features.map((feature) => (
-                  <div key={feature} className="flex items-start gap-2 text-sm">
-                    <div className="w-8 h-8 rounded-lg bg-accent/15 flex items-center justify-center">
-                      <Check className="w-4 h-4 text-accent" />
-                    </div>
-                    <span className="text-muted-foreground">{feature}</span>
                   </div>
-                ))}
-              </div>
+                )}
 
-              <div className="grid grid-cols-3 gap-4 mt-8">
-                {[
-                  { icon: Truck, label: "Free Delivery" },
-                  { icon: ShieldCheck, label: "2 Year Warranty" },
-                  { icon: RotateCcw, label: "30 Day Return" },
-                ].map((policy) => (
-                  <div key={policy.label} className="text-center text-xs text-muted-foreground">
-                    <div className="w-10 h-10 mx-auto rounded-full bg-muted/50 flex items-center justify-center mb-2">
-                      <policy.icon className="w-4 h-4" />
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  {product.features.map((feature) => (
+                    <div key={feature} className="flex items-start gap-3">
+                      <div className="mt-0.5 w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                        <Check className="w-3 h-3 text-accent" />
+                      </div>
+                      <span className="text-sm text-foreground/80">{feature}</span>
                     </div>
-                    {policy.label}
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between py-6 border-t border-border/30">
+                   {[
+                     { icon: Truck, label: "Free Delivery" },
+                     { icon: ShieldCheck, label: "2 Year Warranty" },
+                     { icon: RotateCcw, label: "30 Day Return" },
+                   ].map((item) => (
+                     <div key={item.label} className="text-center group cursor-default">
+                        <div className="w-10 h-10 mx-auto rounded-full bg-muted/20 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+                           <item.icon className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors" />
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{item.label}</span>
+                     </div>
+                   ))}
+                </div>
+              </AnimatedSection>
+            </div>
           </div>
 
-          <section className="section-shell">
-            <div className="text-center mb-8">
-              <div className="pill-label justify-center">Ideal for</div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {(isShop ? product.homeUse : product.businessUse).map((use, i) => (
-                <AnimatedSection key={use} animation="fadeInUp" delay={i * 80}>
-                  <div className="card-loom rounded-2xl p-4 text-center text-sm text-foreground">{use}</div>
-                </AnimatedSection>
-              ))}
-            </div>
-          </section>
-
-          <section className="section-shell">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="font-display text-3xl font-semibold text-center mb-8">Technical Specifications</h2>
-              <div className="card-loom rounded-2xl divide-y divide-border/40">
+          {/* ── Technical Specs ── */}
+          <section className="mt-20 lg:mt-32">
+            <div className="bg-muted/10 rounded-[2.5rem] p-8 md:p-12 border border-border/30">
+              <h2 className="font-display text-2xl md:text-3xl font-semibold mb-8 text-center">Technical Specifications</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {specifications.map((spec) => (
-                  <div key={spec.label} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4">
-                    <span className="text-xs uppercase tracking-widest text-muted-foreground">{spec.label}</span>
-                    <span className="text-sm text-foreground font-medium">{spec.value}</span>
+                  <div key={spec.label} className="bg-background p-6 rounded-2xl border border-border/20 shadow-sm">
+                    <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">{spec.label}</div>
+                    <div className="font-semibold text-foreground">{spec.value}</div>
                   </div>
                 ))}
               </div>
             </div>
           </section>
-          {/* ═══════════ COMPLETE YOUR SETUP — Suggested Oils ═══════════ */}
-          {isShop && recommendedOils.length > 0 && (
-            <section className="section-shell">
-              <AnimatedSection animation="fadeInUp">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-11 h-11 rounded-2xl gradient-gold shadow-clay-sm flex items-center justify-center">
-                    <Droplets className="w-5 h-5 text-accent-foreground" />
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground">Complete Your Setup</h2>
-                    <p className="text-sm text-muted-foreground">
-                      Recommended size: <span className="font-semibold text-accent">{suggestedSize.label}</span> for {product.name} ({product.coverage})
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {recommendedOils.map((oil, idx) => (
-                  <AnimatedSection key={oil.id} animation="fadeInUp" delay={idx * 100}>
-                    <Card className="card-clay h-full flex flex-col overflow-hidden">
-                      <div className="shrink-0">
-                        <div className="aspect-square surface-sunken rounded-2xl m-4 overflow-hidden flex items-center justify-center relative">
-                          <img src={oil.image} alt={oil.name} className="w-full h-full object-contain p-4" loading="lazy" />
-                          <div className="absolute bottom-2 right-2">
-                            <span className="pill-raised text-[9px] font-semibold px-2 py-0.5">{oil.intensity}</span>
+          {/* ── Bundle Upsell ── */}
+          {isShop && bundleOils.length > 0 && (
+            <section className="mt-20 lg:mt-32">
+              <div className="flex items-center gap-3 mb-8">
+                 <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent">
+                    <PackagePlus className="w-5 h-5" />
+                 </div>
+                 <h2 className="font-display text-2xl md:text-3xl font-semibold">Frequently Bought Together</h2>
+              </div>
+
+              <div className="bg-background rounded-[2rem] border border-border/40 shadow-neo p-8 md:p-10 relative overflow-hidden">
+                 <div className="absolute top-0 right-0 p-4 bg-green-100 dark:bg-green-900/30 rounded-bl-3xl text-green-700 dark:text-green-400 font-bold text-xs uppercase tracking-wider">
+                    Save ₹{bundleSavings.toLocaleString("en-IN")}
+                 </div>
+
+                 <div className="flex flex-col lg:flex-row items-center gap-8">
+                    <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+                       <div className="text-center">
+                          <div className="w-32 h-32 bg-muted/20 rounded-2xl flex items-center justify-center p-4 mb-3 border border-border/20">
+                             <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
                           </div>
-                        </div>
-                      </div>
-                      <CardContent className="p-5 pt-0 flex flex-col flex-1">
-                        <h4 className="font-display text-base font-semibold text-foreground">{oil.name}</h4>
-                        <p className="text-xs text-muted-foreground italic">{oil.mood}</p>
-                        <div className="mt-2 flex flex-wrap gap-1">
-                          {oil.notes.slice(0, 3).map((note) => (
-                            <span key={note} className="pill-raised text-[9px] px-2 py-0.5 text-muted-foreground">{note}</span>
-                          ))}
-                        </div>
-                        <div className="mt-auto pt-4 space-y-2">
-                          <div className="flex items-end gap-2">
-                            <span className="text-lg font-semibold text-foreground">₹{suggestedSize.price.toLocaleString("en-IN")}</span>
-                            <span className="text-xs text-muted-foreground">{suggestedSize.label}</span>
+                          <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Diffuser</div>
+                       </div>
+                       <Plus className="w-6 h-6 text-muted-foreground/50" />
+                       {bundleOils.map((oil, i) => (
+                          <div key={oil.id} className="flex items-center gap-4 md:gap-8">
+                             <div className="text-center">
+                                <div className="w-32 h-32 bg-muted/20 rounded-2xl flex items-center justify-center p-4 mb-3 border border-border/20 relative">
+                                   <img src={oil.image} alt={oil.name} className="w-full h-full object-contain" />
+                                   {i === 0 && <div className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">Best Seller</div>}
+                                </div>
+                                <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Oil</div>
+                             </div>
+                             {i < bundleOils.length - 1 && <Plus className="w-6 h-6 text-muted-foreground/50" />}
                           </div>
-                          <Button variant="hero" size="sm" className="w-full" onClick={() => handleAddOilToCart(oil)}>
-                            <ShoppingCart className="w-3.5 h-3.5 mr-1.5" /> Add {suggestedSize.label}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </AnimatedSection>
-                ))}
+                       ))}
+                    </div>
+
+                    <div className="lg:ml-auto text-center lg:text-right">
+                       <div className="mb-4">
+                          <div className="text-lg text-muted-foreground line-through decoration-muted-foreground/50">₹{bundleTotal.toLocaleString("en-IN")}</div>
+                          <div className="text-4xl font-display font-bold text-foreground">₹{(bundleTotal - bundleSavings).toLocaleString("en-IN")}</div>
+                       </div>
+                       <Button onClick={handleAddBundleToCart} size="lg" className="rounded-full h-12 w-full md:w-auto shadow-lg shadow-accent/20">
+                          Add Bundle to Cart
+                       </Button>
+                    </div>
+                 </div>
               </div>
             </section>
           )}
 
-          {/* ═══════════ FREQUENTLY BOUGHT TOGETHER ═══════════ */}
-          {isShop && bundleOils.length > 0 && (
-            <section className="section-shell">
-              <AnimatedSection animation="fadeInUp">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-11 h-11 rounded-2xl gradient-gold shadow-clay-sm flex items-center justify-center">
-                    <PackagePlus className="w-5 h-5 text-accent-foreground" />
-                  </div>
-                  <div>
-                    <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground">Frequently Bought Together</h2>
-                    <p className="text-sm text-muted-foreground">Save 10% when you buy the bundle</p>
-                  </div>
-                </div>
-
-                <Card className="card-clay overflow-hidden">
-                  <CardContent className="p-6 md:p-8">
-                    <div className="flex flex-col md:flex-row items-center gap-6">
-                      {/* Diffuser */}
-                      <div className="text-center shrink-0">
-                        <div className="w-28 h-28 surface-sunken rounded-2xl flex items-center justify-center mx-auto">
-                          <img src={product.image} alt={product.name} className="w-full h-full object-contain p-3" />
-                        </div>
-                        <p className="text-sm font-semibold text-foreground mt-2">{product.name}</p>
-                        <p className="text-xs text-muted-foreground">₹{product.price.toLocaleString("en-IN")}</p>
-                      </div>
-
-                      {bundleOils.map((oil) => (
-                        <div key={oil.id} className="flex items-center gap-6">
-                          <Plus className="w-5 h-5 text-muted-foreground shrink-0" />
-                          <div className="text-center shrink-0">
-                            <div className="w-28 h-28 surface-sunken rounded-2xl flex items-center justify-center mx-auto">
-                              <img src={oil.image} alt={oil.name} className="w-full h-full object-contain p-3" />
-                            </div>
-                            <p className="text-sm font-semibold text-foreground mt-2">{oil.name}</p>
-                            <p className="text-xs text-muted-foreground">₹{suggestedSize.price.toLocaleString("en-IN")} ({suggestedSize.label})</p>
-                          </div>
-                        </div>
-                      ))}
-
-                      {/* Total + CTA */}
-                      <div className="md:ml-auto text-center md:text-right space-y-3">
-                        <div>
-                          <span className="text-xs text-muted-foreground line-through">₹{bundleTotal.toLocaleString("en-IN")}</span>
-                          <span className="block text-2xl font-semibold text-foreground">
-                            ₹{(bundleTotal - bundleSavings).toLocaleString("en-IN")}
-                          </span>
-                          <span className="text-xs text-green-600 font-semibold">Save ₹{bundleSavings.toLocaleString("en-IN")}</span>
-                        </div>
-                        <Button variant="hero" size="lg" onClick={handleAddBundleToCart}>
-                          <ShoppingCart className="w-4 h-4 mr-2" /> Add All to Cart
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-            </section>
-          )}
-
-          {/* ═══════════ YOU MIGHT ALSO LIKE ═══════════ */}
+          {/* ── Related Products ── */}
           {relatedDiffusers.length > 0 && (
-            <section className="section-shell">
-              <AnimatedSection animation="fadeInUp">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-11 h-11 rounded-2xl gradient-gold shadow-clay-sm flex items-center justify-center">
-                    <Wind className="w-5 h-5 text-accent-foreground" />
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground">You Might Also Like</h2>
-                    <p className="text-sm text-muted-foreground">Similar diffusers in our range</p>
-                  </div>
-                  <Link to={isShop ? "/shop/products" : "/business/products"} className="hidden sm:inline-flex">
-                    <Button variant="outline" size="sm" className="group">
-                      View All <ArrowRight className="w-3.5 h-3.5 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                </div>
-              </AnimatedSection>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <section className="mt-20 lg:mt-32">
+              <h2 className="font-display text-2xl md:text-3xl font-semibold mb-8 text-center">You Might Also Like</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {relatedDiffusers.map((rel, idx) => (
                   <AnimatedSection key={rel.id} animation="fadeInUp" delay={idx * 100}>
-                    <Link to={`${isShop ? "/shop" : "/business"}/products/${rel.model}`}>
-                      <Card className="card-clay h-full flex flex-col overflow-hidden hover:shadow-clay-lg transition-shadow duration-300 cursor-pointer">
-                        <div className="shrink-0 relative">
-                          {rel.tag && (
-                            <div className="absolute top-3 right-3 z-10">
-                              <span className="pill-gold text-[8px] font-bold uppercase tracking-wider px-2 py-0.5">{rel.tag}</span>
-                            </div>
-                          )}
-                          <div className="aspect-square surface-sunken rounded-2xl m-4 overflow-hidden flex items-center justify-center">
-                            <img src={rel.image} alt={rel.name} className="w-full h-full object-contain p-4" loading="lazy" />
-                          </div>
+                    <Link to={`${isShop ? "/shop" : "/business"}/products/${rel.model}`} className="group block">
+                      <div className="bg-background rounded-3xl p-4 border border-border/40 hover:border-accent/30 hover:shadow-neo transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                        <div className="aspect-square bg-muted/20 rounded-2xl mb-4 overflow-hidden flex items-center justify-center">
+                           <img src={rel.image} alt={rel.name} className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-110" />
                         </div>
-                        <CardContent className="p-5 pt-0 flex flex-col flex-1">
-                          <h4 className="font-display text-base font-semibold text-foreground">{rel.name}</h4>
-                          <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider">{rel.model}</p>
-                          <p className="text-xs text-muted-foreground mt-1">{rel.coverage}</p>
-                          <div className="flex items-center gap-1 mt-2">
-                            <Star className="w-3 h-3 text-accent fill-accent" />
-                            <span className="text-xs text-muted-foreground">{rel.rating} ({rel.reviews})</span>
-                          </div>
-                          <div className="mt-auto pt-4">
-                            {isShop ? (
-                              <div className="text-lg font-semibold text-foreground">₹{rel.price.toLocaleString("en-IN")}</div>
-                            ) : (
-                              <Badge variant="secondary" className="text-[10px]">Request Quote</Badge>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
+                        <h4 className="font-display text-base font-semibold text-foreground text-center mb-1 group-hover:text-accent transition-colors">{rel.name}</h4>
+                        <p className="text-center text-xs text-muted-foreground mb-4">{rel.coverage}</p>
+                        <div className="mt-auto text-center">
+                           {isShop ? (
+                              <span className="font-semibold">₹{rel.price.toLocaleString("en-IN")}</span>
+                           ) : (
+                              <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">View Details</span>
+                           )}
+                        </div>
+                      </div>
                     </Link>
                   </AnimatedSection>
                 ))}
@@ -453,7 +364,7 @@ const ProductDetail = () => {
             </section>
           )}
         </div>
-      </section>
+      </div>
     </div>
   );
 };
