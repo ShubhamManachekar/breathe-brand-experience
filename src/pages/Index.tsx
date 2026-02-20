@@ -1,3 +1,6 @@
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroSection from "@/components/HeroSection";
 import ScentFinderQuiz from "@/components/ScentFinderQuiz";
 import SegmentSelector from "@/components/SegmentSelector";
@@ -7,7 +10,52 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, TrendingUp, Users, Heart, Building2, Store, Briefcase, Award, Target, Zap, Lightbulb, Sparkles, Activity } from "lucide-react";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Index = () => {
+  const benefitsRef = useRef<HTMLDivElement>(null);
+  const caseStudiesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Stagger benefit cards on scroll
+      if (benefitsRef.current) {
+        gsap.fromTo(
+          benefitsRef.current.children,
+          { opacity: 0, y: 60, scale: 0.93 },
+          {
+            opacity: 1, y: 0, scale: 1,
+            duration: 0.7, stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: benefitsRef.current,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      }
+      // Case study cards stagger
+      if (caseStudiesRef.current) {
+        gsap.fromTo(
+          caseStudiesRef.current.children,
+          { opacity: 0, x: -40 },
+          {
+            opacity: 1, x: 0,
+            duration: 0.7, stagger: 0.18,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: caseStudiesRef.current,
+              start: "top 82%",
+              once: true,
+            },
+          }
+        );
+      }
+    });
+    return () => ctx.revert();
+  }, []);
+
   const caseStudies = [
     { brand: "Nike Tokyo Flagship", industry: "Retail", result: "+23% Dwell Time", description: "Custom citrus blend increased customer engagement and product exploration", icon: Store, metric: 23, bgGradient: "from-blue-500/10 to-cyan-500/20" },
     { brand: "Shangri-La Hotels", industry: "Hospitality", result: "+35% Guest Satisfaction", description: "Signature scent improved brand recall and repeat bookings", icon: Building2, metric: 35, bgGradient: "from-emerald-500/10 to-green-500/20" },
@@ -75,27 +123,25 @@ const Index = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <AnimatedSection key={benefit.title} animation="fadeInScale" delay={index * 150} className="h-full">
-                <Card className="gradient-card shadow-sm hover:shadow-elegant transition-all duration-500 group h-full border-border/40 hover:border-accent/30 overflow-hidden bg-background/50 backdrop-blur-sm">
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <CardContent className="p-8 text-center h-full flex flex-col relative z-10">
-                    <div className="flex-1">
-                      <div className="relative mb-6 inline-block">
-                        <div className="absolute -inset-4 bg-accent/10 rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-500 blur-md" />
-                        <benefit.icon className="w-12 h-12 text-foreground group-hover:text-accent transition-colors duration-300 relative z-10" />
-                      </div>
-                      <h3 className="font-display text-xl font-semibold text-foreground mb-4">{benefit.title}</h3>
-                      <p className="text-muted-foreground mb-8 leading-relaxed text-sm">{benefit.description}</p>
+          <div ref={benefitsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {benefits.map((benefit) => (
+              <Card key={benefit.title} className="gradient-card shadow-sm hover:shadow-elegant transition-all duration-500 group h-full border-border/40 hover:border-accent/30 overflow-hidden bg-background/50 backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <CardContent className="p-6 sm:p-8 text-center h-full flex flex-col relative z-10">
+                  <div className="flex-1">
+                    <div className="relative mb-5 sm:mb-6 inline-block">
+                      <div className="absolute -inset-4 bg-accent/10 rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-500 blur-md" />
+                      <benefit.icon className="w-10 h-10 sm:w-12 sm:h-12 text-foreground group-hover:text-accent transition-colors duration-300 relative z-10" />
                     </div>
-                    <div className="border-t border-border/30 pt-6 mt-auto">
-                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2">{benefit.stat}</div>
-                      <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">{benefit.statLabel}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
+                    <h3 className="font-display text-lg sm:text-xl font-semibold text-foreground mb-3 sm:mb-4">{benefit.title}</h3>
+                    <p className="text-muted-foreground mb-6 sm:mb-8 leading-relaxed text-sm">{benefit.description}</p>
+                  </div>
+                  <div className="border-t border-border/30 pt-4 sm:pt-6 mt-auto">
+                    <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2">{benefit.stat}</div>
+                    <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">{benefit.statLabel}</div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -123,25 +169,23 @@ const Index = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => (
-              <AnimatedSection key={study.brand} animation="fadeInUp" delay={index * 200}>
-                <Card className="shadow-lg hover:shadow-2xl transition-all duration-500 group overflow-hidden h-full border-border/50 bg-card">
-                  <div className={`h-1.5 w-full bg-gradient-to-r ${study.bgGradient}`} />
-                  <CardContent className="p-8 relative">
-                    <div className="absolute top-4 right-6 text-7xl font-display font-bold text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">{study.metric}</div>
-                    <div className="relative z-10 pt-4">
-                      <div className="p-3 bg-muted/50 rounded-xl w-fit mb-6 group-hover:bg-accent/10 transition-colors duration-300">
-                        <study.icon className="w-8 h-8 text-foreground group-hover:text-accent transition-colors duration-300" />
-                      </div>
-                      <h3 className="font-display text-2xl font-bold text-foreground mb-2">{study.brand}</h3>
-                      <Badge variant="outline" className="mb-6 border-accent/30 text-accent bg-accent/5">{study.industry}</Badge>
-                      <div className="text-2xl font-bold text-primary mb-4 group-hover:translate-x-1 transition-transform duration-300">{study.result}</div>
-                      <p className="text-muted-foreground leading-relaxed text-sm">"{study.description}"</p>
+          <div ref={caseStudiesRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            {caseStudies.map((study) => (
+              <Card key={study.brand} className="shadow-lg hover:shadow-2xl transition-all duration-500 group overflow-hidden h-full border-border/50 bg-card hover:-translate-y-1">
+                <div className={`h-1.5 w-full bg-gradient-to-r ${study.bgGradient}`} />
+                <CardContent className="p-6 sm:p-8 relative">
+                  <div className="absolute top-4 right-6 text-6xl sm:text-7xl font-display font-bold text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">{study.metric}</div>
+                  <div className="relative z-10 pt-4">
+                    <div className="p-2.5 sm:p-3 bg-muted/50 rounded-xl w-fit mb-5 sm:mb-6 group-hover:bg-accent/10 transition-colors duration-300">
+                      <study.icon className="w-7 h-7 sm:w-8 sm:h-8 text-foreground group-hover:text-accent transition-colors duration-300" />
                     </div>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-2">{study.brand}</h3>
+                    <Badge variant="outline" className="mb-5 sm:mb-6 border-accent/30 text-accent bg-accent/5">{study.industry}</Badge>
+                    <div className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4 group-hover:translate-x-1 transition-transform duration-300">{study.result}</div>
+                    <p className="text-muted-foreground leading-relaxed text-sm">"{study.description}"</p>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>

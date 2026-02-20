@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Building2, Store, Briefcase, Heart, ArrowRight, Zap, Sparkles } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
 import NeoHero from "@/components/NeoHero";
+import heroSolutions from "@/assets/hero-solutions.jpg";
 
 const Solutions = () => {
   const solutions = [
@@ -95,20 +97,9 @@ const Solutions = () => {
         }
         variant="business"
         texture="smoke"
-      >
-        {/* Abstract 3D shape or minimalist graphic for solutions index */}
-        <div className="relative w-full h-[400px] flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-3xl animate-pulse-gold" />
-            <div className="grid grid-cols-2 gap-4 relative z-10">
-                <div className="w-32 h-40 bg-background/80 backdrop-blur-xl border border-primary/20 rounded-sm shadow-neo animate-float-slow flex items-center justify-center">
-                    <Building2 className="w-10 h-10 text-primary opacity-80" />
-                </div>
-                <div className="w-32 h-40 bg-background/80 backdrop-blur-xl border border-accent/20 rounded-sm shadow-neo animate-float-slower mt-12 flex items-center justify-center">
-                    <Store className="w-10 h-10 text-accent opacity-80" />
-                </div>
-            </div>
-        </div>
-      </NeoHero>
+        heroImage={heroSolutions}
+        heroImageAlt="Hotel lobby scent diffuser"
+      />
 
       <section className="section-shell relative">
         <div className="absolute inset-0 bg-grid-fade opacity-[0.03]" />

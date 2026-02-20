@@ -46,10 +46,10 @@ export default function Chatbot() {
   const parsedRules = useMemo(() => {
     if (overridesJson) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      try { return JSON.parse(overridesJson); } catch { return rules as Message; }
+      try { return JSON.parse(overridesJson); } catch { return rules as any; }
     }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return rules as Message;
+    return rules as any;
   }, [overridesJson]);
 
   const FAQ = parsedRules.faq;

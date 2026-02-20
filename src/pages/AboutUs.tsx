@@ -6,6 +6,7 @@ import { Heart, Users, Lightbulb, Award, ArrowRight, CheckCircle, Leaf } from "l
 import { Link } from "react-router-dom";
 import PageMeta, { organizationSchema } from "@/components/PageMeta";
 import NeoHero from "@/components/NeoHero";
+import heroAbout from "@/assets/hero-about.jpg";
 
 export default function AboutUs() {
   const timelineEvents = [
@@ -39,6 +40,8 @@ export default function AboutUs() {
         subheadline="EZE AirCare is the union of deep perfumery heritage and forward-looking scent technology."
         variant="business"
         texture="oil"
+        heroImage={heroAbout}
+        heroImageAlt="Luxury retail scent experience"
       />
 
       {/* ── The Origin Story ── */}

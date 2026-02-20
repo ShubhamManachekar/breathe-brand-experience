@@ -7,7 +7,11 @@ import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
 
 const ShopCart = () => {
-  const { items, removeItem, updateQuantity, total, subtotal, shipping, discount } = useCart();
+  const { items, removeItem, updateQuantity, totalPrice } = useCart();
+  const subtotal = totalPrice;
+  const discount = 0;
+  const shipping = totalPrice >= 2000 ? 0 : 150;
+  const total = subtotal - discount + shipping;
 
   if (items.length === 0) {
     return (
@@ -116,7 +120,7 @@ const ShopCart = () => {
                   </div>
 
                   {discount > 0 && (
-                    <div className="flex justify-between text-sm text-green-600">
+                    <div className="flex justify-between text-sm text-foreground/70">
                       <span>Discount</span>
                       <span>-₹{discount.toLocaleString("en-IN")}</span>
                     </div>
