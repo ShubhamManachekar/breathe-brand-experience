@@ -28,6 +28,7 @@ import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
 import ParticleField from "@/components/ParticleField";
 import NeoHero from "@/components/NeoHero";
+import heroBusinessHome from "@/assets/hero-business-home.jpg";
 
 const INDUSTRIES = ["Hospitality", "Retail", "Corporate", "Wellness & Healthcare", "Real Estate", "Education", "Other"];
 
@@ -94,6 +95,8 @@ const BusinessHome = () => {
         }
         variant="business"
         texture="oil"
+        heroImage={heroBusinessHome}
+        heroImageAlt="Premium business scent diffuser"
       >
         {/* Right Side Visual - Architectural Card */}
         <div className="relative">
@@ -117,7 +120,7 @@ const BusinessHome = () => {
                   <div key={stat.label} className="bg-background/50 border border-border/40 p-4 hover:border-primary/30 transition-colors duration-300">
                     <stat.icon className="w-4 h-4 text-primary mb-3" />
                     <div className="text-3xl font-display font-semibold text-foreground">
-                      <DynamicCounter endValue={stat.value} duration={2000} />{stat.suffix}
+                      <DynamicCounter endValue={stat.value} label={stat.label} duration={2000} className="inline" />{stat.suffix}
                     </div>
                     <div className="text-[10px] uppercase tracking-wide text-muted-foreground mt-1 font-semibold">{stat.label}</div>
                   </div>

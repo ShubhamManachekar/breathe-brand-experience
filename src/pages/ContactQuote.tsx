@@ -5,11 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Building2, MapPin, Mail, Phone, Calendar, ArrowRight, Star } from "lucide-react";
+import { CheckCircle2, Building2, MapPin, Mail, Phone, Calendar, ArrowRight, Star, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
 import NeoHero from "@/components/NeoHero";
+import { Link } from "react-router-dom";
+import heroContact from "@/assets/hero-contact.jpg";
 
 const ContactQuote = () => {
   const { toast } = useToast();
@@ -54,6 +56,8 @@ const ContactQuote = () => {
         subheadline="Book a consultation with our scent strategists to audit your space and receive a tailored proposal."
         variant="business"
         texture="loom"
+        heroImage={heroContact}
+        heroImageAlt="Luxury aroma collection"
       />
 
       <section className="section-shell -mt-32 relative z-20">
