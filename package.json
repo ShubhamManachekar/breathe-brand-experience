@@ -41,6 +41,7 @@
     "date-fns": "^3.6.0",
     "framer-motion": "^12.34.2",
     "gsap": "^3.14.2",
+    "lovable-tagger": "^1.1.13",
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
