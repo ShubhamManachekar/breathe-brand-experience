@@ -96,7 +96,6 @@ const BusinessHome = () => {
         }
         variant="business"
         texture="oil"
-        heroImage={heroBusinessHome}
         heroImageAlt="Premium business scent diffuser"
       >
         {/* Right Side Visual - Architectural Card */}

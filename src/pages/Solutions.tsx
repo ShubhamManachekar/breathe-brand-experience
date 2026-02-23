@@ -87,7 +87,6 @@ const Solutions = () => {
         subheadline="We help brands translate scent into measurable business impact across hospitality, retail, corporate, and wellness."
         variant="business"
         texture="smoke"
-        heroImage={heroSolutions}
         heroImageAlt="Hotel lobby scent diffuser"
       />
 

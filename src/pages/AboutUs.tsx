@@ -40,7 +40,6 @@ export default function AboutUs() {
         subheadline="EZE AirCare is the union of deep perfumery heritage and forward-looking scent technology."
         variant="business"
         texture="oil"
-        heroImage={heroAbout}
         heroImageAlt="Luxury retail scent experience"
       />
 

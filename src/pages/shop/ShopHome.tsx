@@ -130,29 +130,28 @@ const ShopHome = () => {
         }
         variant="shop"
         texture="loom"
-        heroImage={heroShopHome}
         heroImageAlt="Home diffuser lifestyle"
       >
         <div className="relative z-10 w-full h-full min-h-[340px] sm:min-h-[400px] flex items-center justify-center">
-           <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-primary/10 rounded-full blur-3xl animate-float-slow" />
-           <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="space-y-3 sm:space-y-4 pt-10 sm:pt-12">
-                 <div className="w-32 h-40 sm:w-40 sm:h-48 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-3 sm:p-4 rotate-[-6deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 cursor-pointer">
-                    <img src={featured[0]?.image} alt="Diffuser" className="w-full h-full object-contain" />
-                 </div>
-                 <div className="w-24 h-24 sm:w-32 sm:h-32 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-2 sm:p-3 translate-x-6 sm:translate-x-8 hover:scale-105 transition-transform duration-500">
-                    <img src={spotlight[0]?.image} alt="Oil" className="w-full h-full object-contain" />
-                 </div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-primary/10 rounded-full blur-3xl animate-float-slow" />
+          <div className="relative grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="space-y-3 sm:space-y-4 pt-10 sm:pt-12">
+              <div className="w-32 h-40 sm:w-40 sm:h-48 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-3 sm:p-4 rotate-[-6deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 cursor-pointer">
+                <img src={featured[0]?.image} alt="Diffuser" className="w-full h-full object-contain" />
               </div>
-              <div className="space-y-3 sm:space-y-4">
-                 <div className="w-28 h-28 sm:w-36 sm:h-36 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-3 sm:p-4 translate-y-6 sm:translate-y-8 hover:scale-105 transition-transform duration-500">
-                    <img src={spotlight[1]?.image} alt="Oil" className="w-full h-full object-contain" />
-                 </div>
-                 <div className="w-36 h-44 sm:w-44 sm:h-56 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-3 sm:p-4 rotate-[4deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 cursor-pointer">
-                    <img src={featured[1]?.image} alt="Diffuser" className="w-full h-full object-contain" />
-                 </div>
+              <div className="w-24 h-24 sm:w-32 sm:h-32 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-2 sm:p-3 translate-x-6 sm:translate-x-8 hover:scale-105 transition-transform duration-500">
+                <img src={spotlight[0]?.image} alt="Oil" className="w-full h-full object-contain" />
               </div>
-           </div>
+            </div>
+            <div className="space-y-3 sm:space-y-4">
+              <div className="w-28 h-28 sm:w-36 sm:h-36 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-3 sm:p-4 translate-y-6 sm:translate-y-8 hover:scale-105 transition-transform duration-500">
+                <img src={spotlight[1]?.image} alt="Oil" className="w-full h-full object-contain" />
+              </div>
+              <div className="w-36 h-44 sm:w-44 sm:h-56 bg-background/60 backdrop-blur-xl rounded-2xl border border-white/20 shadow-neo p-3 sm:p-4 rotate-[4deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 cursor-pointer">
+                <img src={featured[1]?.image} alt="Diffuser" className="w-full h-full object-contain" />
+              </div>
+            </div>
+          </div>
         </div>
       </NeoHero>
 
