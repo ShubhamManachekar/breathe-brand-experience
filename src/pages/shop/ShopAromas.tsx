@@ -43,7 +43,7 @@ const ShopAromas = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Aroma Oil Library | Shop Fragrances"
         description="Explore our collection of premium aroma oils. From calming Lavender to energizing Citrus, find the perfect scent for your space."
@@ -53,13 +53,13 @@ const ShopAromas = () => {
       />
 
       <NeoHero
-        label="Scent Library"
+        label="The Aroma Library"
+        heroImage="https://images.unsplash.com/photo-1608528577891-eb05f8101e4a?w=1920&q=80&auto=format"
         headline={
           <>
-            Curated
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent via-primary to-accent animate-shimmer bg-[length:200%_auto]">
-              Moods.
-            </span>
+            Curated to evoke
+            <br />
+            <span className="block text-gradient-animated">emotion and memory.</span>
           </>
         }
         subheadline="Handcrafted fragrance blends designed to transform your environment. Clean, safe, and long-lasting."
@@ -99,7 +99,7 @@ const ShopAromas = () => {
       <section className="section-shell -mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-             <p className="text-sm text-muted-foreground">{filtered.length} fragrances found</p>
+            <p className="text-sm text-muted-foreground">{filtered.length} fragrances found</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -111,44 +111,44 @@ const ShopAromas = () => {
                   <div className="group h-full bg-background rounded-[2rem] border border-border/40 hover:border-accent/30 shadow-sm hover:shadow-neo-hover transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden">
 
                     <div className="relative aspect-square bg-muted/10 m-2 rounded-[1.5rem] overflow-hidden flex items-center justify-center">
-                       <div className={`absolute inset-0 bg-gradient-to-tr ${family?.bgColor || 'from-gray-100 to-gray-50'} opacity-30`} />
-                       <img src={aroma.image} alt={aroma.name} className="w-1/2 h-1/2 object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                      <div className={`absolute inset-0 bg-gradient-to-tr ${family?.bgColor || 'from-gray-100 to-gray-50'} opacity-30`} />
+                      <img src={aroma.image} alt={aroma.name} className="w-1/2 h-1/2 object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" loading="lazy" />
 
-                       <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-md px-2 py-1 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-wider text-foreground">
-                          {aroma.intensity}
-                       </div>
+                      <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-md px-2 py-1 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-wider text-foreground">
+                        {aroma.intensity}
+                      </div>
                     </div>
 
                     <div className="p-5 pt-2 flex flex-col flex-1">
-                       <div className="flex items-center gap-2 mb-1">
-                          <span className={`w-2 h-2 rounded-full ${family?.color.replace('text-', 'bg-')}`} />
-                          <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{family?.name}</span>
-                       </div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`w-2 h-2 rounded-full ${family?.color.replace('text-', 'bg-')}`} />
+                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{family?.name}</span>
+                      </div>
 
-                       <h3 className="font-display text-lg font-semibold text-foreground mb-1">{aroma.name}</h3>
-                       <p className="text-xs text-muted-foreground italic mb-4">"{aroma.mood}"</p>
+                      <h3 className="font-display text-lg font-semibold text-foreground mb-1">{aroma.name}</h3>
+                      <p className="text-xs text-muted-foreground italic mb-4">"{aroma.mood}"</p>
 
-                       <div className="flex flex-wrap gap-1.5 mb-6">
-                          {aroma.notes.map(note => (
-                             <span key={note} className="text-[10px] bg-muted/30 px-2 py-1 rounded-md text-foreground/80 font-medium">
-                                {note}
-                             </span>
-                          ))}
-                       </div>
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {aroma.notes.map(note => (
+                          <span key={note} className="text-[10px] bg-muted/30 px-2 py-1 rounded-md text-foreground/80 font-medium">
+                            {note}
+                          </span>
+                        ))}
+                      </div>
 
-                       <div className="mt-auto pt-4 border-t border-border/20 flex items-center justify-between">
-                          <div>
-                             <span className="text-[10px] text-muted-foreground uppercase tracking-wide block">Starts at</span>
-                             <span className="text-lg font-semibold text-foreground">₹{aromaSizes[0].price.toLocaleString("en-IN")}</span>
-                          </div>
-                          <Button
-                             size="icon"
-                             className="rounded-full h-10 w-10 bg-accent text-accent-foreground shadow-lg shadow-accent/20 hover:scale-105 transition-transform"
-                             onClick={() => handleAddToCart(aroma)}
-                          >
-                             <ShoppingCart className="w-4 h-4" />
-                          </Button>
-                       </div>
+                      <div className="mt-auto pt-4 border-t border-border/20 flex items-center justify-between">
+                        <div>
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-wide block">Starts at</span>
+                          <span className="text-lg font-semibold text-foreground">₹{aromaSizes[0].price.toLocaleString("en-IN")}</span>
+                        </div>
+                        <Button
+                          size="icon"
+                          className="rounded-full h-10 w-10 bg-accent text-accent-foreground shadow-lg shadow-accent/20 hover:scale-105 transition-transform"
+                          onClick={() => handleAddToCart(aroma)}
+                        >
+                          <ShoppingCart className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </AnimatedSection>

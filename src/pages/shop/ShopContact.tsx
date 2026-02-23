@@ -9,6 +9,7 @@ import { Mail, Phone, MapPin, MessageSquare, ChevronDown, ChevronUp, Send } from
 import AnimatedSection from "@/components/AnimatedSection";
 import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 const faqs = [
   { q: "How long does shipping take?", a: "Orders ship within 2 business days. Standard delivery is 5-7 days across India." },
@@ -35,7 +36,7 @@ const ShopContact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Shop Support & Contact"
         description="Get help with orders, product setup, and aroma recommendations from EZE AirCare support."
@@ -43,24 +44,14 @@ const ShopContact = () => {
         canonicalUrl="https://ezeaircare.com/shop/contact"
         ogType="website"
       />
-      {/* Hero */}
-      <section className="section-shell pt-28 relative">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">
-            <MessageSquare className="w-3.5 h-3.5" /> Support
-          </div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-4xl md:text-5xl font-semibold text-foreground">We are here to help.</h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-6">
-              Questions about orders, diffusers, or aroma oils? Let us know.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+
+      <NeoHero
+        heroImage="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80&auto=format"
+        label="Support"
+        headline="We are here to help."
+        subheadline="Questions about orders, diffusers, or aroma oils? Let us know."
+        variant="shop"
+      />
 
       {/* FAQ */}
       <section className="section-shell">

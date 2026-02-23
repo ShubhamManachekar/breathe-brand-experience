@@ -119,7 +119,7 @@ const ProductDetail = () => {
   });
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title={`${product.name} (${product.model}) - Premium Scent Diffuser`}
         description={product.description}
@@ -211,7 +211,7 @@ const ProductDetail = () => {
                       <Badge variant="secondary">Enterprise</Badge>
                     </div>
                     <div className="mt-4 flex gap-3">
-                      <Link to="/business/contact" state={{ interest: `${product.name} (${product.model})` }} className="flex-1">
+                      <Link to="/business/contact" state={{ productId: product.id, productType: "diffuser" }} className="flex-1">
                         <Button variant="hero" size="lg" className="w-full">
                           <Calendar className="w-4 h-4 mr-2" /> Request Quote
                         </Button>

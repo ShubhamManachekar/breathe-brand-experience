@@ -70,7 +70,7 @@ export default function AboutUs() {
   ];
 
   return (
-    <div className="min-h-screen bg-loom">
+    <div className="min-h-screen bg-transparent">
       <PageMeta
         title="About EZE AirCare - Our Story & Heritage"
         description="Discover the story behind EZE AirCare. A fusion of Sawai Fragrances' artisanal mastery and Eze Perfumes' innovation excellence, creating premium scent marketing solutions since 1965."

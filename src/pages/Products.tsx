@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import NeoHero from "@/components/NeoHero";
 import {
   Wifi,
   Bluetooth,
@@ -89,7 +90,7 @@ const Products = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Commercial Scent Diffusers for Business"
         description="Professional-grade scent diffusers for hotels, retail, corporate spaces. Wi-Fi enabled, HVAC integration, 2-year warranty. Request a quote today."
@@ -98,34 +99,18 @@ const Products = () => {
         structuredData={[breadcrumbSchema, ...productSchemas]}
       />
 
-      {/* Hero */}
-      <section className="section-shell pt-32 relative">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-primary/10 blur-3xl animate-float-slow" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Commercial diffusion systems</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              Precision scenting for
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
-                enterprise spaces.
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mt-6">
-              Engineered atomization, elegant housings, and measurable performance for hospitality, retail, and corporate environments.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <NeoHero
+        heroImage="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1920&q=80&auto=format"
+        label="Commercial diffusion systems"
+        headline={<>Precision scenting for <span className="block text-gradient-animated">enterprise spaces.</span></>}
+        subheadline="Engineered atomization, elegant housings, and measurable performance for hospitality, retail, and corporate environments."
+        variant="business"
+      />
 
       {/* System Highlights */}
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { icon: Wifi, label: "Wi-Fi Control" },
               { icon: Bluetooth, label: "Bluetooth 5.0" },
@@ -146,7 +131,7 @@ const Products = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-12">
             <div className="pill-label justify-center">360 explorer</div>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mt-4">
               Build confidence with every detail.
             </h2>
           </AnimatedSection>
@@ -215,7 +200,7 @@ const Products = () => {
                     Technical Specifications
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
                   {specifications.map((spec) => (
                     <div key={spec.label} className="flex flex-col">
                       <span className="text-muted-foreground text-xs uppercase tracking-wider">{spec.label}</span>
@@ -234,7 +219,7 @@ const Products = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp" className="text-center mb-12">
             <div className="pill-label justify-center">Commercial range</div>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mt-4">
               Scale from boutique to enterprise.
             </h2>
           </AnimatedSection>
@@ -305,7 +290,7 @@ const Products = () => {
       {/* CTA */}
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="surface-glass rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="surface-glass rounded-3xl p-6 sm:p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <div>
               <div className="pill-label mb-4">Enterprise support</div>
               <h3 className="font-display text-3xl md:text-4xl font-semibold text-foreground">Design a scent program built for scale.</h3>

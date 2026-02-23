@@ -67,7 +67,7 @@ const Index = () => {
             </div>
             <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 tracking-tight">
               Why Scent Marketing
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"> Transforms Business</span>
+              <span className="text-gradient-animated"> Transforms Business</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
               Up to <span className="text-accent font-semibold">75% of daily emotions</span> are triggered by smell—more than sight, sound, or touch.
@@ -90,7 +90,7 @@ const Index = () => {
                       <p className="text-muted-foreground mb-8 leading-relaxed text-sm">{benefit.description}</p>
                     </div>
                     <div className="border-t border-border/30 pt-6 mt-auto">
-                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2">{benefit.stat}</div>
+                      <div className="text-3xl font-bold text-gradient-animated mb-2">{benefit.stat}</div>
                       <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">{benefit.statLabel}</div>
                     </div>
                   </CardContent>
@@ -116,7 +116,7 @@ const Index = () => {
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
               Real Results,
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary"> Real Growth</span>
+              <span className="text-gradient-animated"> Real Growth</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
               See how industry leaders are leveraging scent to drive <span className="font-semibold text-foreground">measurable business outcomes</span>.

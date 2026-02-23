@@ -10,6 +10,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import AppLayout from "@/components/AppLayout";
 import { Skeleton } from "@/components/ui/skeleton";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 /* ── Lazy-loaded pages (code-split into separate chunks) ── */
 
@@ -77,6 +78,7 @@ function App() {
               <Sonner />
               <BrowserRouter>
                 <AnalyticsTracker />
+                <AnimatedBackground />
                 <AppLayout>
                   <Suspense fallback={<PageLoader />}>
                     <Routes>

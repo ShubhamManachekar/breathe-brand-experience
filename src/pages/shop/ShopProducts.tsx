@@ -54,7 +54,7 @@ const ShopProducts = () => {
     : null;
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Shop Diffuser Collection"
         description="Browse cold-air, ultrasonic, reed, car, and essential oil diffuser collections for every room and mood."
@@ -65,10 +65,13 @@ const ShopProducts = () => {
 
       {/* ── Neo Hero ── */}
       <NeoHero
-        label="The Collection"
+        label="Scent Systems"
+        heroImage="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1920&q=80&auto=format"
         headline={
           <>
-            {currentCatInfo ? currentCatInfo.name : "Curated Scentscapes"}
+            Engineering
+            <br />
+            <span className="block text-gradient-animated">the invisible.</span>
           </>
         }
         subheadline={currentCatInfo?.description || "From smart cold-air systems for large living spaces to intimate reed diffusers for your sanctuary."}
@@ -110,11 +113,11 @@ const ShopProducts = () => {
       <section className="section-shell -mt-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-             <p className="text-sm text-muted-foreground">{filtered.length} products found</p>
-             <div className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer hover:text-accent transition-colors">
-                <span>Sort by: Featured</span>
-                <Filter className="w-4 h-4" />
-             </div>
+            <p className="text-sm text-muted-foreground">{filtered.length} products found</p>
+            <div className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer hover:text-accent transition-colors">
+              <span>Sort by: Featured</span>
+              <Filter className="w-4 h-4" />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -126,31 +129,31 @@ const ShopProducts = () => {
 
                     {/* Image Area */}
                     <Link to={`/shop/products/${product.model}`} className="block relative aspect-square bg-muted/10 m-2 rounded-[1.5rem] overflow-hidden">
-                       <div className="absolute inset-0 flex items-center justify-center p-8 group-hover:scale-110 transition-transform duration-700 ease-out">
-                          <img src={product.image} alt={product.name} className="w-full h-full object-contain drop-shadow-xl" loading="lazy" />
-                       </div>
+                      <div className="absolute inset-0 flex items-center justify-center p-8 group-hover:scale-110 transition-transform duration-700 ease-out">
+                        <img src={product.image} alt={product.name} className="w-full h-full object-contain drop-shadow-xl" loading="lazy" />
+                      </div>
 
-                       {/* Tags */}
-                       <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                          {product.tag && (
-                            <span className="bg-background/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-foreground border border-border/20 shadow-sm">
-                              {product.tag}
-                            </span>
-                          )}
-                          <div className="w-8 h-8 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center shadow-sm text-xs font-bold text-foreground">
-                             {product.rating}
-                          </div>
-                       </div>
+                      {/* Tags */}
+                      <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                        {product.tag && (
+                          <span className="bg-background/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-foreground border border-border/20 shadow-sm">
+                            {product.tag}
+                          </span>
+                        )}
+                        <div className="w-8 h-8 rounded-full bg-background/90 backdrop-blur-md flex items-center justify-center shadow-sm text-xs font-bold text-foreground">
+                          {product.rating}
+                        </div>
+                      </div>
 
-                       {/* Quick Add Overlay */}
-                       <div className="absolute inset-x-4 bottom-4 translate-y-[120%] group-hover:translate-y-0 transition-transform duration-300 z-10">
-                          <Button className="w-full rounded-full shadow-lg bg-foreground text-background hover:bg-foreground/90 h-10 text-xs font-bold uppercase tracking-wide" onClick={(e) => {
-                             e.preventDefault();
-                             handleAddToCart(product);
-                          }}>
-                             Quick Add
-                          </Button>
-                       </div>
+                      {/* Quick Add Overlay */}
+                      <div className="absolute inset-x-4 bottom-4 translate-y-[120%] group-hover:translate-y-0 transition-transform duration-300 z-10">
+                        <Button className="w-full rounded-full shadow-lg bg-foreground text-background hover:bg-foreground/90 h-10 text-xs font-bold uppercase tracking-wide" onClick={(e) => {
+                          e.preventDefault();
+                          handleAddToCart(product);
+                        }}>
+                          Quick Add
+                        </Button>
+                      </div>
                     </Link>
 
                     {/* Details */}
@@ -174,14 +177,22 @@ const ShopProducts = () => {
                         ))}
                       </div>
 
-                      <div className="mt-auto pt-4 flex items-end justify-between border-t border-border/20">
-                        <div>
-                           <span className="text-[10px] text-muted-foreground uppercase tracking-wide block">Price</span>
-                           <span className="text-lg font-semibold text-foreground">₹{product.price.toLocaleString("en-IN")}</span>
+                      <div className="mt-auto pt-4 border-t border-border/20 space-y-3">
+                        <div className="flex items-end justify-between">
+                          <div>
+                            <span className="text-[10px] text-muted-foreground uppercase tracking-wide block">Price</span>
+                            <span className="text-lg font-semibold text-foreground">₹{product.price.toLocaleString("en-IN")}</span>
+                          </div>
+                          <Button variant="ghost" size="icon" className="rounded-full hover:bg-accent/10 hover:text-accent transition-colors -mr-2" onClick={() => handleAddToCart(product)}>
+                            <ShoppingCart className="w-5 h-5" />
+                          </Button>
                         </div>
-                        <Button variant="ghost" size="icon" className="rounded-full hover:bg-accent/10 hover:text-accent transition-colors -mr-2" onClick={() => handleAddToCart(product)}>
-                           <ShoppingCart className="w-5 h-5" />
-                        </Button>
+                        <Link to={`/shop/products/${product.model}`} className="block">
+                          <Button variant="outline" size="sm" className="w-full rounded-full h-9 text-xs font-bold uppercase tracking-wide border-border/40 hover:bg-accent/10 hover:text-accent hover:border-accent/30 transition-all">
+                            View Details
+                            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -196,18 +207,18 @@ const ShopProducts = () => {
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-[2.5rem] bg-accent/5 overflow-hidden border border-accent/10 p-10 md:p-16 text-center">
-             <div className="absolute inset-0 bg-grid-fade opacity-30" />
-             <Sparkles className="w-12 h-12 text-accent mx-auto mb-6 animate-pulse-gold" />
-             <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-4">Complete the ritual.</h2>
-             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
-               Pair your new diffuser with our handcrafted aroma oils, designed for calm, focus, and joy.
-             </p>
-             <Link to="/shop/aromas">
-                <Button size="lg" className="rounded-full px-8 h-12 shadow-neo hover:translate-y-[-2px] transition-transform">
-                   Shop Aroma Oils
-                   <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-             </Link>
+            <div className="absolute inset-0 bg-grid-fade opacity-30" />
+            <Sparkles className="w-12 h-12 text-accent mx-auto mb-6 animate-pulse-gold" />
+            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-4">Complete the ritual.</h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
+              Pair your new diffuser with our handcrafted aroma oils, designed for calm, focus, and joy.
+            </p>
+            <Link to="/shop/aromas">
+              <Button size="lg" className="rounded-full px-8 h-12 shadow-neo hover:translate-y-[-2px] transition-transform">
+                Shop Aroma Oils
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

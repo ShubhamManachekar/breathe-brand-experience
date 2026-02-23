@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Building2, Store, Briefcase, Heart, ArrowRight, Zap, Sparkles } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
+import NeoHero from "@/components/NeoHero";
 
 const Solutions = () => {
   const solutions = [
@@ -65,7 +66,7 @@ const Solutions = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Industry Solutions - Scent Marketing for Every Business"
         description="Tailored scent marketing solutions for hospitality, retail, corporate, and wellness industries."
@@ -73,29 +74,14 @@ const Solutions = () => {
         ogType="website"
       />
 
-      {/* Hero */}
-      <section className="section-shell pt-28 relative bg-oil-texture">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute inset-0 bg-smoke-texture opacity-75" />
-        <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Business solutions</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              Scent strategies for
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
-                every industry.
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-6">
-              We help brands translate scent into measurable business impact across hospitality, retail, corporate, and wellness.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <NeoHero
+        heroImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format"
+        label="Business solutions"
+        headline={<>Scent strategies for <span className="block text-gradient-animated">every industry.</span></>}
+        subheadline="We help brands translate scent into measurable business impact across hospitality, retail, corporate, and wellness."
+        variant="business"
+        texture="oil"
+      />
 
       {/* Solutions Grid */}
       <section className="section-shell">

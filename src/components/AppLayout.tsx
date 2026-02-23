@@ -94,7 +94,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const showFooter = !isDashboard && !isAuthPage;
 
   return (
-    <div className="min-h-screen bg-diffuser-atmosphere text-foreground">
+    <div className="min-h-screen bg-transparent text-foreground">
       {fallbackMeta && (
         <PageMeta
           title={fallbackMeta.title}
@@ -104,7 +104,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         />
       )}
       {renderNav()}
-      <main className={!isDashboard && !isAuthPage ? "pt-16" : ""}>
+      <main className={!isDashboard && !isAuthPage ? "pt-20" : ""}>
         {children}
       </main>
       {showFooter && <Footer />}

@@ -63,7 +63,7 @@ const ShopLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-transparent flex">
       <PageMeta
         title="Shop Login"
         description="Sign in to your EZE AirCare shop account to manage orders and preferences."

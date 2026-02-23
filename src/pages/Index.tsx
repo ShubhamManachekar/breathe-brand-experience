@@ -56,7 +56,7 @@ const Index = () => {
       </AnimatedSection>
 
       {/* Why Scent Works */}
-      <section className="py-24 relative">
+      <section className="py-16 md:py-24 relative">
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-50 pointer-events-none" />
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl opacity-50 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -65,11 +65,11 @@ const Index = () => {
               <Sparkles className="w-4 h-4 mr-2" />
               The Science of Presence
             </div>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-8 tracking-tight">
               Why Scent Marketing
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent"> Transforms Business</span>
+              <span className="text-gradient-animated"> Transforms Business</span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
+            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light">
               Up to <span className="text-accent font-semibold">75% of daily emotions</span> are triggered by smell—more than sight, sound, or touch.
               We harness this biological connection to create <span className="text-primary font-semibold">unforgettable brand experiences</span> that resonate on a deeper level.
             </p>
@@ -80,7 +80,7 @@ const Index = () => {
               <AnimatedSection key={benefit.title} animation="fadeInScale" delay={index * 150} className="h-full">
                 <Card className="gradient-card shadow-sm hover:shadow-elegant transition-all duration-500 group h-full border-border/40 hover:border-accent/30 overflow-hidden bg-background/50 backdrop-blur-sm">
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <CardContent className="p-8 text-center h-full flex flex-col relative z-10">
+                  <CardContent className="p-6 sm:p-8 text-center h-full flex flex-col relative z-10">
                     <div className="flex-1">
                       <div className="relative mb-6 inline-block">
                         <div className="absolute -inset-4 bg-accent/10 rounded-full opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-500 blur-md" />
@@ -90,7 +90,7 @@ const Index = () => {
                       <p className="text-muted-foreground mb-8 leading-relaxed text-sm">{benefit.description}</p>
                     </div>
                     <div className="border-t border-border/30 pt-6 mt-auto">
-                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent mb-2">{benefit.stat}</div>
+                      <div className="text-3xl font-bold text-gradient-animated mb-2">{benefit.stat}</div>
                       <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">{benefit.statLabel}</div>
                     </div>
                   </CardContent>
@@ -102,7 +102,7 @@ const Index = () => {
       </section>
 
       {/* Case Studies */}
-      <section className="py-24 relative overflow-hidden bg-muted/10">
+      <section className="py-16 md:py-24 relative overflow-hidden bg-muted/10">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--primary)) 1px, transparent 0)`,
           backgroundSize: '40px 40px',
@@ -116,7 +116,7 @@ const Index = () => {
             </div>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
               Real Results,
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary"> Real Growth</span>
+              <span className="text-gradient-animated"> Real Growth</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
               See how industry leaders are leveraging scent to drive <span className="font-semibold text-foreground">measurable business outcomes</span>.
@@ -128,7 +128,7 @@ const Index = () => {
               <AnimatedSection key={study.brand} animation="fadeInUp" delay={index * 200}>
                 <Card className="shadow-lg hover:shadow-2xl transition-all duration-500 group overflow-hidden h-full border-border/50 bg-card">
                   <div className={`h-1.5 w-full bg-gradient-to-r ${study.bgGradient}`} />
-                  <CardContent className="p-8 relative">
+                  <CardContent className="p-6 sm:p-8 relative">
                     <div className="absolute top-4 right-6 text-7xl font-display font-bold text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 select-none">{study.metric}</div>
                     <div className="relative z-10 pt-4">
                       <div className="p-3 bg-muted/50 rounded-xl w-fit mb-6 group-hover:bg-accent/10 transition-colors duration-300">

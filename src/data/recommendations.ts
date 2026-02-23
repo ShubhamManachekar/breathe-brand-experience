@@ -105,3 +105,52 @@ export const getRelatedDiffusers = (
 
     return [...sameCategory, ...others].slice(0, limit);
 };
+
+/* ── Diffusers for a given Oil (reverse lookup) ────────────── */
+
+/**
+ * Score each diffuser for compatibility with a given fragrance oil
+ * by comparing businessUse/bestForBusiness context overlap.
+ * Returns diffusers sorted by compatibility score.
+ */
+export const getDiffusersForOil = (
+    oil: Fragrance,
+    limit = 3,
+): Product[] => {
+    const diffusers = products.filter((p) => p.category !== "oil");
+
+    const scored = diffusers.map((diffuser) => {
+        let score = 0;
+
+        // Match business contexts
+        for (const use of diffuser.businessUse) {
+            for (const best of oil.bestForBusiness) {
+                if (
+                    use.toLowerCase().includes(best.toLowerCase()) ||
+                    best.toLowerCase().includes(use.toLowerCase())
+                ) {
+                    score += 2;
+                }
+            }
+        }
+
+        // Match home contexts
+        for (const use of diffuser.homeUse) {
+            for (const best of oil.bestForHome) {
+                if (
+                    use.toLowerCase().includes(best.toLowerCase()) ||
+                    best.toLowerCase().includes(use.toLowerCase())
+                ) {
+                    score += 1;
+                }
+            }
+        }
+
+        return { diffuser, score };
+    });
+
+    return scored
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map((s) => s.diffuser);
+};

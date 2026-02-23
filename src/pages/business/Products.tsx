@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import NeoHero from "@/components/NeoHero";
 import {
   Wifi,
   Bluetooth,
@@ -89,7 +90,7 @@ const Products = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Commercial Scent Diffusers for Business"
         description="Professional-grade scent diffusers for hotels, retail, corporate spaces. Wi-Fi enabled, HVAC integration, 2-year warranty. Request a quote today."
@@ -98,29 +99,13 @@ const Products = () => {
         structuredData={[breadcrumbSchema, ...productSchemas]}
       />
 
-      {/* Hero */}
-      <section className="section-shell pt-32 relative">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-primary/10 blur-3xl animate-float-slow" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Commercial diffusion systems</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              Precision scenting for
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
-                enterprise spaces.
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mt-6">
-              Engineered atomization, elegant housings, and measurable performance for hospitality, retail, and corporate environments.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <NeoHero
+        heroImage="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=1920&q=80&auto=format"
+        label="Commercial diffusion systems"
+        headline={<>Precision scenting for <span className="block text-gradient-animated">enterprise spaces.</span></>}
+        subheadline="Engineered atomization, elegant housings, and measurable performance for hospitality, retail, and corporate environments."
+        variant="business"
+      />
 
       {/* System Highlights */}
       <section className="section-shell">
@@ -280,7 +265,7 @@ const Products = () => {
                       ))}
                     </div>
                     <div className="mt-auto pt-6 space-y-3">
-                      <Link to="/business/contact" state={{ interest: `${product.name} (${product.model})` }}>
+                      <Link to="/business/contact" state={{ productId: product.id, productType: "diffuser" }}>
                         <Button className="w-full group" variant="hero">
                           <Calendar className="w-4 h-4 mr-2" />
                           Request Quote

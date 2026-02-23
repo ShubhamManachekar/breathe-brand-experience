@@ -54,8 +54,8 @@ const ShopNavigation = () => {
                       key={item.href}
                       to={item.href}
                       className={`relative px-6 py-2 rounded-full text-sm font-medium transition-all duration-500 ${isActive(item.href)
-                          ? 'bg-background text-foreground shadow-sm'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-white/40'
+                        ? 'bg-background text-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-white/40'
                         }`}
                     >
                       {item.label}
@@ -117,15 +117,15 @@ const ShopNavigation = () => {
           </div>
 
           {/* Mobile Nav Dropdown */}
-          <div className={`md:hidden transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isOpen ? 'max-h-[500px] opacity-100 mt-4 translate-y-0' : 'max-h-0 opacity-0 mt-0 -translate-y-4 pointer-events-none'}`}>
+          <div className={`md:hidden transition-all duration-500 ${isOpen ? 'max-h-[500px] opacity-100 mt-4 translate-y-0' : 'max-h-0 opacity-0 mt-0 -translate-y-4 pointer-events-none'}`}>
             <div className="bg-background/90 backdrop-blur-xl rounded-3xl p-5 space-y-2 overflow-hidden border border-white/20 shadow-neo">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
                   className={`block px-5 py-4 text-lg font-medium rounded-2xl transition-all duration-300 ${isActive(item.href)
-                      ? 'bg-accent/10 text-accent'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                    ? 'bg-accent/10 text-accent'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
                     }`}
                   onClick={() => setIsOpen(false)}
                 >

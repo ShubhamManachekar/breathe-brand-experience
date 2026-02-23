@@ -66,7 +66,7 @@ const Solutions = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Industry Solutions - Scent Marketing for Every Business"
         description="Tailored scent marketing solutions for hospitality, retail, corporate, and wellness industries."
@@ -75,126 +75,97 @@ const Solutions = () => {
       />
 
       <NeoHero
-        label="Industry Solutions"
+        label="Business Solutions"
+        heroImage="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1920&q=80&auto=format"
         headline={
           <>
-            Strategies for
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-navy to-accent animate-gradient-x">
-              every environment.
-            </span>
+            Where architecture meets <span className="text-primary italic font-serif">atmosphere.</span>
           </>
         }
         subheadline="We help brands translate scent into measurable business impact across hospitality, retail, corporate, and wellness."
-        actions={
-          <Link to="/business/contact">
-            <Button size="lg" className="rounded-sm neo-btn-primary uppercase tracking-wider text-xs font-bold px-8 h-12">
-              Book Strategy Call
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
-        }
         variant="business"
-        texture="smoke"
-      >
-        {/* Abstract 3D shape or minimalist graphic for solutions index */}
-        <div className="relative w-full h-[400px] flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent rounded-full blur-3xl animate-pulse-gold" />
-            <div className="grid grid-cols-2 gap-4 relative z-10">
-                <div className="w-32 h-40 bg-background/80 backdrop-blur-xl border border-primary/20 rounded-sm shadow-neo animate-float-slow flex items-center justify-center">
-                    <Building2 className="w-10 h-10 text-primary opacity-80" />
-                </div>
-                <div className="w-32 h-40 bg-background/80 backdrop-blur-xl border border-accent/20 rounded-sm shadow-neo animate-float-slower mt-12 flex items-center justify-center">
-                    <Store className="w-10 h-10 text-accent opacity-80" />
-                </div>
-            </div>
-        </div>
-      </NeoHero>
+        texture="oil"
+      />
 
-      <section className="section-shell relative">
-        <div className="absolute inset-0 bg-grid-fade opacity-[0.03]" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Solutions Grid */}
+      <section className="section-shell">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {solutions.map((solution, index) => (
               <AnimatedSection key={solution.id} animation="fadeInUp" delay={index * 120}>
-                <div className="group h-full bg-background border border-border/60 p-8 hover:border-primary/40 transition-all duration-300 hover:shadow-neo relative overflow-hidden">
-                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                   <div className="flex items-start justify-between mb-6">
+                <Card className="card-loom h-full">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
                       <div>
-                        <Badge variant="outline" className="rounded-sm text-[10px] uppercase tracking-wide border-primary/20 text-primary bg-primary/5 mb-3">{solution.metrics}</Badge>
-                        <h3 className="font-display text-2xl font-semibold text-foreground group-hover:text-primary transition-colors">{solution.title}</h3>
+                        <div className="pill-label mb-4">{solution.metrics}</div>
+                        <h3 className="font-display text-2xl font-semibold text-foreground">{solution.title}</h3>
+                        <p className="text-sm text-muted-foreground mt-3">{solution.description}</p>
                       </div>
-                      <div className="w-10 h-10 rounded-sm bg-muted flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                        <solution.icon className="w-5 h-5" />
+                      <div className="w-12 h-12 rounded-2xl bg-accent/15 flex items-center justify-center">
+                        <solution.icon className="w-6 h-6 text-accent" />
                       </div>
                     </div>
-
-                    <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{solution.description}</p>
-
-                    <div className="space-y-3 mb-8">
+                    <div className="mt-5 space-y-2">
                       {solution.highlights.map((item) => (
-                        <div key={item} className="flex items-center gap-3 text-xs font-medium text-muted-foreground/80">
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+                        <div key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Sparkles className="w-3.5 h-3.5 text-accent" />
                           {item}
                         </div>
                       ))}
                     </div>
-
                     <Link to={`/business/solutions/${solution.id}`}>
-                      <Button className="w-full rounded-sm border-primary/20 hover:bg-primary/5 hover:border-primary transition-all uppercase tracking-wider text-[10px] font-bold h-10" variant="outline">
-                        Explore {solution.title.split(' ')[0]}
-                        <ArrowRight className="w-3 h-3 ml-2" />
+                      <Button className="mt-6 w-full" variant="outline">
+                        Learn more
+                        <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     </Link>
-                </div>
+                  </CardContent>
+                </Card>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-shell bg-muted/10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection animation="fadeInUp" className="text-center mb-16">
-            <span className="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">Methodology</span>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground">From discovery to optimization.</h2>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            {/* Horizontal Line for Desktop */}
-            <div className="hidden lg:block absolute top-8 left-[12%] right-[12%] h-[1px] bg-border/40 -z-10" />
-
-            {process.map((step, index) => (
-              <AnimatedSection key={step.step} animation="fadeInUp" delay={index * 120}>
-                <div className="text-center bg-background p-6 border border-transparent hover:border-border/40 transition-colors duration-300">
-                   <div className="w-16 h-16 mx-auto bg-background border border-primary/20 text-primary font-display font-bold text-xl flex items-center justify-center mb-6 shadow-sm z-10 relative">
-                     {step.step}
-                   </div>
-                   <h3 className="font-display text-lg font-semibold text-foreground mb-3">{step.title}</h3>
-                   <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/* Process */}
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between bg-primary text-primary-foreground p-10 md:p-14 rounded-sm shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-loom opacity-20 mix-blend-overlay" />
-            <div className="relative z-10 max-w-2xl">
-              <h3 className="font-display text-3xl md:text-4xl font-semibold mb-4">Ready to build your scent strategy?</h3>
-              <p className="text-primary-foreground/80 text-lg">Book a consultation and receive a tailored plan for your space.</p>
+          <AnimatedSection animation="fadeInUp" className="text-center mb-12">
+            <div className="pill-label justify-center">Our process</div>
+            <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mt-4">From discovery to optimization.</h2>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {process.map((step, index) => (
+              <AnimatedSection key={step.step} animation="fadeInUp" delay={index * 120}>
+                <Card className="card-loom h-full">
+                  <CardContent className="p-6">
+                    <div className="text-xs uppercase tracking-widest text-muted-foreground">Step {step.step}</div>
+                    <h3 className="font-display text-xl font-semibold text-foreground mt-3">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-3">{step.description}</p>
+                  </CardContent>
+                </Card>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section-shell">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="surface-glass rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div>
+              <div className="pill-label mb-4">Get started</div>
+              <h3 className="font-display text-3xl md:text-4xl font-semibold text-foreground">Ready to build your scent strategy?</h3>
+              <p className="text-muted-foreground mt-3 max-w-xl">Book a consultation and receive a tailored plan for your space.</p>
             </div>
-            <div className="relative z-10 mt-8 md:mt-0">
-              <Link to="/business/contact">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-sm px-8 h-12 uppercase tracking-wider text-xs font-bold">
-                  Request Demo
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
+            <Link to="/business/contact">
+              <Button variant="hero" size="lg" className="group">
+                Request a demo
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

@@ -5,6 +5,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 import DynamicCounter from "@/components/DynamicCounter";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import { useParallax } from "@/hooks/useScrollAnimation";
+import ParticleField from "@/components/ParticleField";
+
 const heroImage = "/optimized/hero-scent-diffuser-1280.webp";
 const heroImageSrcSet = "/optimized/hero-scent-diffuser-640.webp 640w, /optimized/hero-scent-diffuser-960.webp 960w, /optimized/hero-scent-diffuser-1280.webp 1280w";
 
@@ -40,25 +42,9 @@ const HeroSection = () => {
           />
         </div>
 
-        {/* Dynamic Floating Elements */}
-        <div className="absolute inset-0 z-30">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute animate-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${6 + Math.random() * 4}s`
-              }}
-            >
-              <Sparkles
-                className="text-accent/40 transition-all duration-300 hover:text-accent/80 hover:scale-125"
-                size={12 + Math.random() * 16}
-              />
-            </div>
-          ))}
+        {/* Dynamic Elements */}
+        <div className="absolute inset-0 z-30 pointer-events-none">
+          <ParticleField variant="shop" count={40} />
         </div>
       </div>
 
@@ -76,10 +62,10 @@ const HeroSection = () => {
 
           {/* Main Headline with Staggered Animation */}
           <AnimatedSection animation="fadeInUp" delay={400}>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
               Before They Buy,<br />
               <span className="relative">
-                <span className="bg-gradient-to-r from-primary via-accent to-primary-glow bg-clip-text text-transparent font-extrabold text-6xl sm:text-7xl lg:text-8xl leading-tight">
+                <span className="text-gradient-animated font-extrabold text-5xl sm:text-6xl lg:text-8xl leading-tight">
                   They BREATHE
                 </span>
                 <div className="absolute -inset-4 gradient-accent opacity-30 rounded-lg blur-2xl -z-10 animate-pulse" />
@@ -127,7 +113,7 @@ const HeroSection = () => {
                   <div className="absolute -inset-1 gradient-accent opacity-0 group-hover:opacity-30 rounded-xl blur transition-all duration-500" />
 
                   {/* Card Content */}
-                  <div className="relative gradient-card p-8 rounded-xl shadow-card backdrop-blur-sm border border-border/50 hover:shadow-elegant transition-all duration-300 hover:scale-105 hover:border-accent/50">
+                  <div className="relative gradient-card p-5 sm:p-8 rounded-xl shadow-card backdrop-blur-sm border border-border/50 hover:shadow-elegant transition-all duration-300 hover:scale-105 hover:border-accent/50">
                     <metric.icon className={`w-10 h-10 ${metric.color} mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`} />
 
                     <div className="mb-3">

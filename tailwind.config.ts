@@ -19,6 +19,9 @@ export default {
         'body': ['Manrope', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
         '2xl': '1.25rem',
         '3xl': '1.5rem',
         '4xl': '2rem',
@@ -55,19 +58,19 @@ export default {
           foreground: "hsl(var(--titanium-foreground))",
         },
         navy: {
-            DEFAULT: "#050058",
-            light: "#0A0080",
-            dark: "#020024",
+          DEFAULT: "#050058",
+          light: "#0A0080",
+          dark: "#020024",
         },
         gold: {
-            DEFAULT: "#C5A059",
-            light: "#E5C079",
-            dark: "#A58039",
+          DEFAULT: "#C5A059",
+          light: "#E5C079",
+          dark: "#A58039",
         },
         sage: {
-            DEFAULT: "#8E9775",
-            light: "#AEB795",
-            dark: "#6E7755",
+          DEFAULT: "#8E9775",
+          light: "#AEB795",
+          dark: "#6E7755",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -88,11 +91,7 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -134,6 +133,16 @@ export default {
           "0%": { opacity: "0", transform: "scale(0.98)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center"
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center"
+          }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -149,6 +158,7 @@ export default {
         "float-subtle": "floatSubtle 4s ease-in-out infinite",
         "reveal-up": "revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
         "reveal-in": "revealIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "gradient-x": "gradient-x 5s ease infinite",
       },
     },
   },

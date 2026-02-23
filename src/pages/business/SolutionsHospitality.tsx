@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Building2, Star, TrendingUp, ArrowRight, Award, Target, Sparkles } from "lucide-react";
 import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 const SolutionsHospitality = () => {
   const breadcrumbSchema = createBreadcrumbSchema([
@@ -46,7 +47,7 @@ const SolutionsHospitality = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Hotel & Hospitality Scent Marketing Solutions"
         description="Create unforgettable guest experiences with signature hotel scents. Trusted by luxury hospitality brands."
@@ -55,28 +56,14 @@ const SolutionsHospitality = () => {
         structuredData={breadcrumbSchema}
       />
 
-      <section className="section-shell pt-28 relative bg-oil-texture">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute inset-0 bg-smoke-texture opacity-75" />
-        <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Hospitality</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              Hospitality scenting
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
-                that guests remember.
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg text-muted-foreground mt-6 max-w-3xl mx-auto">
-              Create signature arrival moments, calming spa environments, and room experiences that drive loyalty.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <NeoHero
+        heroImage="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80&auto=format"
+        label="Hospitality"
+        headline={<>Hospitality scenting <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:200%_auto]">that guests remember.</span></>}
+        subheadline="Create signature arrival moments, calming spa environments, and room experiences that drive loyalty."
+        variant="business"
+        texture="oil"
+      />
 
       <section className="section-shell">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

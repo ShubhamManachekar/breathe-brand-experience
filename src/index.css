@@ -14,36 +14,39 @@
 @layer base {
   :root {
     /* ── Base Palette ── */
-    --background: 228 20% 95%; /* #F0F2F5 Soft Clay Gray */
-    --foreground: 220 25% 14%; /* Deep charcoal-navy */
+    --background: 0 0% 99%;
+    /* #FCFCFC — Clean warm white */
+    --foreground: 225 20% 16%;
+    /* #212738 — Deep charcoal-navy */
 
-    /* ── Cards (White with blur backing) ── */
+    /* ── Cards (Pure white with subtle warmth) ── */
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 14%;
+    --card-foreground: 225 20% 16%;
 
     /* ── Popover ── */
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 14%;
+    --popover-foreground: 225 20% 16%;
 
-    /* ── Primary (ink navy — kept for contrast) ── */
-    --primary: 242 96% 17%;
-    --primary-foreground: 228 20% 95%;
-    --primary-glow: 240 100% 32%;
+    /* ── Primary (Vibrant deep indigo) ── */
+    --primary: 243 75% 35%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 248 80% 50%;
 
     /* ── Secondary ── */
-    --secondary: 240 100% 25%;
-    --secondary-foreground: 228 20% 95%;
+    --secondary: 240 60% 30%;
+    --secondary-foreground: 0 0% 100%;
 
     /* ── Titanium ── */
     --titanium: 220 14% 62%;
-    --titanium-foreground: 220 25% 14%;
+    --titanium-foreground: 225 20% 16%;
 
-    /* ── Accent (Sage Matte — Wellness) ── */
-    --accent: 86 22% 53%; /* #8E9775 Sage Matte */
+    /* ── Accent (Rich golden-sage) ── */
+    --accent: 84 30% 46%;
+    /* #7A8A44 — Deeper olive-sage */
     --accent-foreground: 0 0% 100%;
 
     /* ── Vibrant Accents ── */
-    --accent-teal: 174 72% 46%;
+    --accent-teal: 174 72% 40%;
     --accent-violet: 262 83% 58%;
     --accent-coral: 12 90% 62%;
     --accent-teal-foreground: 0 0% 100%;
@@ -51,45 +54,38 @@
     --accent-coral-foreground: 0 0% 100%;
 
     /* ── Muted ── */
-    --muted: 220 14% 90%;
-    --muted-foreground: 220 10% 40%;
+    --muted: 225 15% 93%;
+    --muted-foreground: 225 10% 44%;
 
     /* ── Interactive ── */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     /* ── Form ── */
-    --border: 220 16% 82%;
+    --border: 225 14% 86%;
     --input: 0 0% 100%;
-    --ring: 86 22% 53%;
-    --outline-soft: 220 14% 74%;
-    --outline-strong: 242 96% 22%;
+    --ring: 243 75% 50%;
+    --outline-soft: 225 12% 78%;
+    --outline-strong: 243 75% 35%;
 
     /* ── Defaults (Shop / B2C) ── */
     --radius: 1rem;
 
     /* ── Skeuomorphic Tokens (Legacy/B2C) ── */
     --skeuo-highlight: 0 0% 100%;
-    --skeuo-shadow: 220 22% 85%;
-    --skeuo-surface: 228 20% 95%;
+    --skeuo-shadow: 225 18% 88%;
+    --skeuo-surface: 225 15% 96%;
 
     /* ── Neo-heritage Gradients ── */
-    --gradient-hero: linear-gradient(135deg, hsl(242 96% 17%), hsl(262 83% 30%) 40%, hsl(240 100% 25%) 70%, hsl(174 60% 22%));
+    --gradient-hero: linear-gradient(135deg, hsl(243 75% 35%), hsl(262 70% 40%) 40%, hsl(240 65% 35%) 70%, hsl(174 55% 30%));
     --gradient-gold: linear-gradient(135deg, #C5A059, #A58039);
     --gradient-titanium: linear-gradient(135deg, hsl(220 16% 74%), hsl(220 12% 58%) 45%, hsl(220 10% 48%));
 
     /* ── Shadows (Neo) ── */
-    --shadow-neo: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0,0,0,0.02);
-    --shadow-neo-hover: 0 10px 30px -4px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.02);
+    --shadow-neo: 0 4px 24px -2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+    --shadow-neo-hover: 0 12px 36px -4px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
   }
 
-  /* ── Business Segment Overrides (Architectural) ── */
-  body[data-segment="business"] {
-    --accent: 44 92% 38%; /* Gold */
-    --accent-foreground: 0 0% 100%;
-    --radius: 0.25rem; /* Sharp corners */
-    --background: 228 30% 98%; /* Slightly cooler white for crispness */
-  }
 
   .dark {
     /* ── Background: Deep Obsidian ── */
@@ -112,7 +108,8 @@
     --muted: 230 20% 20%;
     --muted-foreground: 210 15% 70%;
 
-    --accent: 40 56% 55%; /* Gold Glossy */
+    --accent: 40 56% 55%;
+    /* Gold Glossy */
     --accent-foreground: 230 30% 10%;
 
     --destructive: 0 62.8% 50%;
@@ -125,8 +122,8 @@
     --outline-soft: 230 20% 30%;
     --outline-strong: 240 80% 65%;
 
-    --shadow-neo: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05);
-    --shadow-neo-hover: 0 10px 30px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.1);
+    --shadow-neo: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --shadow-neo-hover: 0 10px 30px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -152,15 +149,11 @@
     font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* Business headings are always sharper */
-  body[data-segment="business"] h1,
-  body[data-segment="business"] h2,
-  body[data-segment="business"] h3 {
-    letter-spacing: -0.03em;
-  }
+
 }
 
 @layer components {
+
   /* ── Neo-heritage Card (Glass + Fine Border) ── */
   .neo-card {
     @apply bg-background/60 backdrop-blur-xl border border-border/50 shadow-[var(--shadow-neo)] transition-all duration-300;
@@ -188,12 +181,13 @@
   }
 
   /* ── Legacy Compat (upgraded to Neo style) ── */
-  .card-loom, .card-clay {
+  .card-loom,
+  .card-clay {
     @apply neo-card rounded-[var(--radius)];
   }
 
   .card-skeuo {
-     @apply neo-card rounded-[var(--radius)] border-titanium/20;
+    @apply neo-card rounded-[var(--radius)] border-titanium/20;
   }
 
   /* ── Background Textures ── */
@@ -205,7 +199,7 @@
   }
 
   .bg-smoke-texture {
-     /* Simulates drifting smoke with gradients - overlay real images via components */
+    /* Simulates drifting smoke with gradients - overlay real images via components */
     background-image:
       radial-gradient(300px 120px at 18% 16%, hsl(var(--primary) / 0.05), transparent 72%),
       radial-gradient(320px 140px at 82% 26%, hsl(var(--secondary) / 0.05), transparent 74%);
@@ -213,7 +207,7 @@
   }
 
   .bg-oil-texture {
-     /* Deeper, more luxurious oil slick for Business */
+    /* Deeper, more luxurious oil slick for Business */
     background-image:
       radial-gradient(180px 180px at 70% 24%, hsl(var(--accent) / 0.08), transparent 70%),
       radial-gradient(130px 130px at 28% 66%, hsl(var(--titanium) / 0.1), transparent 72%);
@@ -227,6 +221,16 @@
   .pill-label {
     @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/60 bg-background/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground backdrop-blur-sm;
   }
+
+  /* ── Responsive Section Shell ── */
+  .section-shell {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  /* ── Responsive Container ── */
+  .container-polished {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
 
 @layer utilities {
@@ -235,10 +239,46 @@
   }
 
   .shadow-neo-sm {
-    box-shadow: 0 2px 8px -2px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
   }
 
   .shadow-glow {
-     box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.3);
+  }
+
+  /* ── Gradient Utility Classes (used by button variants) ── */
+  .gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .gradient-gold {
+    background-image: var(--gradient-gold);
+  }
+
+  .gradient-raised {
+    background-image: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+  }
+
+  /* Reliable multi-stop animated text gradient */
+  .text-gradient-animated {
+    background: linear-gradient(to right,
+        hsl(var(--primary)),
+        hsl(var(--accent)),
+        hsl(var(--primary)));
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: textShimmer 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes textShimmer {
+    0% {
+      background-position: 0% center;
+    }
+
+    100% {
+      background-position: 100% center;
+    }
   }
 }

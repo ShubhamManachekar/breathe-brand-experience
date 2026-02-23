@@ -93,7 +93,7 @@ const BusinessLogin = () => {
 
   if (step === 3) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-screen bg-transparent flex items-center justify-center p-4">
         <PageMeta
           title="Business Registration Success"
           description="Your business registration is received."
@@ -118,7 +118,7 @@ const BusinessLogin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-transparent flex">
       <PageMeta
         title="Business Login"
         description="Sign in or create your EZE AirCare business account."

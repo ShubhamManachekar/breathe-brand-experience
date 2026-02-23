@@ -17,7 +17,7 @@ export default function AboutUs() {
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="About EZE AirCare - Heritage & Innovation"
         description="A fusion of Sawai Fragrances' artisanal mastery and Eze Perfumes' innovation excellence."
@@ -27,13 +27,13 @@ export default function AboutUs() {
       />
 
       <NeoHero
+        heroImage="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1920&q=80&auto=format"
         label="Our Story"
         headline={
           <>
-            A legacy built for
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-navy to-accent animate-gradient-x">
-              modern senses.
-            </span>
+            Where heritage meets
+            <br />
+            <span className="block text-gradient-animated">modern science.</span>
           </>
         }
         subheadline="EZE AirCare is the union of deep perfumery heritage and forward-looking scent technology."
@@ -42,10 +42,10 @@ export default function AboutUs() {
       />
 
       {/* ── The Origin Story ── */}
-      <section className="section-shell -mt-20 relative z-20">
+      <section className="section-shell -mt-10 sm:-mt-20 relative z-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection animation="fadeInUp">
-            <div className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-[2rem] p-8 md:p-12 shadow-neo relative overflow-hidden">
+            <div className="bg-background/80 backdrop-blur-xl border border-border/50 rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-neo relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
               <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -65,17 +65,17 @@ export default function AboutUs() {
                 </div>
 
                 <div className="relative h-64 md:h-full min-h-[300px] bg-muted/20 rounded-2xl overflow-hidden flex items-center justify-center border border-border/30">
-                   <div className="absolute inset-0 bg-grid-fade opacity-20" />
-                   <Leaf className="w-24 h-24 text-accent opacity-20 animate-float-slow" />
-                   <div className="absolute bottom-6 left-6 right-6">
-                      <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-                         <span>1965</span>
-                         <span>2024</span>
-                      </div>
-                      <div className="h-1 w-full bg-border/40 mt-2 relative">
-                         <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-transparent via-accent to-primary" />
-                      </div>
-                   </div>
+                  <div className="absolute inset-0 bg-grid-fade opacity-20" />
+                  <Leaf className="w-24 h-24 text-accent opacity-20 animate-float-slow" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+                      <span>1965</span>
+                      <span>2024</span>
+                    </div>
+                    <div className="h-1 w-full bg-border/40 mt-2 relative">
+                      <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-transparent via-accent to-primary" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,8 +142,8 @@ export default function AboutUs() {
       {/* ── CTA ── */}
       <section className="section-shell">
         <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="font-display text-3xl md:text-5xl font-semibold mb-6">Create your signature journey.</h2>
-          <div className="flex justify-center gap-4">
+          <h2 className="font-display text-3xl sm:text-3xl md:text-5xl font-semibold mb-6">Create your signature journey.</h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/business/solutions">
               <Button size="lg" className="rounded-sm uppercase tracking-wider text-xs font-bold px-8 h-12 shadow-neo">
                 Business Solutions

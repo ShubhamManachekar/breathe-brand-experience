@@ -46,7 +46,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-loom flex relative overflow-hidden">
+    <div className="min-h-screen bg-transparent flex relative overflow-hidden">
       <PageMeta
         title="Customer Dashboard"
         description="Manage devices, orders, subscriptions, aroma preferences, and support tickets in one dashboard."

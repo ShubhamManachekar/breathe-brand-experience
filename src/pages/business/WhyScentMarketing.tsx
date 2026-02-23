@@ -89,7 +89,7 @@ const WhyScentMarketing = () => {
   ]);
 
   return (
-    <div className="min-h-screen bg-loom">
+    <div className="min-h-screen bg-transparent">
       <PageMeta
         title="Why Scent Marketing Works - The Science of Fragrance"
         description="Discover the neuroscience behind scent marketing. Learn how fragrances trigger 75% of daily emotions, boost brand recall by 70%, and increase dwell time by 20-30%. Backed by Harvard research."

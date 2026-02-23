@@ -22,9 +22,9 @@ const buttonVariants = cva(
         link:
           "text-primary underline-offset-4 hover:underline",
         hero:
-          "gradient-hero text-primary-foreground rounded-2xl font-bold tracking-wide shadow-skeuo border-t border-white/20 hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] [background-image:var(--gradient-hero),var(--gradient-skeuo-btn)]",
+          "gradient-hero bg-primary text-white dark:text-amber-300 rounded-2xl font-bold tracking-wide shadow-skeuo border-t border-white/20 hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
         premium:
-          "gradient-gold text-accent-foreground rounded-2xl font-bold shadow-skeuo border-t border-yellow-200/40 dark:border-yellow-400/20 hover:shadow-glow transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] [background-image:var(--gradient-gold),var(--gradient-skeuo-btn)]",
+          "gradient-gold bg-accent text-accent-foreground rounded-2xl font-bold shadow-skeuo border-t border-yellow-200/40 dark:border-yellow-400/20 hover:shadow-glow transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
         glass:
           "bg-card/70 backdrop-blur-xl rounded-xl border border-white/40 dark:border-white/10 text-foreground shadow-skeuo hover:shadow-skeuo-hover transition-all duration-300 hover:-translate-y-0.5",
         luxury:

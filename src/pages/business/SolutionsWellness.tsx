@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Heart, Shield, TrendingUp, ArrowRight } from "lucide-react";
 import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 const SolutionsWellness = () => {
   const breadcrumbSchema = createBreadcrumbSchema([
@@ -26,7 +27,7 @@ const SolutionsWellness = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Wellness & Healthcare Aromatherapy Solutions"
         description="Improve patient outcomes with therapeutic aromatherapy. Trusted by clinics, spas, and wellness providers."
@@ -35,28 +36,14 @@ const SolutionsWellness = () => {
         structuredData={breadcrumbSchema}
       />
 
-      <section className="section-shell pt-28 relative bg-oil-texture">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute inset-0 bg-smoke-texture opacity-75" />
-        <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Wellness</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              Therapeutic scenting
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
-                for healing spaces.
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg text-muted-foreground mt-6 max-w-3xl mx-auto">
-              Reduce anxiety and create calm environments with clinically informed aromatherapy.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <NeoHero
+        heroImage="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80&auto=format"
+        label="Wellness"
+        headline={<>Therapeutic scenting <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:200%_auto]">for healing spaces.</span></>}
+        subheadline="Reduce anxiety and create calm environments with clinically informed aromatherapy."
+        variant="business"
+        texture="oil"
+      />
 
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -14,8 +15,11 @@ import {
   Menu,
   Wifi,
   Crown,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useTheme } from "@/providers/ThemeProvider";
 
 interface DashboardSidebarProps {
   activeSection: string;
@@ -34,6 +38,17 @@ const menuItems = [
 
 const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
+
+  const handleSignOut = () => {
+    navigate("/");
+  };
+
+  const toggleTheme = () => {
+    setTheme(isDark ? "light" : "dark");
+  };
 
   const SidebarContent = ({ isMobile = false }: { isMobile?: boolean }) => (
     <div className="h-full flex flex-col bg-background/80 backdrop-blur-xl border-r border-border/40 text-foreground transition-all duration-300">
@@ -104,9 +119,30 @@ const DashboardSidebar = ({ activeSection, setActiveSection }: DashboardSidebarP
           )}
         </div>
 
+        {/* Theme Toggle */}
         <Button
           variant="ghost"
           size="sm"
+          onClick={toggleTheme}
+          className={cn(
+            "w-full text-muted-foreground hover:text-foreground hover:bg-muted/40 justify-start rounded-lg h-9 mb-1",
+            isCollapsed && !isMobile && "justify-center"
+          )}
+          title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          {(!isCollapsed || isMobile) && (
+            <span className="ml-2 text-xs font-medium uppercase tracking-wide">
+              {isDark ? "Light Mode" : "Dark Mode"}
+            </span>
+          )}
+        </Button>
+
+        {/* Sign Out */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSignOut}
           className={cn(
             "w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 justify-start rounded-lg h-9",
             isCollapsed && !isMobile && "justify-center"

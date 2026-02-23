@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Briefcase, Brain, Users, TrendingUp, ArrowRight } from "lucide-react";
 import PageMeta, { createBreadcrumbSchema } from "@/components/PageMeta";
+import NeoHero from "@/components/NeoHero";
 
 const SolutionsCorporate = () => {
   const breadcrumbSchema = createBreadcrumbSchema([
@@ -26,7 +27,7 @@ const SolutionsCorporate = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-loom overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="Corporate Office Scent Marketing Solutions"
         description="Boost workplace productivity with office scent solutions. Trusted by leading global companies."
@@ -35,28 +36,20 @@ const SolutionsCorporate = () => {
         structuredData={breadcrumbSchema}
       />
 
-      <section className="section-shell pt-28 relative bg-oil-texture">
-        <div className="absolute inset-0 bg-grid-fade" />
-        <div className="absolute inset-0 bg-smoke-texture opacity-75" />
-        <div className="absolute inset-0 bg-sparkle-texture opacity-45" />
-        <div className="absolute -top-10 right-12 w-64 h-64 rounded-full bg-accent/15 blur-3xl animate-float-slower" />
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <div className="pill-label justify-center mb-6">Corporate</div>
-          <AnimatedSection animation="fadeInUp">
-            <h1 className="font-display text-5xl md:text-6xl font-semibold text-foreground">
-              Workplace scenting
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">
-                that sharpens focus.
-              </span>
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection animation="fadeInUp" delay={150}>
-            <p className="text-lg text-muted-foreground mt-6 max-w-3xl mx-auto">
-              Create environments that boost productivity, reduce stress, and impress clients.
-            </p>
-          </AnimatedSection>
-        </div>
-      </section>
+      <NeoHero
+        label="Corporate Solutions"
+        heroImage="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format"
+        headline={
+          <>
+            Where focus meets
+            <br />
+            <span className="block text-gradient-animated">clear thinking.</span>
+          </>
+        }
+        subheadline="Create environments that boost productivity, reduce stress, and impress clients."
+        variant="business"
+        texture="oil"
+      />
 
       <section className="section-shell">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

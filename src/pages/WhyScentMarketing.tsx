@@ -15,7 +15,7 @@ const WhyScentMarketing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-transparent overflow-hidden">
       <PageMeta
         title="The Science of Scent Marketing | Why Scent Works"
         description="Understand the psychology and neuroscience behind scent marketing. Learn how fragrance influences behavior and emotion."
@@ -24,11 +24,12 @@ const WhyScentMarketing = () => {
       />
 
       <NeoHero
+        heroImage="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80&auto=format"
         label="The Science"
         headline={
           <>
             The shortest path to
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-navy to-accent animate-gradient-x">
+            <span className="block text-gradient-animated">
               human emotion.
             </span>
           </>
@@ -47,19 +48,19 @@ const WhyScentMarketing = () => {
       >
         {/* Abstract Brain/Scent Visualization */}
         <div className="relative flex items-center justify-center h-[500px]">
-           <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 via-transparent to-primary/20 blur-[100px] animate-pulse-slow" />
-           <div className="relative z-10 w-64 h-64 border border-border/40 rounded-full animate-spin-slow opacity-30">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full blur-sm" />
-           </div>
-           <div className="absolute z-10 w-96 h-96 border border-border/20 rounded-full animate-spin-reverse-slower opacity-20">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 bg-accent rounded-full blur-md" />
-           </div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 via-transparent to-primary/20 blur-[100px] animate-pulse-slow" />
+          <div className="relative z-10 w-64 h-64 border border-border/40 rounded-full animate-spin-slow opacity-30">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rounded-full blur-sm" />
+          </div>
+          <div className="absolute z-10 w-96 h-96 border border-border/20 rounded-full animate-spin-reverse-slower opacity-20">
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-6 bg-accent rounded-full blur-md" />
+          </div>
 
-           <div className="absolute z-20 bg-background/80 backdrop-blur-xl border border-primary/20 p-8 rounded-sm shadow-neo max-w-xs">
-              <Brain className="w-12 h-12 text-primary mb-4" />
-              <h3 className="font-display text-xl font-bold mb-2">The Limbic Connection</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Processing scent 10,000x faster than visual or auditory cues.</p>
-           </div>
+          <div className="absolute z-20 bg-background/80 backdrop-blur-xl border border-primary/20 p-8 rounded-sm shadow-neo max-w-xs">
+            <Brain className="w-12 h-12 text-primary mb-4" />
+            <h3 className="font-display text-xl font-bold mb-2">The Limbic Connection</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">Processing scent 10,000x faster than visual or auditory cues.</p>
+          </div>
         </div>
       </NeoHero>
 
@@ -85,7 +86,7 @@ const WhyScentMarketing = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <AnimatedSection animation="fadeInUp">
-               <span className="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">Neuromarketing</span>
+              <span className="text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">Neuromarketing</span>
               <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mb-6">Why traditional marketing falls short.</h2>
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
                 <p>
@@ -101,12 +102,12 @@ const WhyScentMarketing = () => {
 
               <div className="mt-8 pt-8 border-t border-border/40 grid grid-cols-2 gap-8">
                 <div>
-                   <div className="font-display text-3xl font-bold text-foreground mb-1">Visual</div>
-                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Short-term recall</div>
+                  <div className="font-display text-3xl font-bold text-foreground mb-1">Visual</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Short-term recall</div>
                 </div>
                 <div>
-                   <div className="font-display text-3xl font-bold text-primary mb-1">Olfactory</div>
-                   <div className="text-xs uppercase tracking-wide text-muted-foreground">Long-term emotional bond</div>
+                  <div className="font-display text-3xl font-bold text-primary mb-1">Olfactory</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">Long-term emotional bond</div>
                 </div>
               </div>
             </AnimatedSection>
@@ -115,21 +116,21 @@ const WhyScentMarketing = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 blur-3xl rounded-full opacity-40" />
                 <div className="relative z-10 grid gap-6">
-                   {[
-                     { title: "Attention", desc: "Break through the noise of digital saturation.", icon: Fingerprint },
-                     { title: "Immersion", desc: "Create a 360-degree brand world.", icon: Layers },
-                     { title: "Retention", desc: "Increase dwell time by up to 40%.", icon: Clock },
-                   ].map((item, i) => (
-                     <div key={item.title} className="bg-background/80 backdrop-blur-xl border border-border/50 p-6 flex items-start gap-4 rounded-sm hover:border-primary/40 transition-colors">
-                        <div className="w-10 h-10 bg-primary/10 rounded-sm flex items-center justify-center shrink-0">
-                           <item.icon className="w-5 h-5 text-primary" />
-                        </div>
-                        <div>
-                           <h4 className="font-display text-lg font-semibold text-foreground">{item.title}</h4>
-                           <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
-                        </div>
-                     </div>
-                   ))}
+                  {[
+                    { title: "Attention", desc: "Break through the noise of digital saturation.", icon: Fingerprint },
+                    { title: "Immersion", desc: "Create a 360-degree brand world.", icon: Layers },
+                    { title: "Retention", desc: "Increase dwell time by up to 40%.", icon: Clock },
+                  ].map((item, i) => (
+                    <div key={item.title} className="bg-background/80 backdrop-blur-xl border border-border/50 p-6 flex items-start gap-4 rounded-sm hover:border-primary/40 transition-colors">
+                      <div className="w-10 h-10 bg-primary/10 rounded-sm flex items-center justify-center shrink-0">
+                        <item.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-display text-lg font-semibold text-foreground">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground mt-1">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </AnimatedSection>
@@ -138,7 +139,7 @@ const WhyScentMarketing = () => {
       </section>
 
       <section className="section-shell bg-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-loom opacity-20 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-background opacity-20 mix-blend-overlay" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <AnimatedSection animation="fadeInUp">
             <h2 className="font-display text-4xl md:text-5xl font-semibold mb-6">Turn science into strategy.</h2>

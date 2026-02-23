@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
  */
 const PageSkeleton = () => {
     return (
-        <div className="min-h-screen bg-background animate-pulse">
+        <div className="min-h-screen bg-transparent animate-pulse">
             {/* Hero Section Skeleton */}
             <div className="pt-16">
                 <div className="relative h-[70vh] bg-muted/30">

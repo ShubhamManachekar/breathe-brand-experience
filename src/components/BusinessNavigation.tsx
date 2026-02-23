@@ -31,7 +31,11 @@ const BusinessNavigation = () => {
     { href: "/business/aromas", label: "Aroma Library" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/business" && location.pathname === "/business") return true;
+    if (path !== "/business" && location.pathname.startsWith(path)) return true;
+    return false;
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -42,61 +46,55 @@ const BusinessNavigation = () => {
     <>
       <ScrollProgress />
       <nav className="fixed top-0 w-full z-50 transition-all duration-500 font-body">
-        <div className="w-full bg-background/80 backdrop-blur-2xl border-b border-border/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Floating pill container — same as Shop */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+          <div className="bg-background/80 backdrop-blur-2xl rounded-full px-6 sm:px-8 border border-white/20 dark:border-white/5 shadow-neo">
             <div className="flex items-center justify-between h-20">
-              {/* Logo - Architectural / Sharp */}
-              <Link to="/business" className="flex items-center gap-4 group">
-                <div className="w-10 h-10 flex items-center justify-center bg-primary text-primary-foreground border border-primary-foreground/20 rounded-sm shadow-neo transition-transform duration-500 group-hover:scale-105">
+              {/* Logo — Organic / Soft (same shape as Shop) */}
+              <Link to="/business" className="flex items-center gap-3.5 group">
+                <div className="w-11 h-11 rounded-2xl flex items-center justify-center bg-foreground text-background shadow-neo-sm transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3">
                   <span className="font-display font-bold text-2xl">E</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-display text-lg font-bold text-foreground leading-none tracking-tight group-hover:text-primary transition-colors">EZE AIRCARE</span>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] font-semibold text-muted-foreground tracking-[0.25em] uppercase">Enterprise</span>
-                  </div>
+                  <span className="font-display text-xl font-bold text-foreground leading-none group-hover:text-primary transition-colors">EZE AirCare</span>
+                  <span className="text-[10px] font-medium text-muted-foreground tracking-[0.2em] uppercase mt-1">Enterprise</span>
                 </div>
               </Link>
 
-              {/* Desktop Nav - Clean & Minimal */}
-              <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
-                <div className="flex items-center gap-6">
+              {/* Desktop Nav — Centered pill group (same as Shop) */}
+              <div className="hidden md:flex items-center justify-center flex-1 mx-8">
+                <div className="flex items-center gap-1 bg-muted/30 p-1.5 rounded-full border border-white/10 backdrop-blur-sm">
                   {navItems.map((item) => (
-                    <div key={item.href} className="relative group h-20 flex items-center">
+                    <div key={item.href} className="relative">
                       {item.hasDropdown ? (
                         <div
-                          className="relative h-full flex items-center"
+                          className="relative"
                           onMouseEnter={() => setSolutionsOpen(true)}
                           onMouseLeave={() => setSolutionsOpen(false)}
                         >
                           <button
-                            className={`flex items-center space-x-1 text-sm font-semibold uppercase tracking-wider transition-colors duration-300 ${location.pathname.startsWith('/business/solutions')
-                              ? 'text-primary'
-                              : 'text-muted-foreground hover:text-foreground'
+                            className={`flex items-center gap-1 px-5 py-2 rounded-full text-sm font-medium transition-all duration-500 ${location.pathname.startsWith('/business/solutions')
+                                ? 'bg-background text-foreground shadow-sm'
+                                : 'text-muted-foreground hover:text-foreground hover:bg-white/40'
                               }`}
                           >
                             <span>{item.label}</span>
                             <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${solutionsOpen ? 'rotate-180' : ''}`} />
                           </button>
 
-                          {/* Active Indicator Line */}
-                          {location.pathname.startsWith('/business/solutions') && (
-                             <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary" />
-                          )}
-
-                          {/* Mega Menu - Architectural Glass Panel */}
-                          <div className={`absolute top-full left-1/2 -translate-x-1/2 w-80 pt-2 transition-all duration-300 transform origin-top ${solutionsOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'}`}>
-                            <div className="bg-background/95 backdrop-blur-xl border border-border/50 shadow-neo-hover p-2 rounded-sm">
-                              <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2 px-3 py-2 border-b border-border/30">Industries</div>
+                          {/* Mega Menu — floating card */}
+                          <div className={`absolute top-full left-1/2 -translate-x-1/2 w-72 pt-3 transition-all duration-300 transform origin-top ${solutionsOpen ? 'opacity-100 visible scale-100' : 'opacity-0 invisible scale-95'}`}>
+                            <div className="bg-background/95 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-neo p-2 rounded-2xl">
+                              <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1 px-3 py-2 border-b border-border/30">Industries</div>
                               {item.subItems?.map((subItem) => (
                                 <Link
                                   key={subItem.href}
                                   to={subItem.href}
-                                  className="flex items-center justify-between p-3 rounded-sm hover:bg-muted/50 transition-all duration-200 group/item"
+                                  className="flex items-center justify-between p-3 rounded-xl hover:bg-muted/50 transition-all duration-200 group/item"
                                 >
                                   <div>
                                     <div className="font-semibold text-sm text-foreground group-hover/item:text-primary transition-colors">{subItem.label}</div>
-                                    <div className="text-[10px] text-muted-foreground uppercase tracking-wide">{subItem.badge}</div>
+                                    <div className="text-[10px] text-muted-foreground tracking-wide">{subItem.badge}</div>
                                   </div>
                                   <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover/item:text-accent transition-all duration-200 -translate-x-2 opacity-0 group-hover/item:translate-x-0 group-hover/item:opacity-100" />
                                 </Link>
@@ -107,15 +105,12 @@ const BusinessNavigation = () => {
                       ) : (
                         <Link
                           to={item.href}
-                          className={`relative h-full flex items-center text-sm font-semibold uppercase tracking-wider transition-colors duration-300 ${isActive(item.href)
-                            ? 'text-primary'
-                            : 'text-muted-foreground hover:text-foreground'
+                          className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-500 block ${isActive(item.href)
+                              ? 'bg-background text-foreground shadow-sm'
+                              : 'text-muted-foreground hover:text-foreground hover:bg-white/40'
                             }`}
                         >
                           {item.label}
-                          {isActive(item.href) && (
-                             <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary" />
-                          )}
                         </Link>
                       )}
                     </div>
@@ -123,9 +118,9 @@ const BusinessNavigation = () => {
                 </div>
               </div>
 
-              {/* CTA - Sharp & Professional */}
-              <div className="hidden lg:flex items-center gap-4 shrink-0">
-                <div className="flex items-center gap-3 pr-4 border-r border-border/30">
+              {/* CTA & Actions — rounded, same alignment as Shop */}
+              <div className="hidden md:flex items-center gap-4">
+                <div className="flex items-center gap-2 pr-4 border-r border-border/30">
                   <ThemeToggle />
                   <SegmentSwitcher />
                 </div>
@@ -133,24 +128,22 @@ const BusinessNavigation = () => {
                 {user ? (
                   <div className="flex items-center gap-2 pl-2">
                     <Link to="/business/dashboard">
-                      <Button variant="outline" size="icon" className="rounded-sm w-10 h-10 border-primary/20 hover:bg-primary/5 hover:border-primary transition-all">
-                        <User className="w-4 h-4" />
+                      <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 hover:bg-muted transition-transform" title="Account">
+                        <User className="w-5 h-5" />
                       </Button>
                     </Link>
-                    <Link to="/business/login">
-                      <Button variant="ghost" size="icon" onClick={handleSignOut} className="rounded-sm w-10 h-10 text-muted-foreground hover:text-destructive">
-                        <LogOut className="w-4 h-4" />
-                      </Button>
-                    </Link>
+                    <Button variant="ghost" size="icon" onClick={handleSignOut} className="rounded-full w-10 h-10 text-muted-foreground hover:text-destructive">
+                      <LogOut className="w-4 h-4" />
+                    </Button>
                   </div>
                 ) : (
                   <div className="flex items-center gap-3">
                     <Link to="/business/login">
-                      <span className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors uppercase tracking-wide cursor-pointer">Login</span>
+                      <Button variant="ghost" className="font-medium hover:bg-transparent hover:text-primary px-2 rounded-full">Login</Button>
                     </Link>
                     <Link to="/business/contact">
-                      <Button className="rounded-sm bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-5 shadow-neo hover:translate-y-[-1px] transition-all uppercase tracking-wider text-xs font-bold">
-                        Request Proposal
+                      <Button className="rounded-full px-6 h-11 bg-primary hover:bg-primary/90 text-primary-foreground shadow-neo hover:-translate-y-0.5 transition-all">
+                        Request Demo
                         <ArrowRight className="w-3.5 h-3.5 ml-2" />
                       </Button>
                     </Link>
@@ -159,83 +152,87 @@ const BusinessNavigation = () => {
               </div>
 
               {/* Mobile menu toggle */}
-              <button
-                className="lg:hidden w-10 h-10 flex items-center justify-center text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
+              <div className="md:hidden flex items-center gap-3">
+                <button
+                  className="w-10 h-10 rounded-full border border-border/40 bg-background/50 flex items-center justify-center text-foreground hover:text-primary transition-all active:scale-95"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Nav - Slide Down Panel */}
-        <div className={`lg:hidden fixed inset-x-0 top-20 bg-background/95 backdrop-blur-xl border-b border-border/50 transition-all duration-500 ease-in-out ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
-          <div className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
-            <div className="flex justify-center pb-4 border-b border-border/30">
-              <SegmentSwitcher />
-            </div>
+          {/* Mobile Nav — floating rounded card (same as Shop) */}
+          <div className={`md:hidden transition-all duration-500 ${isOpen ? 'max-h-[600px] opacity-100 mt-4 translate-y-0' : 'max-h-0 opacity-0 mt-0 -translate-y-4 pointer-events-none'}`}>
+            <div className="bg-background/90 backdrop-blur-xl rounded-3xl p-5 space-y-2 overflow-hidden border border-white/20 shadow-neo">
+              {navItems.map((item) => (
+                <div key={item.href}>
+                  <Link
+                    to={item.href}
+                    className={`block px-5 py-4 text-lg font-medium rounded-2xl transition-all duration-300 ${isActive(item.href)
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                      }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="flex items-center justify-between">
+                      {item.label}
+                      {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
+                      {isActive(item.href) && !item.hasDropdown && <div className="w-2 h-2 rounded-full bg-primary" />}
+                    </div>
+                  </Link>
 
-            {navItems.map((item) => (
-              <div key={item.href}>
-                <Link
-                  to={item.href}
-                  className={`flex items-center justify-between p-3 text-sm font-bold uppercase tracking-wider transition-colors ${isActive(item.href)
-                    ? 'text-primary bg-primary/5 border-l-2 border-primary pl-2'
-                    : 'text-foreground hover:text-primary'
-                    }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span>{item.label}</span>
-                  {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                </Link>
+                  {item.hasDropdown && item.subItems && (
+                    <div className="ml-4 mt-1 space-y-1 pl-4 border-l border-border/30">
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          key={subItem.href}
+                          to={subItem.href}
+                          className="block py-2.5 px-3 text-sm rounded-xl text-muted-foreground hover:text-primary hover:bg-muted/30 transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <span className="font-medium">{subItem.label}</span>
+                          <span className="block text-[10px] text-muted-foreground/70 tracking-wide">{subItem.badge}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
 
-                {item.hasDropdown && item.subItems && (
-                  <div className="ml-4 mt-2 space-y-1 border-l border-border/30 pl-4">
-                    {item.subItems.map((subItem) => (
-                      <Link
-                        key={subItem.href}
-                        to={subItem.href}
-                        className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <span className="font-semibold">{subItem.label}</span>
-                        <span className="block text-[10px] uppercase tracking-wide opacity-70">{subItem.badge?.split(' ')[0]}</span>
-                      </Link>
-                    ))}
+              <div className="border-t border-border/20 pt-5 mt-4 space-y-4">
+                <div className="flex items-center justify-between px-2">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Preferences</span>
+                  <div className="flex gap-2">
+                    <ThemeToggle />
+                    <SegmentSwitcher />
+                  </div>
+                </div>
+
+                {user ? (
+                  <div className="space-y-3">
+                    <Link to="/business/dashboard" className="block" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full justify-start pl-4 h-12 rounded-2xl">
+                        <User className="w-5 h-5 mr-3" />
+                        {profile?.full_name || "My Account"}
+                      </Button>
+                    </Link>
+                    <Button variant="ghost" className="w-full justify-start gap-2 text-destructive rounded-2xl" onClick={handleSignOut}>
+                      <LogOut className="w-4 h-4" /> Sign Out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 gap-3">
+                    <Link to="/business/login" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full rounded-2xl">Login</Button>
+                    </Link>
+                    <Link to="/business/contact" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full rounded-2xl bg-primary text-primary-foreground shadow-neo">Get Demo</Button>
+                    </Link>
                   </div>
                 )}
               </div>
-            ))}
-
-            <div className="border-t border-border/30 pt-6 mt-4 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Preferences</span>
-                <ThemeToggle />
-              </div>
-
-              {user ? (
-                <div className="space-y-3">
-                  <Link to="/business/dashboard" className="block" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full rounded-sm justify-start gap-2 border-primary/30">
-                      <User className="w-4 h-4" />
-                      {profile?.full_name || "My Account"}
-                    </Button>
-                  </Link>
-                  <Button variant="ghost" className="w-full justify-start gap-2 text-destructive" onClick={handleSignOut}>
-                    <LogOut className="w-4 h-4" /> Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 gap-3">
-                  <Link to="/business/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full rounded-sm border-primary/30">Login</Button>
-                  </Link>
-                  <Link to="/business/contact" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full rounded-sm bg-primary text-primary-foreground shadow-neo">Get Demo</Button>
-                  </Link>
-                </div>
-              )}
             </div>
           </div>
         </div>

@@ -23,18 +23,21 @@ const COLORS = {
 const ParticleField = ({ variant = "business", count = 35 }: ParticleFieldProps) => {
     const particles = useMemo(() => {
         const palette = COLORS[variant];
-        return Array.from({ length: count }, (_, i) => {
-            const size = 2 + Math.random() * 5;
-            const opacity = 0.15 + Math.random() * 0.35;
-            const duration = 10 + Math.random() * 14;
+        // Increase count by 1.5x for a richer atmospheric feel
+        const actualCount = count * 1.5;
+        return Array.from({ length: actualCount }, (_, i) => {
+            const size = 2 + Math.random() * 6;
+            // Higher base opacity for better visibility across light/dark modes
+            const opacity = 0.25 + Math.random() * 0.45;
+            const duration = 8 + Math.random() * 12;
             const delay = Math.random() * -20;
             const x = Math.random() * 100;
             const y = Math.random() * 100;
-            const dx = -60 + Math.random() * 120;
-            const dy = -80 + Math.random() * 160;
+            const dx = -40 + Math.random() * 80;
+            const dy = -60 + Math.random() * 120;
             const color = palette[i % palette.length];
-            const blur = size > 5 ? 1 : 0;
-            const usePulse = Math.random() > 0.6;
+            const blur = size > 4 ? 2 : 0;
+            const usePulse = Math.random() > 0.5;
 
             return { id: i, size, opacity, duration, delay, x, y, dx, dy, color, blur, usePulse };
         });

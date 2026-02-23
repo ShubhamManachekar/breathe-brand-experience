@@ -19,6 +19,10 @@ interface CartContextType {
     clearCart: () => void;
     totalItems: number;
     totalPrice: number;
+    subtotal: number;
+    shipping: number;
+    discount: number;
+    total: number;
 }
 
 const CartContext = createContext<CartContextType>({
@@ -29,6 +33,10 @@ const CartContext = createContext<CartContextType>({
     clearCart: () => { },
     totalItems: 0,
     totalPrice: 0,
+    subtotal: 0,
+    shipping: 0,
+    discount: 0,
+    total: 0,
 });
 
 export const useCart = () => useContext(CartContext);
@@ -65,11 +73,15 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const clearCart = useCallback(() => setItems([]), []);
 
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const totalPrice = subtotal;
+    const shipping = subtotal > 0 ? (subtotal >= 2000 ? 0 : 199) : 0;
+    const discount = totalItems >= 3 ? Math.round(subtotal * 0.1) : 0;
+    const total = subtotal - discount + shipping;
 
     return (
         <CartContext.Provider
-            value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice }}
+            value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice, subtotal, shipping, discount, total }}
         >
             {children}
         </CartContext.Provider>

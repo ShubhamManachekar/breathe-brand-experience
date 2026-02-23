@@ -11,31 +11,31 @@ const Footer = () => {
 
   const primaryLinks = isBusiness
     ? [
-        { to: "/business/solutions/hospitality", label: "Hospitality" },
-        { to: "/business/solutions/retail", label: "Retail" },
-        { to: "/business/solutions/corporate", label: "Corporate" },
-        { to: "/business/solutions/wellness", label: "Wellness" },
-      ]
+      { to: "/business/solutions/hospitality", label: "Hospitality" },
+      { to: "/business/solutions/retail", label: "Retail" },
+      { to: "/business/solutions/corporate", label: "Corporate" },
+      { to: "/business/solutions/wellness", label: "Wellness" },
+    ]
     : [
-        { to: "/shop/products", label: "Diffusers" },
-        { to: "/shop/aromas", label: "Aroma Oils" },
-        { to: "/shop/cart", label: "Cart" },
-        { to: "/shop/contact", label: "Support" },
-      ];
+      { to: "/shop/products", label: "Diffusers" },
+      { to: "/shop/aromas", label: "Aroma Oils" },
+      { to: "/shop/cart", label: "Cart" },
+      { to: "/shop/contact", label: "Support" },
+    ];
 
   const companyLinks = isBusiness
     ? [
-        { to: "/about-us", label: "About Us" },
-        { to: "/business/products", label: "Products" },
-        { to: "/business/aromas", label: "Fragrance Library" },
-        { to: "/business/contact", label: "Request a Quote" },
-      ]
+      { to: "/about-us", label: "About Us" },
+      { to: "/business/products", label: "Products" },
+      { to: "/business/aromas", label: "Fragrance Library" },
+      { to: "/business/contact", label: "Request a Quote" },
+    ]
     : [
-        { to: "/about-us", label: "About Us" },
-        { to: "/shop", label: "Shop Home" },
-        { to: "/business", label: "For Business" },
-        { to: "/shop/login", label: "My Account" },
-      ];
+      { to: "/about-us", label: "About Us" },
+      { to: "/shop", label: "Shop Home" },
+      { to: "/business", label: "For Business" },
+      { to: "/shop/login", label: "My Account" },
+    ];
 
   return (
     <footer className="relative overflow-hidden">
@@ -43,7 +43,7 @@ const Footer = () => {
 
       <div className="bg-background pt-20 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="surface-glass rounded-3xl p-8 md:p-12 mb-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div className="surface-glass rounded-3xl p-6 sm:p-8 md:p-12 mb-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 sm:gap-8">
             <div>
               <div className="pill-label mb-4">{isBusiness ? "Business" : "Shop"}</div>
               <h3 className="font-display text-3xl md:text-4xl font-semibold text-foreground">
@@ -62,7 +62,7 @@ const Footer = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 mb-16">
             <div className="lg:col-span-4 space-y-6">
               <Link to={isShop ? "/shop" : isBusiness ? "/business" : "/"} className="flex items-center gap-3 group w-fit">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-foreground text-background shadow-clay-sm border border-border/40 transition-all duration-300 group-hover:shadow-clay-hover group-hover:scale-105">

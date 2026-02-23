@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Building2, MapPin, Mail, Phone, Calendar, ArrowRight, Star } from "lucide-react";
+import { CheckCircle2, Building2, MapPin, Mail, Phone, Calendar, ArrowRight, Star, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -32,7 +33,7 @@ const ContactQuote = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       <PageMeta
         title="Request a Quote - Scent Marketing Solutions"
         description="Get a custom scent marketing proposal for your business. Expert consultation for hotels, retail, and corporate spaces."
@@ -42,11 +43,12 @@ const ContactQuote = () => {
 
       {/* ── Minimalist Hero ── */}
       <NeoHero
+        heroImage="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80&auto=format"
         label="Contact Us"
         headline={
           <>
             Start your
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-navy to-accent animate-gradient-x">
+            <span className="block text-gradient-animated">
               scent journey.
             </span>
           </>
@@ -56,42 +58,42 @@ const ContactQuote = () => {
         texture="loom"
       />
 
-      <section className="section-shell -mt-32 relative z-20">
+      <section className="section-shell -mt-16 sm:-mt-24 lg:-mt-32 relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[0.45fr_0.55fr] gap-0 shadow-2xl shadow-primary/10 rounded-sm overflow-hidden border border-border/40 bg-background">
 
             {/* ── Left Column: Trust & Context ── */}
-            <div className="bg-primary text-primary-foreground p-10 md:p-14 relative overflow-hidden flex flex-col justify-between min-h-[600px]">
+            <div className="bg-primary text-primary-foreground p-6 sm:p-10 md:p-14 relative overflow-hidden flex flex-col justify-between min-h-0 lg:min-h-[600px]">
               <div className="absolute inset-0 bg-oil-texture opacity-30 mix-blend-overlay" />
 
               <div className="relative z-10">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-accent/20 text-accent text-[10px] font-bold uppercase tracking-widest mb-8 border border-accent/20">
-                   Complimentary Audit
-                 </div>
-                 <h2 className="font-display text-4xl font-semibold mb-6">Why partner with EZE?</h2>
-                 <ul className="space-y-6">
-                   {[
-                     { title: "Science-Backed Strategy", desc: "Fragrance design based on behavioral psychology." },
-                     { title: "Global Installation", desc: "Seamless deployment across multiple locations." },
-                     { title: "Health & Safety", desc: "IFRA-compliant, hypoallergenic formulations." },
-                   ].map((item) => (
-                     <li key={item.title} className="flex gap-4">
-                       <div className="mt-1 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                         <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
-                       </div>
-                       <div>
-                         <h3 className="font-bold text-lg">{item.title}</h3>
-                         <p className="text-primary-foreground/70 text-sm leading-relaxed">{item.desc}</p>
-                       </div>
-                     </li>
-                   ))}
-                 </ul>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-accent/20 text-accent text-[10px] font-bold uppercase tracking-widest mb-8 border border-accent/20">
+                  Complimentary Audit
+                </div>
+                <h2 className="font-display text-4xl font-semibold mb-6">Why partner with EZE?</h2>
+                <ul className="space-y-6">
+                  {[
+                    { title: "Science-Backed Strategy", desc: "Fragrance design based on behavioral psychology." },
+                    { title: "Global Installation", desc: "Seamless deployment across multiple locations." },
+                    { title: "Health & Safety", desc: "IFRA-compliant, hypoallergenic formulations." },
+                  ].map((item) => (
+                    <li key={item.title} className="flex gap-4">
+                      <div className="mt-1 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg">{item.title}</h3>
+                        <p className="text-primary-foreground/70 text-sm leading-relaxed">{item.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className="relative z-10 mt-12 pt-12 border-t border-primary-foreground/10">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="flex -space-x-2">
-                    {[1,2,3].map(i => (
+                    {[1, 2, 3].map(i => (
                       <div key={i} className="w-10 h-10 rounded-full border-2 border-primary bg-muted flex items-center justify-center text-primary font-bold text-xs relative z-10">
                         <Users className="w-4 h-4" />
                       </div>
@@ -116,7 +118,7 @@ const ContactQuote = () => {
             </div>
 
             {/* ── Right Column: The Form ── */}
-            <div className="p-10 md:p-14 bg-background">
+            <div className="p-6 sm:p-10 md:p-14 bg-background">
               {isSuccess ? (
                 <div className="h-full flex flex-col items-center justify-center text-center">
                   <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mb-6 animate-scale-in">
@@ -159,8 +161,8 @@ const ContactQuote = () => {
                       <Input id="company" required placeholder="Company Name" className="h-12 rounded-sm border-border/60 focus-visible:ring-primary" />
                     </div>
                     <div className="space-y-2">
-                       <Label htmlFor="industry" className="text-xs uppercase tracking-wider font-semibold text-muted-foreground">Industry</Label>
-                       <Select>
+                      <Label htmlFor="industry" className="text-xs uppercase tracking-wider font-semibold text-muted-foreground">Industry</Label>
+                      <Select>
                         <SelectTrigger className="h-12 rounded-sm border-border/60 focus:ring-primary">
                           <SelectValue placeholder="Select..." />
                         </SelectTrigger>
@@ -210,7 +212,7 @@ const ContactQuote = () => {
               <h3 className="font-display font-bold text-lg mb-2">Global Headquarters</h3>
               <p className="text-muted-foreground text-sm">123 Business Bay, Tower A<br />Mumbai, India 400001</p>
             </div>
-            <div className="p-6 border-x border-border/30">
+            <div className="p-6 border-y md:border-y-0 md:border-x border-border/30">
               <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                 <Phone className="w-6 h-6" />
               </div>
