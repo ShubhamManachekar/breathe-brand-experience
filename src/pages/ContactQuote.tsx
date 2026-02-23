@@ -11,6 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
 import NeoHero from "@/components/NeoHero";
+import { Link } from "react-router-dom";
+import heroContact from "@/assets/hero-contact.jpg";
 
 const ContactQuote = () => {
   const { toast } = useToast();
@@ -56,6 +58,8 @@ const ContactQuote = () => {
         subheadline="Book a consultation with our scent strategists to audit your space and receive a tailored proposal."
         variant="business"
         texture="loom"
+        heroImage={heroContact}
+        heroImageAlt="Luxury aroma collection"
       />
 
       <section className="section-shell -mt-16 sm:-mt-24 lg:-mt-32 relative z-20">

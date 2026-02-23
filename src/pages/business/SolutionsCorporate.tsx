@@ -39,7 +39,7 @@ const SolutionsCorporate = () => {
       <NeoHero
         heroImage="https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1920&q=80&auto=format"
         label="Corporate"
-        headline={<>Workplace scenting <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary-glow">that sharpens focus.</span></>}
+        headline={<>Workplace scenting <span className="block text-gradient-animated">that sharpens focus.</span></>}
         subheadline="Create environments that boost productivity, reduce stress, and impress clients."
         variant="business"
         texture="oil"

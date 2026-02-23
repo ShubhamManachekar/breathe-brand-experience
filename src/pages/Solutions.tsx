@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Building2, Store, Briefcase, Heart, ArrowRight, Zap, Sparkles } from "lucide-react";
 import PageMeta from "@/components/PageMeta";
 import AnimatedSection from "@/components/AnimatedSection";
 import NeoHero from "@/components/NeoHero";
+import heroSolutions from "@/assets/hero-solutions.jpg";
 
 const Solutions = () => {
   const solutions = [
@@ -84,7 +86,9 @@ const Solutions = () => {
         }
         subheadline="We help brands translate scent into measurable business impact across hospitality, retail, corporate, and wellness."
         variant="business"
-        texture="oil"
+        texture="smoke"
+        heroImage={heroSolutions}
+        heroImageAlt="Hotel lobby scent diffuser"
       />
 
       {/* Solutions Grid */}

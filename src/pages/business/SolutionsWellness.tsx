@@ -39,7 +39,7 @@ const SolutionsWellness = () => {
       <NeoHero
         heroImage="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80&auto=format"
         label="Wellness"
-        headline={<>Therapeutic scenting <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:200%_auto]">for healing spaces.</span></>}
+        headline={<>Therapeutic scenting <span className="block text-gradient-animated">for healing spaces.</span></>}
         subheadline="Reduce anxiety and create calm environments with clinically informed aromatherapy."
         variant="business"
         texture="oil"

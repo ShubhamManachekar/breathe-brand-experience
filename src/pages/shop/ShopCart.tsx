@@ -9,7 +9,7 @@ import { products, productCategories } from "@/data/productData";
 import { fragrances, aromaSizes, fragranceFamilies } from "@/data/aromaData";
 
 const ShopCart = () => {
-  const { items, removeItem, updateQuantity, total, subtotal, shipping, discount, addItem } = useCart();
+  const { items, removeItem, updateQuantity, totalPrice, addItem, total, subtotal, shipping, discount } = useCart();
 
   const suggestedDiffusers = products.filter(p => !p.category.includes("oil")).slice(0, 2);
   const suggestedOils = fragrances.slice(0, 2);
@@ -122,7 +122,7 @@ const ShopCart = () => {
                   </div>
 
                   {discount > 0 && (
-                    <div className="flex justify-between text-sm text-green-600">
+                    <div className="flex justify-between text-sm text-foreground/70">
                       <span>Discount</span>
                       <span>-₹{discount.toLocaleString("en-IN")}</span>
                     </div>

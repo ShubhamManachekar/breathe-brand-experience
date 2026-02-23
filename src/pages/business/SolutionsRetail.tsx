@@ -39,7 +39,7 @@ const SolutionsRetail = () => {
       <NeoHero
         heroImage="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80&auto=format"
         label="Retail"
-        headline={<>Retail scenting that <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:200%_auto]">drives conversion.</span></>}
+        headline={<>Retail scenting that <span className="block text-gradient-animated">drives conversion.</span></>}
         subheadline="Increase dwell time and purchase intent with scent journeys designed for modern retail."
         variant="business"
         texture="oil"

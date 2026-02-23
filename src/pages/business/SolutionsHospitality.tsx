@@ -59,7 +59,7 @@ const SolutionsHospitality = () => {
       <NeoHero
         heroImage="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80&auto=format"
         label="Hospitality"
-        headline={<>Hospitality scenting <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-shimmer bg-[length:200%_auto]">that guests remember.</span></>}
+        headline={<>Hospitality scenting <span className="block text-gradient-animated">that guests remember.</span></>}
         subheadline="Create signature arrival moments, calming spa environments, and room experiences that drive loyalty."
         variant="business"
         texture="oil"
