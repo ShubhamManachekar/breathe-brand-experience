@@ -1,5 +1,6 @@
 import { useEffect, useRef, ReactNode } from "react";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import ParticleField from "@/components/ParticleField";
 
 gsap.registerPlugin(useGSAP);
@@ -222,7 +223,7 @@ const NeoHero = ({
   return (
     <section
       ref={sectionRef}
-      className={`relative min-h-[92vh] flex items-center overflow-hidden ${isBusiness ? "bg-background" : "bg-background"}`}
+      className={`relative min-h-[92vh] flex items-center overflow-hidden ${isBusiness ? "bg-background" : "bg-background"} ${hasImage ? "dark text-foreground" : ""}`}
     >
       {/* Wipe overlay */}
       <div
@@ -255,9 +256,9 @@ const NeoHero = ({
 
       {/* Texture + grid */}
       <div
-        className={`absolute inset-0 z-0 ${texture === "oil" ? "bg-oil-texture" : texture === "smoke" ? "bg-smoke-texture" : "bg-loom"} opacity-30`}
+        className={`absolute inset-0 z-0 ${texture === "oil" ? "bg-oil-texture" : texture === "smoke" ? "bg-smoke-texture" : "bg-loom"} opacity-20 hover:opacity-10 transition-opacity duration-1000`}
       />
-      <div className="absolute inset-0 z-0 bg-grid-fade opacity-[0.12]" />
+      <div className="absolute inset-0 z-0 bg-grid-fade opacity-[0.08]" />
       <ParticleField variant={variant} />
 
       {/* Full-bleed hero image (behind content) */}
@@ -271,11 +272,10 @@ const NeoHero = ({
             style={{ willChange: "transform" }}
           />
           <div
-            className={`absolute inset-0 ${
-              isBusiness
-                ? "bg-gradient-to-r from-background/95 via-background/80 to-background/40"
-                : "bg-gradient-to-r from-background/90 via-background/75 to-background/30"
-            }`}
+            className={`absolute inset-0 z-0 ${isBusiness
+              ? "bg-gradient-to-r from-background/80 via-background/50 to-background/10"
+              : "bg-gradient-to-r from-background/75 via-background/40 to-transparent"
+              }`}
           />
         </div>
       )}
@@ -289,11 +289,10 @@ const NeoHero = ({
             {label && (
               <div
                 ref={labelRef}
-                className={`inline-flex items-center gap-2 mb-5 sm:mb-7 px-3 py-1.5 ${
-                  isBusiness
-                    ? "border border-primary/20 bg-primary/5 text-primary rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold"
-                    : "border border-accent/20 bg-accent/10 text-accent rounded-full uppercase tracking-wider text-xs font-semibold"
-                }`}
+                className={`inline-flex items-center gap-2 mb-5 sm:mb-7 px-3 py-1.5 ${isBusiness
+                  ? "border border-primary/20 bg-primary/5 text-primary rounded-sm uppercase tracking-[0.2em] text-[10px] font-bold"
+                  : "border border-accent/20 bg-accent/10 text-accent rounded-full uppercase tracking-wider text-xs font-semibold"
+                  }`}
               >
                 <span
                   className={`w-1.5 h-1.5 ${isBusiness ? "bg-primary rounded-sm" : "bg-accent rounded-full animate-pulse"}`}
@@ -304,11 +303,10 @@ const NeoHero = ({
 
             <h1
               ref={headlineRef}
-              className={`font-display font-semibold leading-[1.08] mb-5 sm:mb-7 ${
-                isBusiness
-                  ? "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-balance"
-                  : "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight"
-              }`}
+              className={`font-display font-semibold leading-[1.08] mb-5 sm:mb-7 ${isBusiness
+                ? "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-balance"
+                : "text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight"
+                }`}
             >
               {headline}
             </h1>

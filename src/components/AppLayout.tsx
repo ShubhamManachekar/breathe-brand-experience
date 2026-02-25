@@ -4,6 +4,7 @@ import ShopNavigation from "@/components/ShopNavigation";
 import BusinessNavigation from "@/components/BusinessNavigation";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
+import ParticleField from "@/components/ParticleField";
 import PageMeta from "@/components/PageMeta";
 
 const getFallbackMeta = (pathname: string) => {
@@ -104,10 +105,15 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         />
       )}
       {renderNav()}
-      <main className={!isDashboard && !isAuthPage ? "pt-20" : ""}>
+      <ParticleField
+        variant={isBusiness ? "business" : "shop"}
+        count={25}
+        className="fixed inset-0 z-0 pointer-events-none opacity-[0.15]"
+      />
+      <main className={`relative z-10 ${!isDashboard && !isAuthPage ? "pt-20" : ""}`}>
         {children}
       </main>
-      {showFooter && <Footer />}
+      {showFooter && <div className="relative z-10"><Footer /></div>}
       <Chatbot />
     </div>
   );

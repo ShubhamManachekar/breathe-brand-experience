@@ -15,7 +15,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
   className,
   animation = 'fadeInUp',
   delay = 0,
-  threshold = 0.1
+  threshold = 0.05
 }) => {
   const { elementRef, isVisible } = useScrollAnimation(threshold);
 
@@ -39,7 +39,7 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({
     <div
       ref={elementRef}
       className={cn(
-        'transition-all duration-1000 ease-out',
+        'transition-all duration-500 ease-out',
         isVisible ? activeClasses[animation] : animationClasses[animation],
         className
       )}

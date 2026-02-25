@@ -3,6 +3,7 @@ import { useMemo } from "react";
 interface ParticleFieldProps {
     variant?: "business" | "shop";
     count?: number;
+    className?: string;
 }
 
 const COLORS = {
@@ -20,7 +21,7 @@ const COLORS = {
     ],
 };
 
-const ParticleField = ({ variant = "business", count = 35 }: ParticleFieldProps) => {
+const ParticleField = ({ variant = "business", count = 35, className }: ParticleFieldProps) => {
     const particles = useMemo(() => {
         const palette = COLORS[variant];
         // Increase count by 1.5x for a richer atmospheric feel
@@ -44,7 +45,7 @@ const ParticleField = ({ variant = "business", count = 35 }: ParticleFieldProps)
     }, [variant, count]);
 
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className={`pointer-events-none ${className || 'absolute inset-0 overflow-hidden'}`} aria-hidden="true">
             {particles.map((p) => (
                 <div
                     key={p.id}

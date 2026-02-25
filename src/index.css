@@ -156,11 +156,11 @@
 
   /* ── Neo-heritage Card (Glass + Fine Border) ── */
   .neo-card {
-    @apply bg-background/60 backdrop-blur-xl border border-border/50 shadow-[var(--shadow-neo)] transition-all duration-300;
+    @apply bg-background/30 backdrop-blur-[16px] border border-border/40 shadow-[var(--shadow-neo)] transition-all duration-300;
   }
 
   .neo-card:hover {
-    @apply shadow-[var(--shadow-neo-hover)] -translate-y-1 bg-background/80;
+    @apply shadow-[var(--shadow-neo-hover)] -translate-y-1 bg-background/50;
   }
 
   /* ── Neo Button (Editorial) ── */
@@ -215,7 +215,7 @@
   }
 
   .surface-glass {
-    @apply bg-background/70 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-sm;
+    @apply bg-background/40 backdrop-blur-[16px] border border-white/20 dark:border-white/10 shadow-sm;
   }
 
   .pill-label {
@@ -223,8 +223,21 @@
   }
 
   /* ── Responsive Section Shell ── */
+  .bg-grid-fade {
+    background-size: 30px 30px;
+    background-image: linear-gradient(to right, hsl(var(--foreground)/0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground)/0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  }
+
   .section-shell {
-    @apply py-16 sm:py-20 lg:py-28;
+    @apply py-16 sm:py-20 lg:py-28 relative;
+  }
+
+  .section-shell::before {
+    content: '';
+    @apply absolute inset-0 bg-grid-fade opacity-30 pointer-events-none;
   }
 
   /* ── Responsive Container ── */
