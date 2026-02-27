@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,9 +7,11 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { Link } from "react-router-dom";
 import {
     getSubscriptionSummary,
-    MOCK_USER_SUBSCRIPTION,
+    fetchUserSubscription,
     formatMonth,
+    type UserSubscription,
 } from "@/lib/subscription";
+import { CardSkeleton } from "@/components/PageSkeleton";
 import {
     ShoppingBag,
     Package,
@@ -31,8 +34,35 @@ interface DashboardOverviewProps {
 }
 
 const DashboardOverview = ({ onNavigate }: DashboardOverviewProps) => {
-    const subscriptionSummary = getSubscriptionSummary();
-    const subscription = MOCK_USER_SUBSCRIPTION;
+    const [subscription, setSubscription] = useState<UserSubscription | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchUserSubscription();
+                setSubscription(data);
+            } catch (error) {
+                console.error("Failed to fetch subscription data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+
+    if (loading || !subscription) {
+        return (
+            <div className="space-y-8">
+                <CardSkeleton />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[...Array(4)].map((_, i) => <CardSkeleton key={i} />)}
+                </div>
+            </div>
+        );
+    }
+
+    const subscriptionSummary = getSubscriptionSummary(subscription);
 
     const currentMonthData = subscription.monthlySelections.find(m => m.status === 'current');
     const upcomingMonths = subscription.monthlySelections.filter(m => m.status === 'upcoming');

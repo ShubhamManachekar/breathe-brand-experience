@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
+import { TableSkeleton } from "@/components/PageSkeleton";
 
 import {
     Select,
@@ -26,7 +28,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import AnimatedSection from "@/components/AnimatedSection";
 import {
     SUBSCRIPTION_PLANS,
-    MOCK_USER_SUBSCRIPTION,
+    fetchUserSubscription,
     AROMA_OILS,
     formatMonth,
     formatMonthFull,
@@ -35,6 +37,7 @@ import {
     type AromaOil,
     type MonthlyOilSelection,
     type SubscriptionPlan,
+    type UserSubscription,
 } from "@/lib/subscription";
 import {
     Check,
@@ -65,14 +68,51 @@ interface DashboardSubscriptionProps {
 }
 
 const DashboardSubscription = ({ onNavigate }: DashboardSubscriptionProps) => {
-    const subscription = MOCK_USER_SUBSCRIPTION;
-    const summary = getSubscriptionSummary();
+    const [subscription, setSubscription] = useState<UserSubscription | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [selectedMonthIndex, setSelectedMonthIndex] = useState(0);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchUserSubscription();
+                setSubscription(data);
+
+                // Set initial month to current month
+                const index = data.monthlySelections.findIndex(m => m.status === 'current');
+                if (index >= 0) setSelectedMonthIndex(index);
+            } catch (error) {
+                console.error("Failed to fetch subscription data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+
+    if (loading || !subscription) {
+        return (
+            <div className="space-y-6">
+                <div className="flex justify-between items-center">
+                    <div className="space-y-2">
+                        <Skeleton className="h-8 w-48" />
+                        <Skeleton className="h-4 w-64" />
+                    </div>
+                    <Skeleton className="h-10 w-32" />
+                </div>
+                <Card>
+                    <CardContent className="p-10">
+                        <Skeleton className="h-24 w-full" />
+                    </CardContent>
+                </Card>
+                <TableSkeleton rows={3} />
+            </div>
+        );
+    }
+
+    const summary = getSubscriptionSummary(subscription);
 
     // State
-    const [selectedMonthIndex, setSelectedMonthIndex] = useState(() => {
-        const index = subscription.monthlySelections.findIndex(m => m.status === 'current');
-        return index >= 0 ? index : 0;
-    });
     const [editingDevice, setEditingDevice] = useState<{ deviceId: string; oilId: string } | null>(null);
     const [selectedOil, setSelectedOil] = useState<string>("");
 

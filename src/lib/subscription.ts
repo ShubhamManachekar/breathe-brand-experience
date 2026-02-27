@@ -182,46 +182,81 @@ export const generateSubscriptionMonths = (startDate: string, durationMonths: nu
     return months;
 };
 
-// Create mock monthly selections for entire plan
-const createMockMonthlySelections = (): MonthlyOilSelection[] => {
-    const subscriptionMonths = generateSubscriptionMonths('2024-01-01', 12);
-    const oilRotation = [
-        ['lavender-dream', 'citrus-burst', 'eze-signature'],
-        ['ocean-breeze', 'forest-mist', 'lavender-dream'],
-        ['citrus-burst', 'green-tea', 'ocean-breeze'],
-        ['eze-signature', 'rose-garden', 'forest-mist'],
-        ['mint-fresh', 'vanilla-comfort', 'citrus-burst'],
-        ['lavender-dream', 'sandalwood-spice', 'green-tea'],
-        ['forest-mist', 'citrus-burst', 'rose-garden'],
-        ['ocean-breeze', 'eze-signature', 'mint-fresh'],
-        ['vanilla-comfort', 'lavender-dream', 'sandalwood-spice'],
-        ['green-tea', 'ocean-breeze', 'eze-signature'],
-        ['rose-garden', 'mint-fresh', 'lavender-dream'],
-        ['eze-signature', 'citrus-burst', 'forest-mist'],
-    ];
+// Fetch monthly selections for entire plan from API
+export const fetchMonthlySelections = async (startDate = '2024-01-01', durationMonths = 12): Promise<MonthlyOilSelection[]> => {
+    // In a real application, this would be a Supabase call:
+    // const { data, error } = await supabase.from('monthly_selections').select('*').eq('subscription_id', 'sub-001');
 
-    return subscriptionMonths.map((month, index) => {
-        const status = getMonthStatus(month);
-        const { canModify, daysUntilDeadline } = canModifySelection(month);
-        const oils = oilRotation[index % oilRotation.length];
+    // For now, we simulate an API call with a delay
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const subscriptionMonths = generateSubscriptionMonths(startDate, durationMonths);
+            const oilRotation = [
+                ['lavender-dream', 'citrus-burst', 'eze-signature'],
+                ['ocean-breeze', 'forest-mist', 'lavender-dream'],
+                ['citrus-burst', 'green-tea', 'ocean-breeze'],
+                ['eze-signature', 'rose-garden', 'forest-mist'],
+                ['mint-fresh', 'vanilla-comfort', 'citrus-burst'],
+                ['lavender-dream', 'sandalwood-spice', 'green-tea'],
+                ['forest-mist', 'citrus-burst', 'rose-garden'],
+                ['ocean-breeze', 'eze-signature', 'mint-fresh'],
+                ['vanilla-comfort', 'lavender-dream', 'sandalwood-spice'],
+                ['green-tea', 'ocean-breeze', 'eze-signature'],
+                ['rose-garden', 'mint-fresh', 'lavender-dream'],
+                ['eze-signature', 'citrus-burst', 'forest-mist'],
+            ];
 
-        return {
-            month,
-            status,
-            canModify,
-            daysUntilDeadline,
-            selections: MOCK_USER_DEVICES.map((device, deviceIndex) => ({
-                deviceId: device.id,
-                deviceName: device.name,
-                deviceType: device.deviceType,
-                selectedOilId: oils[deviceIndex],
-                selectedOil: getOilById(oils[deviceIndex]),
-            })),
-        };
+            const selections = subscriptionMonths.map((month, index) => {
+                const status = getMonthStatus(month);
+                const { canModify, daysUntilDeadline } = canModifySelection(month);
+                const oils = oilRotation[index % oilRotation.length];
+
+                return {
+                    month,
+                    status,
+                    canModify,
+                    daysUntilDeadline,
+                    selections: MOCK_USER_DEVICES.map((device, deviceIndex) => ({
+                        deviceId: device.id,
+                        deviceName: device.name,
+                        deviceType: device.deviceType,
+                        selectedOilId: oils[deviceIndex],
+                        selectedOil: getOilById(oils[deviceIndex]),
+                    })),
+                };
+            });
+
+            resolve(selections);
+        }, 800);
     });
 };
 
-// Mock current subscription with all months
+// Fetch current subscription from API
+export const fetchUserSubscription = async (): Promise<UserSubscription> => {
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const monthlySelections = await fetchMonthlySelections();
+
+    return {
+        id: 'sub-001',
+        plan: SUBSCRIPTION_PLANS[1], // 12 month plan
+        status: 'active',
+        startDate: '2024-01-01',
+        endDate: '2024-12-31',
+        devices: MOCK_USER_DEVICES,
+        autoRenew: true,
+        paymentMethod: {
+            id: 'pm-001',
+            type: 'card',
+            brand: 'Visa',
+            last4: '4242',
+        },
+        monthlySelections,
+    };
+};
+
+// Mock current subscription with all months (kept for backward compatibility during transition)
 export const MOCK_USER_SUBSCRIPTION: UserSubscription = {
     id: 'sub-001',
     plan: SUBSCRIPTION_PLANS[1], // 12 month plan
@@ -236,12 +271,11 @@ export const MOCK_USER_SUBSCRIPTION: UserSubscription = {
         brand: 'Visa',
         last4: '4242',
     },
-    monthlySelections: createMockMonthlySelections(),
+    monthlySelections: [], // Initially empty, to be fetched via API
 };
 
 // Get subscription summary for dashboard
-export const getSubscriptionSummary = () => {
-    const sub = MOCK_USER_SUBSCRIPTION;
+export const getSubscriptionSummary = (sub: UserSubscription = MOCK_USER_SUBSCRIPTION) => {
     const currentMonth = new Date().toISOString().slice(0, 7);
     const currentSelection = sub.monthlySelections.find(m => m.month === currentMonth);
     const upcomingSelections = sub.monthlySelections.filter(m => m.status === 'upcoming' || m.status === 'pending');
